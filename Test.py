@@ -1,56 +1,55 @@
-from matplotlib import pyplot
-import scipy.io as io
+import process_functions
 import numpy
-import math
-from scipy.signal import convolve
+from matplotlib import pyplot
+import settings
+from tensorflow import keras
 
-file_name = 'andrews/clutter1.mat'
+n_components = 25
+generated_data = False
 
-fs = 219000
-integration_time = 350 / 1000000  # integration constant
-initial_omission_time = 6 / 1000  # initial time to omit
+if generated_data: process_functions.process_data_set('andrews')
 
-initial_omission_samples = math.ceil(initial_omission_time * fs)
-integration_samples = math.ceil(fs * integration_time)
-final_samples = math.ceil((7499 - initial_omission_samples) / integration_samples)
+data = numpy.load('andrews.npz')
+pca = process_functions.pickle_load('andrews.pck')
+loc_encoder, loc_targets = process_functions.get_encoding(data['long_locs'])
+azs_encoder, azs_targets = process_functions.get_encoding(data['long_azs'])
+els_encoder, els_targets = process_functions.get_encoding(data['long_els'])
 
-print('+-' * 10 + '+')
-print('PREPROCESSING', file_name)
-print('integration samples', integration_samples)
-print('initial omission samples', initial_omission_samples)
-print('final samples', final_samples)
+cummulative_explained_variance = numpy.cumsum(pca.explained_variance_ratio_)
 
-data = io.loadmat(file_name)
-data = data['Templates']
-templates = data[0, 0][0]
-azimuth = data[0, 0][1]
-elevation = data[0, 0][2]
+templates = data['long_data']
+pca_templates = pca.transform(templates)
+inputs = pca_templates[:,:n_components]
 
-processed = numpy.zeros((7, 31, final_samples, 3))
+input_n = inputs.shape[1]
+output_n = loc_targets.shape[1]
 
-for i in range(3):
-    repetition = templates[:, :, i]
-    # Reshape the data
-    az_box = azimuth.reshape((31, 7))
-    el_box = elevation.reshape((31, 7))
-    mn_box = repetition.reshape((31, 7, 7499))
-    mn_box = mn_box[:, :, initial_omission_samples:]
+l1 = keras.layers.Dense(n_components * 2, input_shape=(input_n,))
+l2 = keras.layers.Dense(n_components * 5, activation='relu')
+l3 = keras.layers.Dense(n_components * 5, activation='relu')
+l4 = keras.layers.Dense(n_components * 2, activation='relu')
+l5 = keras.layers.Dense(output_n, activation='softmax')
 
-    az_box = numpy.transpose(az_box)
-    el_box = numpy.transpose(el_box)
-    mn_box = numpy.transpose(mn_box, axes=[1, 0, 2])
+mn = numpy.min(inputs)
+inputs = inputs - mn
+mx = numpy.max(inputs)
+inputs = inputs / mx
 
-    col_indices = numpy.argsort(az_box[0, :])
-    row_indices = numpy.argsort(el_box[:, 0])
+loss = keras.losses.CategoricalCrossentropy()
 
-    az_box = az_box[numpy.ix_(row_indices, col_indices)]
-    el_box = el_box[numpy.ix_(row_indices, col_indices)]
-    mn_box = mn_box[numpy.ix_(row_indices, col_indices)]
+model = keras.Sequential([l1, l2, l3, l4, l5])
+model.compile('adam', loss=loss)
 
-    # Average across directions and time
-    mask = numpy.ones((3, 3, integration_samples))
-    mask = mask / numpy.sum(mask)
-    mn_box = convolve(mn_box, mask, mode='same')
-    # Subsample
-    mn_box = mn_box[:, :, ::integration_samples]
-    processed[:, :, :, i] = mn_box
+model.fit(inputs, loc_targets, epochs=1000)
+predictions = model.predict(inputs)
+
+#%%
+keras.utils.plot_model(
+    model,
+    to_file='model.png',
+    show_shapes=True,
+    show_layer_names=True,
+    rankdir='TB',
+    expand_nested=True,
+    dpi=96
+)

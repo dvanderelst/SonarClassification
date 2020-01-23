@@ -5,12 +5,22 @@ import pickle
 import natsort
 import numpy
 import scipy.io as io
-from matplotlib import pyplot
 from scipy.signal import convolve
 from sklearn.decomposition import PCA
+from sklearn.preprocessing import OneHotEncoder
 
 import settings
 
+def pickle_save(file, object):
+    f = open(file, 'wb')
+    pickle.dump(object, f)
+    f.close()
+
+def pickle_load(file):
+    f = open(file, 'rb')
+    object = pickle.load(f)
+    f.close()
+    return object
 
 def preprocess(file_name, verbose=True):
     fs = settings.fs
@@ -69,23 +79,22 @@ def preprocess(file_name, verbose=True):
     return processed, az_box, el_box
 
 
-def get_mean_and_variance(data):
-    mns = numpy.mean(data, axis=3)
-    vrs = numpy.var(data, axis=3)
-    vrs = numpy.mean(vrs, axis=(0, 1))
-    return mns, vrs
 
 
 
-def noise_and_pca(data_set, n_locations):
-
+def process_data_set(data_set, filter_threshold = 0.1):
     # %%Preprocess andrews
+    print('#' * 10)
+    print(data_set)
+    print('#' * 10)
     pca_file = data_set + '.pck'
     data_file = data_set + '.npz'
 
     # Reading in all data
+    print('---> READING AND PREPROCESSING DATA')
     files = os.listdir(data_set)
     files = natsort.natsorted(files)
+    n_locations = len(files)
 
     test_data, az, el = preprocess(os.path.join(data_set, files[0]), verbose=False)
     n_samples = test_data.shape[2]
@@ -95,30 +104,71 @@ def noise_and_pca(data_set, n_locations):
 
     for i in range(len(files)):
         data, _, _ = preprocess(os.path.join(data_set, files[i]))
-        mn, vr = get_mean_and_variance(data)
-        all_mns[i, :, :, :] = mn
-        all_vrs[i, :, :, :] = vr
 
+        mns = numpy.mean(data, axis=3)
+        vrs = numpy.var(data, axis=3)
+
+        print(data.shape)
+        all_mns[i, :, :, :] = mns
+        all_vrs[i, :, :, :] = vrs
+
+    # get ID vars
+    print('---> DATA2LONG')
+    n = numpy.arange(n_locations)
+    az_line = az[0, :]
+    el_line = el[:, 0]
+    locs, azs, els = numpy.meshgrid(n, az_line, el_line)
+    locs = numpy.transpose(locs, axes=(1, 2, 0))
+    azs = numpy.transpose(azs, axes=(1, 2, 0))
+    els = numpy.transpose(els, axes=(1, 2, 0))
 
     # Reshape data to long format
-    long = numpy.reshape(all_mns, (n_locations * 7 * 31, n_samples))
+    long_data = numpy.reshape(all_mns, (n_locations * 7 * 31, n_samples))
+    long_locs = numpy.reshape(locs, (n_locations * 7 * 31))
+    long_azs = numpy.reshape(azs, (n_locations * 7 * 31))
+    long_els = numpy.reshape(els, (n_locations * 7 * 31))
+
+    id_array = numpy.column_stack((long_locs, long_azs, long_els))
 
     # Get the variation across all measurements for each sample
-    sample_variation = numpy.mean(all_vrs, axis=(0, 1, 2))
+    sample_variance = numpy.mean(all_vrs, axis=(0, 1, 2))
+
+    # Select only those templates above threshold
+    summed = numpy.sum(long_data, axis=1)
+    summed = numpy.array(summed)
+    threshold = numpy.min(summed) + filter_threshold
+    include = summed > threshold
+
+    long_data = long_data[include, :]
+    id_array = id_array[include, :]
+    long_locs = long_locs[include]
+    long_azs = long_azs[include]
+    long_els = long_els[include]
 
     # Save data
+    print('---> SAVING LONG FORMAT')
     numpy.savez(data_file,
-                means=all_mns,
-                variation=all_vrs,
-                long=long,
-                sample_variation = sample_variation,
+                long_data=long_data,
+                long_locs=long_locs,
+                long_azs=long_azs,
+                long_els=long_els,
+                ids=id_array,
+                sample_variance=sample_variance,
+                include=include,
                 files=files)
 
     # %%
+    print('---> RUN AND SAVE PCA MODEL')
     pca_model = PCA()
-    pca_model.fit(long)
+    pca_model.fit(long_data)
 
-    s = pickle.dumps(pca_model)
-    f = open(pca_file, 'wb')
-    f.write(s)
-    f.close()
+    pickle_save(pca_file, pca_model)
+    print('#' * 10)
+
+
+def get_encoding(id_variable):
+    if id_variable.ndim == 1: id_variable = id_variable.reshape(-1, 1)
+    encoder = OneHotEncoder(sparse=False, categories='auto' )
+    encoder.fit(id_variable)
+    y = encoder.fit_transform(id_variable)
+    return encoder, y
