@@ -124,11 +124,11 @@ def process_data_set(data_set, filter_threshold = 0.1):
 
     # Reshape data to long format
     long_data = numpy.reshape(all_mns, (n_locations * 7 * 31, n_samples))
-    long_locs = numpy.reshape(locs, (n_locations * 7 * 31))
+    long_lcs = numpy.reshape(locs, (n_locations * 7 * 31))
     long_azs = numpy.reshape(azs, (n_locations * 7 * 31))
     long_els = numpy.reshape(els, (n_locations * 7 * 31))
 
-    id_array = numpy.column_stack((long_locs, long_azs, long_els))
+    id_array = numpy.column_stack((long_lcs, long_azs, long_els))
 
     # Get the variation across all measurements for each sample
     sample_variance = numpy.mean(all_vrs, axis=(0, 1, 2))
@@ -141,7 +141,7 @@ def process_data_set(data_set, filter_threshold = 0.1):
 
     long_data = long_data[include, :]
     id_array = id_array[include, :]
-    long_locs = long_locs[include]
+    long_lcs = long_lcs[include]
     long_azs = long_azs[include]
     long_els = long_els[include]
 
@@ -149,7 +149,7 @@ def process_data_set(data_set, filter_threshold = 0.1):
     print('---> SAVING LONG FORMAT')
     numpy.savez(data_file,
                 long_data=long_data,
-                long_locs=long_locs,
+                long_lcs=long_lcs,
                 long_azs=long_azs,
                 long_els=long_els,
                 ids=id_array,
