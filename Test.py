@@ -8,7 +8,7 @@ import tensorflow as tf
 from tensorflow import keras
 import tensorflow.keras.backend as kb
 
-n_components = 25
+n_components = 30
 generated_data = False
 selected_dimension = 'els'
 
@@ -32,44 +32,47 @@ inputs = pca_templates[:,:n_components]
 # Scale inputs
 mn = numpy.min(inputs)
 inputs = inputs - mn
-mx = numpy.max(inputs)
-inputs = inputs / mx
 
 # Select inputs
 if selected_dimension == 'locs':
+    unencoded_data = data['long_data']
     targets = lcs_targets
     selected_encoder = lcs_encoder
 
 if selected_dimension == 'azs':
+    unencoded_data = data['long_azs']
     targets = azs_targets
     selected_encoder = azs_encoder
 
 if selected_dimension == 'els':
+    unencoded_data = data['long_els']
     targets = els_targets
     selected_encoder = els_encoder
+
 target_n = targets.shape[1]
 
-layers = [14, 25, 50, 100, 50, 50, 25]
+layers = [25, 50, 100, 50, 25]
 
 # Make model
 model = keras.Sequential()
+
 noise_layer = keras.layers.GaussianNoise(input_shape=(n_components,), stddev=settings.stochaistic_noise * 1)
 output_layer = keras.layers.Dense(target_n, activation='softmax')
+
 model.add(noise_layer)
 for nodes in layers: model.add(keras.layers.Dense(nodes, activation='relu'))
 model.add(output_layer)
 
-
-loss = keras.losses.CosineSimilarity()
+loss = keras.losses.CategoricalCrossentropy()
 model.compile('adam', loss=loss)
-model.fit(inputs, targets, epochs=1000)
+model.fit(inputs, targets, epochs=750)
 
 predictions_matrix = model.predict(inputs)
 binary_predictions = misc.binarize_prediction(predictions_matrix)
 interpreted_predictions = selected_encoder.inverse_transform(binary_predictions)
 interpreted_predictions = interpreted_predictions.flatten()
 
-results = {'target':data['long_lcs'], 'prediction':interpreted_predictions}
+results = {'target':unencoded_data, 'prediction':interpreted_predictions}
 results['dummy'] = 1
 results = pandas.DataFrame(results)
 
@@ -83,7 +86,7 @@ pyplot.colorbar()
 pyplot.show()
 
 # Select inputs
-e = (data['long_els']-interpreted_predictions)
+e = (unencoded_data - interpreted_predictions)
 pyplot.hist(e, 100)
 pyplot.show()
 
@@ -98,3 +101,9 @@ pyplot.show()
 #     dpi=96
 # )
 #
+
+noise = numpy.random.normal(0, settings.stochaistic_noise, (100000,templates.shape[1]))
+transformed = pca.transform(noise)
+transformed = transformed[:,:n_components]
+stdv = numpy.std(transformed, axis=0)
+print(print(stdv))

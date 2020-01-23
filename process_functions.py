@@ -7,7 +7,7 @@ import numpy
 import scipy.io as io
 from scipy.signal import convolve
 from sklearn.decomposition import PCA
-from sklearn.preprocessing import OneHotEncoder
+from sklearn.preprocessing import OneHotEncoder, LabelEncoder
 
 import settings
 
@@ -169,6 +169,7 @@ def process_data_set(data_set, filter_threshold = 0.1):
 def get_encoding(id_variable):
     if id_variable.ndim == 1: id_variable = id_variable.reshape(-1, 1)
     encoder = OneHotEncoder(sparse=False, categories='auto' )
+    #encoder = LabelEncoder()
     encoder.fit(id_variable)
     y = encoder.fit_transform(id_variable)
     return encoder, y
