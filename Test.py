@@ -7,94 +7,84 @@ import misc
 import process_functions
 import settings
 
-data_set = 'andrews'
-selected_dimension = 'azs'
+data_set = 'royal'
+
 n_components = 30
 generate_data = False
-
-file_names = misc.folder_names(data_set, selected_dimension)
-
-if generate_data: process_functions.process_data_set(data_set)
-# Read prepared data
-data = numpy.load(file_names['npz_file'])
-pca = misc.pickle_load(file_names['pca_file'])
-
-# Encode targets
-lcs_encoder, lcs_targets = process_functions.get_encoding(data['long_lcs'])
-azs_encoder, azs_targets = process_functions.get_encoding(data['long_azs'])
-els_encoder, els_targets = process_functions.get_encoding(data['long_els'])
-
-# Get PCA-ed inputs
-cummulative_explained_variance = numpy.cumsum(pca.explained_variance_ratio_)
-templates = data['long_data']
-pca_templates = pca.transform(templates)
-inputs = pca_templates[:, :n_components]
-
-# Scale inputs
-mn = numpy.min(inputs)
-inputs = inputs - mn
-
-# Select inputs
-if selected_dimension == 'lcs':
-    unencoded_data = data['long_lcs']
-    targets = lcs_targets
-    selected_encoder = lcs_encoder
-
-if selected_dimension == 'azs':
-    unencoded_data = data['long_azs']
-    targets = azs_targets
-    selected_encoder = azs_encoder
-
-if selected_dimension == 'els':
-    unencoded_data = data['long_els']
-    targets = els_targets
-    selected_encoder = els_encoder
-
-target_n = targets.shape[1]
-
+do_training = True
 layers = [25, 50, 100, 50, 25]
+nr_epochs = 1000
 
-# Make model
-model = keras.Sequential()
+for selected_dimension in ['lcs', 'azs','els']:
+    file_names = misc.folder_names(data_set, selected_dimension)
+    if generate_data: process_functions.process_data_set(data_set)
+    if do_training:
+        # Read prepared data
+        data = numpy.load(file_names['npz_file'])
+        pca = misc.pickle_load(file_names['pca_file'])
 
-noise_layer = keras.layers.GaussianNoise(input_shape=(n_components,), stddev=settings.stochaistic_noise * 1)
-output_layer = keras.layers.Dense(target_n, activation='softmax')
+        # Select inputs
+        if selected_dimension == 'lcs': unencoded_data = data['long_lcs']
+        if selected_dimension == 'azs': unencoded_data = data['long_azs']
+        if selected_dimension == 'els': unencoded_data = data['long_els']
+        if selected_dimension == 'lcs' and data_set in ['israel', 'royal']: unencoded_data = misc.map_lcs_to_distances(data)
 
-model.add(noise_layer)
-for nodes in layers: model.add(keras.layers.Dense(nodes, activation='relu'))
-model.add(output_layer)
+        # Encode targets
+        encoder, targets = process_functions.get_encoding(unencoded_data)
+        target_n = targets.shape[1]
 
-# Train Model
-loss = keras.losses.CategoricalCrossentropy()
-model.compile('adam', loss=loss)
-model.fit(inputs, targets, epochs=1000)
-model.save(file_names['model_file'])
+        # Get PCA-ed template inputs
+        cummulative_explained_variance = numpy.cumsum(pca.explained_variance_ratio_)
+        templates = data['long_data']
+        pca_templates = pca.transform(templates)
+        inputs = pca_templates[:, :n_components]
 
-predictions_matrix = model.predict(inputs)
-binary_predictions = misc.binarize_prediction(predictions_matrix)
-interpreted_predictions = selected_encoder.inverse_transform(binary_predictions)
-interpreted_predictions = interpreted_predictions.flatten()
+        # Scale inputs to a minimum of zero
+        inputs = inputs - numpy.min(inputs)
 
-results = {'target': unencoded_data, 'prediction': interpreted_predictions}
-results['dummy'] = 1
-results = pandas.DataFrame(results)
-misc.pickle_save(file_names['results_file'], results)
+        # Make model
+        model = keras.Sequential()
+        noise_layer = keras.layers.GaussianNoise(input_shape=(n_components,), stddev=settings.stochaistic_noise * 1)
+        output_layer = keras.layers.Dense(target_n, activation='softmax')
+        model.add(noise_layer)
+        for nodes in layers: model.add(keras.layers.Dense(nodes, activation='relu'))
+        model.add(output_layer)
 
-# Make confusion matrix and plot it
-grp = results.groupby(['target', 'prediction'])
-counts = grp.sum()
-counts = counts.reset_index()
-table = counts.pivot(index='target', columns='prediction', values='dummy')
-table[numpy.isnan(table)] = 0
+        # Train Model
+        loss = keras.losses.CategoricalCrossentropy()
+        model.compile('adam', loss=loss)
+        training_history = model.fit(inputs, targets, epochs=nr_epochs)
+        model.save(file_names['model_file'])
 
-pyplot.matshow(table)
-pyplot.colorbar()
-pyplot.show()
+        predictions_matrix = model.predict(inputs)
+        binary_predictions = misc.binarize_prediction(predictions_matrix)
+        interpreted_predictions = encoder.inverse_transform(binary_predictions)
+        interpreted_predictions = interpreted_predictions.flatten()
 
-# Error histogram
-errors = unencoded_data - interpreted_predictions
-pyplot.hist(errors, 100)
-pyplot.show()
+        results = {'target': unencoded_data, 'prediction': interpreted_predictions}
+        results['dummy'] = 1
+        results = pandas.DataFrame(results)
+        misc.pickle_save(file_names['results_file'], results)
+
+        # Save history
+        misc.pickle_save(file_names['history_file'], training_history.history)
+        # Plot history
+        pyplot.plot(training_history.history['loss'])
+        pyplot.title(data_set + ' ' + selected_dimension)
+        pyplot.show()
+
+        # Plot errors
+        errors = interpreted_predictions - unencoded_data
+        pyplot.hist(errors, 100)
+        pyplot.title(data_set + ' ' + selected_dimension)
+        pyplot.show()
+
+        # Get confusion table and plot it
+        table, labels = misc.make_confusion_matrix(results)
+        pyplot.matshow(table)
+        pyplot.colorbar()
+        pyplot.title(data_set + ' ' + selected_dimension)
+        pyplot.show()
 
 # %%
 # keras.utils.plot_model(
