@@ -1,7 +1,7 @@
 import math
-import os
+import misc
 import pickle
-
+import os
 import natsort
 import numpy
 import scipy.io as io
@@ -79,16 +79,16 @@ def preprocess(file_name, verbose=True):
     return processed, az_box, el_box
 
 
-
-
-
 def process_data_set(data_set, filter_threshold = 0.1):
     # %%Preprocess andrews
     print('#' * 10)
     print(data_set)
     print('#' * 10)
-    pca_file = data_set + '.pck'
-    data_file = data_set + '.npz'
+
+    file_names = misc.folder_names(data_set, 'none')
+
+    pca_file = os.path.join(file_names['pca_file'])
+    data_file = os.path.join(file_names['npz_file'])
 
     # Reading in all data
     print('---> READING AND PREPROCESSING DATA')
@@ -161,7 +161,6 @@ def process_data_set(data_set, filter_threshold = 0.1):
     print('---> RUN AND SAVE PCA MODEL')
     pca_model = PCA()
     pca_model.fit(long_data)
-
     pickle_save(pca_file, pca_model)
     print('#' * 10)
 
@@ -169,7 +168,6 @@ def process_data_set(data_set, filter_threshold = 0.1):
 def get_encoding(id_variable):
     if id_variable.ndim == 1: id_variable = id_variable.reshape(-1, 1)
     encoder = OneHotEncoder(sparse=False, categories='auto' )
-    #encoder = LabelEncoder()
     encoder.fit(id_variable)
     y = encoder.fit_transform(id_variable)
     return encoder, y

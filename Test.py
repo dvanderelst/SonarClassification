@@ -1,22 +1,23 @@
-import process_functions
 import numpy
-from matplotlib import pyplot
-import settings
-import misc
 import pandas
-import tensorflow as tf
+from matplotlib import pyplot
 from tensorflow import keras
-import tensorflow.keras.backend as kb
 
+import misc
+import process_functions
+import settings
+
+data_set = 'andrews'
+selected_dimension = 'azs'
 n_components = 30
-generated_data = False
-selected_dimension = 'els'
+generate_data = True
 
-if generated_data: process_functions.process_data_set('andrews')
+file_names = misc.folder_names(data_set, selected_dimension)
 
+if generate_data: process_functions.process_data_set(data_set)
 # Read prepared data
-data = numpy.load('andrews.npz')
-pca = process_functions.pickle_load('andrews.pck')
+data = numpy.load(file_names['npz_file'])
+pca = process_functions.pickle_load(file_names['pca_file'])
 
 # Encode targets
 lcs_encoder, lcs_targets = process_functions.get_encoding(data['long_lcs'])
@@ -27,15 +28,15 @@ els_encoder, els_targets = process_functions.get_encoding(data['long_els'])
 cummulative_explained_variance = numpy.cumsum(pca.explained_variance_ratio_)
 templates = data['long_data']
 pca_templates = pca.transform(templates)
-inputs = pca_templates[:,:n_components]
+inputs = pca_templates[:, :n_components]
 
 # Scale inputs
 mn = numpy.min(inputs)
 inputs = inputs - mn
 
 # Select inputs
-if selected_dimension == 'locs':
-    unencoded_data = data['long_data']
+if selected_dimension == 'lcs':
+    unencoded_data = data['long_lcs']
     targets = lcs_targets
     selected_encoder = lcs_encoder
 
@@ -63,34 +64,38 @@ model.add(noise_layer)
 for nodes in layers: model.add(keras.layers.Dense(nodes, activation='relu'))
 model.add(output_layer)
 
+# Train Model
 loss = keras.losses.CategoricalCrossentropy()
 model.compile('adam', loss=loss)
-model.fit(inputs, targets, epochs=750)
+model.fit(inputs, targets, epochs=1000)
+model.save(file_names['model'])
 
 predictions_matrix = model.predict(inputs)
 binary_predictions = misc.binarize_prediction(predictions_matrix)
 interpreted_predictions = selected_encoder.inverse_transform(binary_predictions)
 interpreted_predictions = interpreted_predictions.flatten()
 
-results = {'target':unencoded_data, 'prediction':interpreted_predictions}
+results = {'target': unencoded_data, 'prediction': interpreted_predictions}
 results['dummy'] = 1
 results = pandas.DataFrame(results)
 
-grp = results.groupby(['target','prediction'])
+# Make confusion matrix and plot it
+grp = results.groupby(['target', 'prediction'])
 counts = grp.sum()
 counts = counts.reset_index()
 table = counts.pivot(index='target', columns='prediction', values='dummy')
+table[numpy.isnan(table)] = 0
 
 pyplot.matshow(table)
 pyplot.colorbar()
 pyplot.show()
 
-# Select inputs
-e = (unencoded_data - interpreted_predictions)
-pyplot.hist(e, 100)
+# Error histogram
+errors = unencoded_data - interpreted_predictions
+pyplot.hist(errors, 100)
 pyplot.show()
 
-#%%
+# %%
 # keras.utils.plot_model(
 #     model,
 #     to_file='model.png',
@@ -102,8 +107,8 @@ pyplot.show()
 # )
 #
 
-noise = numpy.random.normal(0, settings.stochaistic_noise, (100000,templates.shape[1]))
-transformed = pca.transform(noise)
-transformed = transformed[:,:n_components]
-stdv = numpy.std(transformed, axis=0)
-print(print(stdv))
+# noise = numpy.random.normal(0, settings.stochaistic_noise, (100000,templates.shape[1]))
+# transformed = pca.transform(noise)
+# transformed = transformed[:,:n_components]
+# stdv = numpy.std(transformed, axis=0)
+# print(print(stdv))
