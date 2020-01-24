@@ -10,14 +10,14 @@ import settings
 data_set = 'andrews'
 selected_dimension = 'azs'
 n_components = 30
-generate_data = True
+generate_data = False
 
 file_names = misc.folder_names(data_set, selected_dimension)
 
 if generate_data: process_functions.process_data_set(data_set)
 # Read prepared data
 data = numpy.load(file_names['npz_file'])
-pca = process_functions.pickle_load(file_names['pca_file'])
+pca = misc.pickle_load(file_names['pca_file'])
 
 # Encode targets
 lcs_encoder, lcs_targets = process_functions.get_encoding(data['long_lcs'])
@@ -68,7 +68,7 @@ model.add(output_layer)
 loss = keras.losses.CategoricalCrossentropy()
 model.compile('adam', loss=loss)
 model.fit(inputs, targets, epochs=1000)
-model.save(file_names['model'])
+model.save(file_names['model_file'])
 
 predictions_matrix = model.predict(inputs)
 binary_predictions = misc.binarize_prediction(predictions_matrix)
@@ -78,6 +78,7 @@ interpreted_predictions = interpreted_predictions.flatten()
 results = {'target': unencoded_data, 'prediction': interpreted_predictions}
 results['dummy'] = 1
 results = pandas.DataFrame(results)
+misc.pickle_save(file_names['results_file'], results)
 
 # Make confusion matrix and plot it
 grp = results.groupby(['target', 'prediction'])

@@ -1,26 +1,16 @@
 import math
 import misc
-import pickle
 import os
 import natsort
 import numpy
 import scipy.io as io
 from scipy.signal import convolve
 from sklearn.decomposition import PCA
-from sklearn.preprocessing import OneHotEncoder, LabelEncoder
+from sklearn.preprocessing import OneHotEncoder
 
 import settings
+from misc import pickle_save
 
-def pickle_save(file, object):
-    f = open(file, 'wb')
-    pickle.dump(object, f)
-    f.close()
-
-def pickle_load(file):
-    f = open(file, 'rb')
-    object = pickle.load(f)
-    f.close()
-    return object
 
 def preprocess(file_name, verbose=True):
     fs = settings.fs
