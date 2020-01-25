@@ -39,14 +39,17 @@ def folder_names(data_set, dimension):
     result = {}
 
     result_folder = data_set + '_results'
+
+    base_name = data_set + '_' + dimension
+
     npz_file = os.path.join(result_folder, data_set + '.npz')
     pca_file = os.path.join(result_folder, data_set + '.pca')
 
-    model_file = os.path.join(result_folder, data_set + '_' + dimension + '.5h')
-    res_file = os.path.join(result_folder, data_set + '_' + dimension + '.pd')
-    hist_file = os.path.join(result_folder, data_set + '_' + dimension + '.hist')
+    model_file = os.path.join(result_folder, base_name + '.5h')
+    res_file = os.path.join(result_folder, base_name + '.pd')
+    hist_file = os.path.join(result_folder, base_name + '.hist')
 
-    log_folder = os.path.join(result_folder, 'log_' + data_set + '_' + dimension)
+    log_folder = os.path.join(result_folder, 'log_' + base_name)
 
     result['data_folder'] = data_set
     result['result_folder'] = result_folder
@@ -56,6 +59,7 @@ def folder_names(data_set, dimension):
     result['model_file'] = model_file
     result['results_file'] = res_file
     result['history_file'] = hist_file
+    result['base_name'] = base_name
     return result
 
 

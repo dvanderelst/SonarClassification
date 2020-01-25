@@ -1,5 +1,6 @@
 import numpy
 import pandas
+import os
 from matplotlib import pyplot
 from tensorflow import keras
 
@@ -12,7 +13,7 @@ data_set = 'royal'
 n_components = 30
 generate_data = False
 do_training = True
-layers = [25, 50, 100, 50, 25]
+layers = [50, 100, 100, 50]
 nr_epochs = 1000
 
 for selected_dimension in ['lcs', 'azs','els']:
@@ -71,12 +72,14 @@ for selected_dimension in ['lcs', 'azs','els']:
         # Plot history
         pyplot.plot(training_history.history['loss'])
         pyplot.title(data_set + ' ' + selected_dimension)
+        pyplot.savefig(os.path.join(file_names['result_folder'],'plots',file_names['base_name'] + '_trace.png'))
         pyplot.show()
 
         # Plot errors
         errors = interpreted_predictions - unencoded_data
         pyplot.hist(errors, 100)
         pyplot.title(data_set + ' ' + selected_dimension)
+        pyplot.savefig(os.path.join(file_names['result_folder'],'plots', file_names['base_name'] + '_errrors.png'))
         pyplot.show()
 
         # Get confusion table and plot it
@@ -84,6 +87,7 @@ for selected_dimension in ['lcs', 'azs','els']:
         pyplot.matshow(table)
         pyplot.colorbar()
         pyplot.title(data_set + ' ' + selected_dimension)
+        pyplot.savefig(os.path.join(file_names['result_folder'],'plots', file_names['base_name'] + '_matrix.png'))
         pyplot.show()
 
 # %%
@@ -102,4 +106,4 @@ for selected_dimension in ['lcs', 'azs','els']:
 # transformed = pca.transform(noise)
 # transformed = transformed[:,:n_components]
 # stdv = numpy.std(transformed, axis=0)
-# print(print(stdv))
+# print(print(stdv)

@@ -4,7 +4,7 @@ from matplotlib import pyplot
 import misc
 import settings
 
-pyplot.style.use('ggplot')
+pyplot.style.use(settings.style)
 
 data_set = 'israel'
 dimension = 'lcs'

@@ -14,6 +14,8 @@ initial_zero_time = 6 / 1000  # initial time to omit
 ####################################################
 ##PLOT SETTINGS
 ####################################################
+figure_folder = '/home/dieter/Dropbox/Apps/ShareLaTeX/Paper_Adarsh/figures'
+style = 'ggplot'
 colormap = 'hot'
 azs_color = '#e41a1c'
 els_color = '#377eb8'
