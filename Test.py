@@ -8,7 +8,7 @@ import misc
 import process_functions
 import settings
 
-data_set = 'royal'
+data_set = 'israel'
 
 n_components = 30
 generate_data = False
