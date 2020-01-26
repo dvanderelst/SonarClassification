@@ -13,8 +13,8 @@ for data_set in ['israel', 'royal']:
     files = misc.folder_names(data_set, 'lcs')
     pca = misc.pickle_load(files['pca_file'])
     cvar = numpy.cumsum(pca.explained_variance_ratio_)
-    if data_set == 'royal': pyplot.plot(cvar, '--k')
-    if data_set == 'israel': pyplot.plot(cvar, '-k')
+    if data_set == 'royal': pyplot.plot(cvar, color='k', linestyle = settings.royal_linestyle)
+    if data_set == 'israel': pyplot.plot(cvar, color='k', linestyle = settings.israel_linestyle)
 
 pyplot.legend(['Israel', 'Royal'])
 pyplot.xlabel('Nr of PCs')

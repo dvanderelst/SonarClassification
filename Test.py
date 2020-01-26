@@ -10,7 +10,7 @@ import settings
 
 data_set = 'israel'
 
-n_components = 30
+
 generate_data = False
 do_training = True
 layers = [50, 100, 100, 50]
@@ -38,6 +38,7 @@ for selected_dimension in ['lcs', 'azs','els']:
         cummulative_explained_variance = numpy.cumsum(pca.explained_variance_ratio_)
         templates = data['long_data']
         pca_templates = pca.transform(templates)
+        n_components = settings.n_components
         inputs = pca_templates[:, :n_components]
 
         # Scale inputs to a minimum of zero
