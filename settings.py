@@ -1,4 +1,6 @@
 
+import  numpy
+
 fs = 219000
 raw_collected_samples = 7499
 noise_floor = 0.18 # should be determined on open space
@@ -16,6 +18,11 @@ n_components = 30
 ####################################################
 ##PLOT SETTINGS
 ####################################################
+import palettable.colorbrewer.qualitative as qualitative
+i = numpy.linspace(0,1,4)
+qualitative_map = qualitative.Dark2_4.get_mpl_colormap()
+qualitative_colors = qualitative_map(i)
+
 figure_folder = '/home/dieter/Dropbox/Apps/ShareLaTeX/Paper_Adarsh/figures'
 style = 'ggplot'
 colormap = 'hot'

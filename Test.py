@@ -8,7 +8,7 @@ import misc
 import process_functions
 import settings
 
-data_set = 'israel'
+data_set = 'royal'
 
 
 generate_data = False
@@ -64,8 +64,8 @@ for selected_dimension in ['lcs', 'azs','els']:
         interpreted_predictions = interpreted_predictions.flatten()
 
         results = {'target': unencoded_data, 'prediction': interpreted_predictions}
-        results['dummy'] = 1
         results = pandas.DataFrame(results)
+        results['dummy'] = 1
         misc.pickle_save(file_names['results_file'], results)
 
         # Save history

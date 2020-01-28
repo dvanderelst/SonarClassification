@@ -1,8 +1,10 @@
-import pickle
-import pandas
-import numpy
 import os
+import pickle
 import re
+import settings
+import numpy
+import scipy.interpolate as interpolate
+from matplotlib import pyplot
 from sklearn.preprocessing import Normalizer
 
 
@@ -17,12 +19,13 @@ def map_lcs_to_distances(data):
         new_long_lcs[indices] = dist
     return new_long_lcs
 
+
 def extract_distances_from_filenames(filenames):
     distances = []
     for text in filenames:
         expression = "[+-]?[0-9]+\.?[0-9]*"
-        match = re.match( expression, text, re.M|re.I)
-        match =  float(match[0])
+        match = re.match(expression, text, re.M | re.I)
+        match = float(match[0])
         distances.append(match)
     return distances
 
@@ -39,8 +42,8 @@ def folder_names(data_set, dimension):
     result = {}
 
     result_folder = data_set + '_results'
-
-    base_name = data_set + '_' + dimension
+    base_name = data_set + '_' + str(dimension)
+    if dimension is None: base_name = data_set
 
     npz_file = os.path.join(result_folder, data_set + '.npz')
     pca_file = os.path.join(result_folder, data_set + '.pca')
@@ -48,6 +51,8 @@ def folder_names(data_set, dimension):
     model_file = os.path.join(result_folder, base_name + '.5h')
     res_file = os.path.join(result_folder, base_name + '.pd')
     hist_file = os.path.join(result_folder, base_name + '.hist')
+
+    perf_file = os.path.join(result_folder, data_set + '.pm')
 
     log_folder = os.path.join(result_folder, 'log_' + base_name)
 
@@ -59,6 +64,7 @@ def folder_names(data_set, dimension):
     result['model_file'] = model_file
     result['results_file'] = res_file
     result['history_file'] = hist_file
+    result['perfect_memory_file'] = perf_file
     result['base_name'] = base_name
     return result
 
@@ -76,17 +82,47 @@ def pickle_load(file):
     return object
 
 
+
 def make_confusion_matrix(results, normalize=True):
     N = Normalizer()
-    grp = results.groupby(['target', 'prediction'])
-    counts = grp.sum()
-    counts = counts.reset_index()
-    table = counts.pivot(index='target', columns='prediction', values='dummy')
-    labels = list(table.index)
+    values = results.target.unique()
+    n = len(values)
+    table = numpy.zeros((n, n))
+    for ti in range(n):
+        for pi in range(n):
+            tv = values[ti]
+            pv = values[pi]
+            selected = results.query("target==@tv and prediction==@pv")
+            selected_n = selected.shape[0]
+            #print(selected_n)
+            table[ti, pi] = selected_n
+    labels = values
     table[numpy.isnan(table)] = 0
     if normalize: table = N.fit_transform(table) ** 2
     if not normalize: table = numpy.array(table)
     return table, labels
+
+
+def label_confusion_matrix(labels):
+    if len(labels) == 7: ticks = list(range(0, 7, 2))
+    if len(labels) == 31: ticks = list(range(6, 31, 6))
+    if len(labels) == 50: ticks = list(range(10, 50, 10))
+    if len(labels) == 40: ticks = list(range(10, 40, 10))
+    ticks_locs = numpy.array(ticks)
+
+
+    new_labels = []
+    for x in labels: new_labels.append('%.1f'%x)
+    new_labels = numpy.array(new_labels)
+
+    print(pyplot.xticks())
+
+    pyplot.xticks(ticks_locs, new_labels[ticks_locs])
+    pyplot.yticks(ticks_locs, new_labels[ticks_locs])
+
+    pyplot.xlim([-0.5, len(labels)-0.5])
+    pyplot.ylim([-0.5, len(labels)-0.5])
+
 
 def get_error_histogram(results, normalize=True, cummmulative=False):
     errors = results['prediction'] - results['target']
@@ -97,3 +133,25 @@ def get_error_histogram(results, normalize=True, cummmulative=False):
     counts = counts.sort_values(by=['error'])
     if cummmulative: counts['number'] = numpy.cumsum(counts['number'])
     return counts
+
+
+def plot_inference_lines(error, number, xs):
+    f = interpolate.interp1d(error, number)
+    ys = f(xs)
+    ax = pyplot.gca()
+    legend_entries = []
+    i = 0
+    for (x, y) in zip(xs, ys):
+        string_x = "x=%4.2f"%x
+        string_y = "y=%4.2f"%y
+        string = string_x + ', ' + string_y
+        color = settings.qualitative_colors[i,:]
+        pyplot.plot([x, x], [0, y], '--', color=color, alpha=1)
+        pyplot.plot([0, x], [y, y], '--', color=color, alpha=1, label='_nolegend_')
+        legend_entries.append(string)
+        i+=1
+    #print(list(pyplot.xticks()[0]))
+    #pyplot.xticks(list(pyplot.xticks()[0]) + list(xs))
+    #pyplot.yticks(list(pyplot.yticks()[0]) + list(ys))
+
+    return ys, legend_entries
