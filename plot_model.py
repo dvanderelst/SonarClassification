@@ -1,9 +1,8 @@
 from tensorflow import keras
-import misc
-import settings
+from library import misc, settings
 import os
 
-files = misc.folder_names('israel','azs')
+files = misc.folder_names('israel', 'azs')
 model = keras.models.load_model(files['model_file'])
 
 output = os.path.join(settings.figure_folder, 'model.pdf')

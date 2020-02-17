@@ -1,13 +1,7 @@
 import numpy
-import pandas
-import os
-from matplotlib import pyplot
 from tensorflow import keras
 import pandas
-import misc
-import process_functions
-import settings
-
+from library import misc, settings
 
 ns = []
 ws = []

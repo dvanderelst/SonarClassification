@@ -1,9 +1,7 @@
 import scipy.stats as stats
 from matplotlib import pyplot
 import os
-import misc
-import numpy
-import settings
+from library import misc, settings
 
 pyplot.style.use(settings.style)
 

@@ -1,15 +1,11 @@
 import math
-import misc
+from library import misc, settings
 import os
 import natsort
 import numpy
 import scipy.io as io
 from scipy.signal import convolve
-from sklearn.decomposition import PCA
 from sklearn.preprocessing import OneHotEncoder
-
-import settings
-from misc import pickle_save
 
 
 def preprocess(file_name, verbose=True):
@@ -148,10 +144,10 @@ def process_data_set(data_set, filter_threshold = 0.1):
                 files=files)
 
     # %%
-    print('---> RUN AND SAVE PCA MODEL')
-    pca_model = PCA()
-    pca_model.fit(long_data)
-    pickle_save(pca_file, pca_model)
+    #print('---> RUN AND SAVE PCA MODEL')
+    #pca_model = PCA()
+    #pca_model.fit(long_data)
+    #pickle_save(pca_file, pca_model)
     print('#' * 10)
 
 

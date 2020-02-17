@@ -1,7 +1,7 @@
 import os
 import pickle
 import re
-import settings
+from library import settings
 import numpy
 import scipy.interpolate as interpolate
 from matplotlib import pyplot
@@ -60,7 +60,7 @@ def folder_names(data_set, dimension):
     result['result_folder'] = result_folder
     result['log_folder'] = log_folder
     result['npz_file'] = npz_file
-    result['pca_file'] = pca_file
+    #result['pca_file'] = pca_file
     result['model_file'] = model_file
     result['results_file'] = res_file
     result['history_file'] = hist_file
@@ -154,7 +154,7 @@ def plot_inference_lines(error, number, xs):
         string_x = "x=%4.2f"%x
         string_y = "y=%4.2f"%y
         string = string_x + ', ' + string_y
-        color = settings.qualitative_colors[i,:]
+        color = settings.qualitative_colors[i, :]
         pyplot.plot([x, x], [0, y], '--', color=color, alpha=1)
         pyplot.plot([0, x], [y, y], '--', color=color, alpha=1, label='_nolegend_')
         legend_entries.append(string)

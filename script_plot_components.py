@@ -1,11 +1,5 @@
-import numpy
-import pandas
-import os
 from matplotlib import pyplot
-import pandas
-import misc
-import process_functions
-import settings
+from library import misc, settings
 
 # royal_components are in the rows
 # components_array, shape (n_components, n_features)

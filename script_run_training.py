@@ -4,9 +4,7 @@ import os
 from matplotlib import pyplot
 from tensorflow import keras
 
-import misc
-import process_functions
-import settings
+from library import misc, process_functions, settings
 
 data_set = 'israel'
 
@@ -22,7 +20,7 @@ for selected_dimension in ['lcs', 'azs','els']:
     if do_training:
         # Read prepared data
         data = numpy.load(file_names['npz_file'])
-        pca = misc.pickle_load(file_names['pca_file'])
+        pca_model = misc.pickle_load(settings.pca_file)
 
         # Select inputs
         if selected_dimension == 'lcs': unencoded_data = data['long_lcs']
@@ -35,9 +33,8 @@ for selected_dimension in ['lcs', 'azs','els']:
         target_n = targets.shape[1]
 
         # Get PCA-ed template inputs
-        cummulative_explained_variance = numpy.cumsum(pca.explained_variance_ratio_)
         templates = data['long_data']
-        pca_templates = pca.transform(templates)
+        pca_templates = pca_model.transform(templates)
         n_components = settings.n_components
         inputs = pca_templates[:, :n_components]
 

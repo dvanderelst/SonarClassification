@@ -1,9 +1,7 @@
-import misc
 import numpy
-import settings
 import os
 from matplotlib import pyplot
-import smoothn
+from library import smoothn, misc, settings
 
 training_history_plot_file = os.path.join(settings.figure_folder, 'history.pdf')
 
