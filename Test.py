@@ -8,12 +8,12 @@ import misc
 import process_functions
 import settings
 
-data_set = 'royal'
+data_set = 'israel'
 
 
 generate_data = False
 do_training = True
-layers = [50, 100, 100, 50]
+layers = [50, 75, 75, 50]
 nr_epochs = 1000
 
 for selected_dimension in ['lcs', 'azs','els']:

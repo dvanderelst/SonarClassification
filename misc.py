@@ -86,6 +86,7 @@ def pickle_load(file):
 def make_confusion_matrix(results, normalize=True):
     N = Normalizer()
     values = results.target.unique()
+    values = numpy.sort(values)
     n = len(values)
     table = numpy.zeros((n, n))
     for ti in range(n):
@@ -133,6 +134,14 @@ def get_error_histogram(results, normalize=True, cummmulative=False):
     counts = counts.sort_values(by=['error'])
     if cummmulative: counts['number'] = numpy.cumsum(counts['number'])
     return counts
+
+
+def zlim(lims):
+    try:
+        ax = pyplot.gca()
+        ax.set_zlim(lims[0], lims[1])
+    except:
+        pyplot.set
 
 
 def plot_inference_lines(error, number, xs):

@@ -13,6 +13,7 @@ ns = []
 ws = []
 ws_nb = []
 rs = []
+ts = []
 
 for data_set in ['israel', 'royal']:
     selected_dimension = 'lcs'
@@ -47,14 +48,16 @@ for data_set in ['israel', 'royal']:
     ws.append(total_n_weights)
     ws_nb.append(total_n_weights_no_bias)
     rs.append(string_ratio)
+    ts.append(templates.shape[0])
 
 
 output = {}
 output['Site'] = ['Israel', 'Royal']
-output['Template size'] = ns
-output['Weights'] = ws
-output['Weights (no bias)'] = ws_nb
-output['Ratio'] = rs
+output['T'] = ns
+output['n'] = ts
+output['W'] = ws
+output['W (nb}'] = ws_nb
+output['R'] = rs
 
 output = pandas.DataFrame(output)
 latex = output.to_latex(index=False)
