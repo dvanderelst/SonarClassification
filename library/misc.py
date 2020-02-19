@@ -60,7 +60,7 @@ def folder_names(data_set, dimension):
     result['result_folder'] = result_folder
     result['log_folder'] = log_folder
     result['npz_file'] = npz_file
-    #result['pca_file'] = pca_file
+    #call_result['pca_file'] = pca_file
     result['model_file'] = model_file
     result['results_file'] = res_file
     result['history_file'] = hist_file
@@ -115,8 +115,6 @@ def label_confusion_matrix(labels):
     new_labels = []
     for x in labels: new_labels.append('%.1f'%x)
     new_labels = numpy.array(new_labels)
-
-    print(pyplot.xticks())
 
     pyplot.xticks(ticks_locs, new_labels[ticks_locs])
     pyplot.yticks(ticks_locs, new_labels[ticks_locs])

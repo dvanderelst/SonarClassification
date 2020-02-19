@@ -9,7 +9,7 @@ from sklearn.preprocessing import OneHotEncoder
 
 
 def preprocess(file_name, verbose=True):
-    fs = settings.fs
+    fs = settings.sample_frequency
     noise_floor = settings.noise_floor
     integration_time = settings.integration_time
     initial_zero_time = settings.initial_zero_time
@@ -73,7 +73,7 @@ def process_data_set(data_set, filter_threshold = 0.1):
 
     file_names = misc.folder_names(data_set, 'none')
 
-    pca_file = os.path.join(file_names['pca_file'])
+    #pca_file = os.path.join(file_names['pca_file'])
     data_file = os.path.join(file_names['npz_file'])
 
     # Reading in all data

@@ -1,7 +1,7 @@
 
 import  numpy
 
-fs = 219000
+sample_frequency = 219000
 raw_collected_samples = 7499
 noise_floor = 0.18 # should be determined on open space
 
