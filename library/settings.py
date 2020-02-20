@@ -17,6 +17,14 @@ n_components = 20
 ####################################################
 ##PLOT SETTINGS
 ####################################################
+
+emission_duration = 0.002
+emission_frequency_low = 25000
+emission_frequency_high = 75000
+emission_frequency_mean = round((emission_frequency_low + emission_frequency_high) / 2)
+####################################################
+##PLOT SETTINGS
+####################################################
 import palettable.colorbrewer.qualitative as qualitative
 i = numpy.linspace(0,1,4)
 qualitative_map = qualitative.Dark2_4.get_mpl_colormap()
