@@ -5,7 +5,7 @@ from library import misc, settings
 
 pyplot.style.use(settings.style)
 
-data_set = 'royal'
+data_set = 'israel'
 
 loss_function = 'Categorical Cross Entropy'
 

@@ -80,6 +80,7 @@ def echo_sequence2template(echo_sequence, wiegrebe):
     mask = mask / numpy.sum(mask)
     wiegrebe_result = convolve(wiegrebe_result, mask, mode='same')
     wiegrebe_result = wiegrebe_result[:, ::integration_samples]
+    wiegrebe_result = wiegrebe_result[0]
     return wiegrebe_result
 
 

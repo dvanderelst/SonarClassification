@@ -23,9 +23,11 @@ n_components = 20
 ##Generative modelling settings
 ####################################################
 emission_duration = 0.001
-emission_frequency_low = 40000
-emission_frequency_high = 100000
+emission_frequency_low = 50000
+emission_frequency_high = 90000
 emission_frequency_mean = round((emission_frequency_low + emission_frequency_high) / 2)
+synthetic_templates_file = os.path.join(result_folder, 'synthetic_templates.npy')
+pca_file = os.path.join(result_folder, 'PCA.pca')
 ####################################################
 ##PLOT SETTINGS
 ####################################################
@@ -34,7 +36,6 @@ qualitative_map = qualitative.Dark2_4.get_mpl_colormap()
 qualitative_colors = qualitative_map(i)
 
 figure_folder = '/home/dieter/Dropbox/Apps/ShareLaTeX/Paper_Adarsh/figures'
-pca_file = os.path.join(result_folder, 'PCA.pca')
 
 style = 'ggplot'
 colormap = 'hot'
