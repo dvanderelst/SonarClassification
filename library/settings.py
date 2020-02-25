@@ -23,11 +23,21 @@ n_components = 20
 ##Generative modelling settings
 ####################################################
 emission_duration = 0.001
-emission_frequency_low = 50000
-emission_frequency_high = 90000
+emission_frequency_low = 40000
+emission_frequency_high = 100000
 emission_frequency_mean = round((emission_frequency_low + emission_frequency_high) / 2)
+
+synthetic_echoes_file = os.path.join(result_folder, 'synthetic_echoes.pck')
+synthetic_echoes_indices = os.path.join(result_folder, 'synthetic_echoes_indices.pck')
 synthetic_templates_file = os.path.join(result_folder, 'synthetic_templates.npy')
+reconstructed_synthetic_templates_file = os.path.join(result_folder, 'reconstructed_synthetic_templates.npy')
+scaled_synthetic_templates_file = os.path.join(result_folder, 'scaled_synthetic_templates.npy')
+
 pca_file = os.path.join(result_folder, 'PCA.pca')
+pca_components_plot = os.path.join(result_folder, 'components.pdf')
+
+synthetic_templates_plot = os.path.join(result_folder, 'synthetic_templates.pdf')
+
 ####################################################
 ##PLOT SETTINGS
 ####################################################

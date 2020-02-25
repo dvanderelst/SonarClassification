@@ -12,9 +12,8 @@ n = settings.n_components
 
 pca_model = misc.pickle_load(settings.pca_file)
 components = pca_model.components_
-components = components[0:n, :]
 
-ouput_file = os.path.join(settings.result_folder, 'PCA.pdf')
+
 
 mx = numpy.max(numpy.abs(components))
 n = components.shape[1]
@@ -38,5 +37,5 @@ for i in range(20):
     pyplot.title(title)
 
 pyplot.tight_layout()
-pyplot.savefig(ouput_file)
+pyplot.savefig(settings.pca_components_plot)
 pyplot.show()

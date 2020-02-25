@@ -23,21 +23,19 @@ def create_emission():
     emission = emission * emission_window
     return emission
 
-
 def generative_model(parameters):
-    minimum_distance = 0.5
+    minimum_distance = 0.25
     standard_deviation = 0.05
     n_seed_points = parameters.pop('n_seed_points')
     n_cloud_points = parameters.pop('n_cloud_points')
     keys = parameters.keys()
     if len(keys) > 0: print('***********Warning', keys)
     distances = numpy.array([])
-    seed_points = random.uniform(minimum_distance, 10, n_seed_points)
+    seed_points = random.uniform(minimum_distance, 7, n_seed_points)
     for loc in seed_points:
         g = random.normal(loc=loc, scale=standard_deviation, size=n_cloud_points)
         distances = numpy.concatenate((distances, g))
     return distances
-
 
 def distances2echo_sequence(distances, caller, emission):
     emission_duration = settings.emission_duration
@@ -72,7 +70,7 @@ def echo_sequence2template(echo_sequence, wiegrebe):
     integration_samples = math.ceil(sample_frequency * integration_time)
 
     # Run Wiegrebe model
-    wiegrebe_result = wiegrebe.run_model(echo_sequence)
+    wiegrebe_result = wiegrebe.run_model(echo_sequence, dechirp=True)
     wiegrebe_result = wiegrebe_result.reshape(1, -1)
 
     # Subsample
