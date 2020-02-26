@@ -6,13 +6,13 @@ from tensorflow import keras
 
 from library import misc, process_functions, settings
 
-data_set = 'israel'
+data_set = 'royal'
 
 
 generate_data = False
 do_training = True
 layers = [50, 75, 75, 50]
-nr_epochs = 1000
+nr_epochs = 5000
 
 for selected_dimension in ['lcs', 'azs','els']:
     file_names = misc.folder_names(data_set, selected_dimension)

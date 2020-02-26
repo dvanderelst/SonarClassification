@@ -33,10 +33,13 @@ synthetic_templates_file = os.path.join(result_folder, 'synthetic_templates.npy'
 reconstructed_synthetic_templates_file = os.path.join(result_folder, 'reconstructed_synthetic_templates.npy')
 scaled_synthetic_templates_file = os.path.join(result_folder, 'scaled_synthetic_templates.npy')
 
+reconstructed_templates_file =  os.path.join(result_folder, 'reconstructed_templates.npy')
+
 pca_file = os.path.join(result_folder, 'PCA.pca')
 pca_components_plot = os.path.join(result_folder, 'components.pdf')
 
 synthetic_templates_plot = os.path.join(result_folder, 'synthetic_templates.pdf')
+templates_plot = os.path.join(result_folder, 'templates.pdf')
 
 ####################################################
 ##PLOT SETTINGS
@@ -45,7 +48,7 @@ i = numpy.linspace(0,1,4)
 qualitative_map = qualitative.Dark2_4.get_mpl_colormap()
 qualitative_colors = qualitative_map(i)
 
-figure_folder = '/home/dieter/Dropbox/Apps/ShareLaTeX/Paper_Adarsh/figures'
+#figure_folder = '/home/dieter/Dropbox/Apps/ShareLaTeX/Paper_Adarsh/figures'
 
 style = 'ggplot'
 colormap = 'hot'
@@ -55,3 +58,4 @@ lcs_color = '#4daf4a'
 royal_linestyle = 'dashdot'
 israel_linestyle = 'solid'
 
+training_history_plot = os.path.join(result_folder, 'history.pdf')

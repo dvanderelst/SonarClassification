@@ -3,11 +3,11 @@ import os
 from matplotlib import pyplot
 from library import smoothn, misc, settings
 
-training_history_plot_file = os.path.join(settings.figure_folder, 'history.pdf')
+training_history_plot_file = settings.training_history_plot
 
 pyplot.style.use(settings.style)
 
-pyplot.figure(figsize=(10,5))
+pyplot.figure(figsize=(5,2.5))
 
 for data_set in ['israel', 'royal']:
     if data_set == 'israel': pyplot.subplot(1, 2, 1)
@@ -28,6 +28,7 @@ for data_set in ['israel', 'royal']:
 
         pyplot.plot(trace, color=color)
         pyplot.ylim([0, 4])
+        pyplot.xscale('symlog')
         pyplot.xlabel('Epoch')
         if data_set == 'israel': pyplot.ylabel('Loss')
         if data_set == 'israel': pyplot.title('Israel Data')

@@ -3,6 +3,10 @@ import os
 from matplotlib import pyplot
 from library import misc, settings
 
+#
+# Synthetic echoes, templates and reconstruction
+#
+
 pyplot.style.use(settings.style)
 
 synthetic_echoes = misc.pickle_load(settings.synthetic_echoes_file)
@@ -21,8 +25,8 @@ mx_templates = 0.35
 mn_templates = 0.15
 
 label0 = '5_5_0'
-label1 = '10_10_0'
-label2 = '20_20_0'
+label1 = '40_40_0'
+label2 = '160_160_0'
 
 echo_0 = synthetic_echoes[label0]
 echo_1 = synthetic_echoes[label1]
@@ -98,3 +102,41 @@ pyplot.tight_layout()
 pyplot.savefig(settings.synthetic_templates_plot)
 pyplot.show()
 
+# %%
+# Empirical templates and reconstruction
+#
+
+selected_indices = [500, 7000, 10000]
+
+min_value = 0.15
+max_value = 0.45
+
+data_set = 'israel'
+file_names = misc.folder_names(data_set, None)
+data = numpy.load(file_names['npz_file'])
+template_israel = data['long_data']
+
+data_set = 'royal'
+file_names = misc.folder_names(data_set, None)
+data = numpy.load(file_names['npz_file'])
+templates_royal = data['long_data']
+
+all_templates = numpy.row_stack((templates_royal, template_israel))
+reconstructed_templates = numpy.load(settings.reconstructed_templates_file)
+
+pyplot.figure(figsize=(10,5))
+for i in range(len(selected_indices)):
+    index = selected_indices[i]
+    template = all_templates[index, :]
+    recon = reconstructed_templates[index,:]
+
+    pyplot.subplot(1, len(selected_indices), i + 1)
+    pyplot.plot(template, linewidth=3)
+    pyplot.plot(recon)
+    pyplot.ylim([min_value, max_value])
+    pyplot.xlabel('Sample')
+    if i == 0: pyplot.legend(['Template', 'Reconstructed from PCs'])
+
+pyplot.tight_layout()
+pyplot.savefig(settings.templates_plot)
+pyplot.show()
