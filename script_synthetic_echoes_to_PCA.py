@@ -10,13 +10,13 @@ from pyBat import Wiegrebe
 
 pyplot.style.use(settings.style)
 
-repeats = 30
-n_seed_levels = [5, 10, 20, 40, 80, 160, 320]
-n_cloud_levels = [5, 10, 20, 40, 80, 160, 320]
+# repeats = 30
+# n_seed_levels = [5, 10, 20, 40, 80, 160, 320]
+# n_cloud_levels = [5, 10, 20, 40, 80, 160, 320]
 
-#repeats = 3
-#n_seed_levels = [5, 10, 20]
-#n_cloud_levels = [5, 10, 20]
+repeats = 10
+n_seed_levels = [1, 2, 5, 10, 250]
+n_cloud_levels = [1, 2, 5, 10, 250]
 
 print('---> CREATE SYNTHETIC TEMPLATES')
 
