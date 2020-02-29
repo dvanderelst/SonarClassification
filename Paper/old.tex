@@ -1,0 +1,216 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Document type, global settings, and packages
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\documentclass[11pt]{report}  
+
+\usepackage{graphicx}  %for images and plots
+\usepackage{setspace}
+\usepackage{hyperref}
+\usepackage[numbers]{natbib}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amscd}
+\usepackage{upgreek}
+\usepackage[letterpaper, left=1in, right=1in, top=0.75in, bottom=0.75in]{geometry}
+\usepackage{subcaption}
+\usepackage[section]{placeins}
+
+
+%Dieter: I have switched this of for a second
+%\usepackage{arev}
+%\usepackage[T1]{fontenc}
+
+%%%%%%%%%%%%%%%%%%%%%%
+% Start of Document
+%%%%%%%%%%%%%%%%%%%%%%
+
+\title{Master's Thesis ACA} %Write title here
+\author{darsha4590 }
+\date{August 2019}
+\begin{document}
+\maketitle
+\tableofcontents
+
+\begin{abstract}
+    Echo locating bats use sonar for navigating to salient locations. Navigation requires the recognition of locations. Previously, we proposed template-based place recognition to explain how bats recognize locations using sonar. We hypothesized that bats recognize places based on their echo signature and do not compute the 3D layout of a scene. Collecting a large corpus of echoes from different habitats and processing these using a model of the bat's auditory system, we showed that biologically plausible templates contain sufficient information to recognize previously visited locations. In this previous work, we assumed that the bat has perfect memory. We assumed that the bat stores all previously encountered templates and recognizes locations by comparing a new template with all stored templates. As the bat would need to store many templates, this kind of perfect memory is computationally expensive and biologically implausible. In this work, we explore how bats could store and use templates more efficiently using neural networks, a biologically plausible substrate for the memory of bats. We trained a feed-forward neural architecture to return the location and viewing direction associated with a given template as a model of a bat recognizing its current location and flight direction from the echoes. The performance of this imperfect memory approach was comparable to the performance of the previously implemented perfect memory, where performance was fundamentally limited by the noise inherent in sonar data and the signal to noise ratio of the templates. Hence, our results indicate that a large corpus of sonar data can be stored in a neural network (which is small compared to the neural capacity available to bats). This work indicates that our hypothesized mechanism for scene recognition is biologically plausible. In addition, our work opens up avenues for more efficient implementations of sonar-based navigation for robots using neuromorphic hardware.
+\end{abstract}
+
+
+\chapter{Introduction}
+
+Echolocating bats have excellent spatial memory \cite{barchi2013spatial} and can use sonar to navigate to salient locations like foraging grounds, drinking places (look up references from place recognition paper). \textit{Myotis spp} and \textit{Phyllostomus hastatus} deprived of sight were able to return to their roost \cite{stones1969use}, showing that successful navigation is possible relying solely on echolocation. A fundamental prerequisite for navigation is place recognition \cite{schnitzler2003spatial}. Currently, it is largely unknown how bats recognize places based on the echoes they return.
+
+One potential mechanism for place recognition would be for bats to parse the stream of echoes returning from the environment \cite[e.g.,][]{Yovel2009,Vanderelst2016} into localized and identified objects (see figure \ref{fig:3Dlayout}). Subsequently, the bat could match this representation to previously-stored representations to recognize the present scene. However, as \citet{Vanderelst2016} and \citet{Vanderelst2017} argued, several limitations of bio-sonar make it unlikely that bats can localize and identify the objects making up complex scenes. Most notable, among these limitations, is the limited temporal and spatial resolution of bio-sonar. Echoes arriving (almost) simultaneously interfere and are integrated by the auditory system. This probably makes it impossible for the bat to reconstruct the 3D layout of a scene returning overlapping echoes from vegetation and other complex reflectors.
+
+\begin{figure}
+    \includegraphics[width=\linewidth]{images/3Dlayout.JPG}
+    \caption{This is sample 3D reconstruction}
+    \label{fig:3Dlayout}
+\end{figure}
+
+As an alternative hypothesis, \citet{Vanderelst2016} have proposed that bats might use sonar template-based scene recognition. In this approach, bats are assumed to compare a cochlear output to a previously set of stored templates. This hypothesis is analogous to view-based navigation believed to be used by insects \citep{Zeil2003} \citet{Vanderelst2016} collected echoes from a range of bat habitats and converted these, using a biologically plausible model of the peripheral auditory processing in bats, into templates. The authors verified whether the resulting templates had properties that would allow them to be used for navigation. They found that the templates allowed to uniquely identify locations (provided the echoes contain sufficient energy). They also found the templates to vary smoothly as a function of translation and rotation through the environment. These findings supported the hypothesis that bats could use acoustic templates as signatures for recognizing previously visited places.
+
+The templates used by \citet{Vanderelst2016} were constructed using a biologically plausible model of the bat's auditory system. However, the memory model they used was not bio-inspired. These authors employed a perfect memory approach: all templates were stored in a look-up table, and discriminability was assessed based on perfect representations of the templates. The Euclidean distance between two echo signatures was the metric used to identify templates. This requires a comprehensive search of the memory. Templates could be classified, but this required a significant amount of memory and computational resources. 
+
+In biology, perfect memory is highly implausible. Therefore, we set out to assess whether templates can be stored and recognized using a more biologically plausible substrate. In particular, we test whether the echo templates can be stored and recognized by training a neural network.
+
+Sonar is quite common in robotics. Currently, applications of artificial in-air sonar are almost exclusively limited to simple ranging and obstacle detection. However, as bats demonstrate, sonar can also be used for navigation and localization. Indeed, \citet{steckel2013batslam} has demonstrated... Understanding how templates could be used effectively and efficiently could help develop a methodology for navigation and localization in robots. Especially, small energy constrained robots (micro uavs) to exhibit autonomy we can use sonar as one sensory method for effective navigation. A neural network based approach suggest in our work will help design efficient and simple computational model suitable for small processors associated with small robots. A neural approach can be a great prospect for implementation on a neuromorphic hardware which will make it an exceptionally efficient system
+
+\chapter{Data Collection and Pre-Processing}
+
+\section{Echo data collection}
+
+In this work, we reused the templates constructed by \citet{Vanderelst2016}. Below we briefly discuss the constructing of the templates, and we refer to our previous work for more details. \citet{Vanderelst2016} constructed an ensonification device featuring 31 Knowles FG series microphones connected to a custom-built sonar data acquisition board \citet{steckel2013batslam}. The emitter was a sensecomp 7000 Series ultrasonic speaker. The ensonification device was mounted on a pan-tilt system allowing to rotate it from -150 to 150 degrees in azimuth and from -25 to 40 degrees in elevation. 
+
+The ensonification device was used to ensonify bat habitats at three different sites (described below). At each location at the three sites, echoes were collected for 31 azimuth directions and 7 elevation directions (i.e. $31 \times 7 = 217$ directions). At each azimuth and elevation direction, three repeat measurements were recorded. The recording of the echoes started with the emission and was recorded for 34 ms ($\sim$5.7 m) at a sampling rate of 219 kHz. Data were collected at three different sites: St Andrews Park, a public park in Bristol (UK), a public park in xxx (Israel), and at the Royal Fort Gardens, a University of Bristol park (UK). The structure of the data is depicted in figure \ref{sites}. 
+
+At St Andrews Park, data were collected at 12 locations, consisting of four open sites, four semi cluttered sites, four cluttered sites which represent different densities of environments for bats. As such, data consisted of 7812 (12 positions x 217 directions x 3 repeats), echo trains from each of the 31 microphones. At the second site, in Israel, the ensonification device was placed at 50 positions along a straight line spanning a total of 10 meters. Locations were spaced 20 cm apart. In this way, a total of 32,550 echo trains (50 positions x 217 directions x 3 repeats) for each of the 31 microphones were collected. At the Royal Fort Gardens, data were collected at 40 different positions along a line. Locations were spaced 25 cm apart, resulting in a total of 26,040 echo trains (40 locations x 217 directions x 3 repeats) for each of 31 microphones.
+
+\begin{figure}[ht]
+	\includegraphics[width=\linewidth,,height=11cm]{images/sites.JPG}
+	\caption{Illustration of the data collected}
+	\label{sites}
+\end{figure}
+
+\section{Template construction}
+
+For every azimuth and elevation direction at each of the 12, 40 or 50 locations, the following processing steps were used to construct a template:
+\begin{itemize}
+    \item Application of a cochlear model and dechirping
+    \item Averaging across frequencies and microphones
+    \item Averaging across 3x3 directions
+    \item Reducing the sampling frequency to 2.8KHz
+    \item Removing the emission from the template
+\end{itemize}
+
+First, echo trains were individually filtered using a model of the bat's auditory periphery as proposed by \citet{wiegrebe2008autocorrelation}. This model simulates the temporal and spectral resolution of the bat's cochlea. The model consists of a Gammatone filterbank with central frequencies ranging from 30KHz to 100KHz in steps of 5KHz. Each channel is exponentially compressed (exponent value of 0.4), and low pass filtered. The cochleogram returned by the model is dechirped by shifting each frequency channel in time to maximize activation, corresponding to the pick up of the emitted signal, is aligned across all frequency channels. Next, the first 5.8ms is removed across each frequency channel as this contains the pick up of the emitted signal.
+
+The beam of the emitter used was more narrow than the typically combined hearing and emission directionality of bats \cite{reijniers2010morphology},\cite{jakobsen2013intensity}. Therefore, templates were averaged across three neighboring directions. Finally, the templates were downsampled to a sampling rate of 2.8KHz. This sampling rate corresponds to a temporal integration of 350 $\mu$s. This operation reduced the number of samples in a template from 7499 to 96 data points. Finally, the first 14 points were removed to avoid pick up of emitted signal for analysis. Accordingly, each template consisted of 82 points. The processing steps outlined above resulted in 3 $\times$ 217 templates, for each location at each site, corresponding to 217 directions and three repeats.
+
+Internal (and, potentially, external) noise results in template values greater than zero, even in the absences of reflectors returning echoes. To avoid training the neural network on noise, we estimated the noise floor in our data by collecting templates while pointing the device to empty space. The maximum template value obtained from these template measurements was used as the noise floor \textit{nf}. The value of the noise floor used had numerical value of \textit{nf} = 0.15. Any template values below the noise floor were set to this value. Some sample templates can be viewed in Figure \ref{templates}.
+
+\begin{figure}[ht]
+    \centering
+    \begin{minipage}{0.45\textwidth}
+        \centering
+        \includegraphics[width=0.9\textwidth]{images/templats/First201.jpg} % first figure itself
+        %\caption{first figure}
+    \end{minipage}\hfill
+    \begin{minipage}{0.45\textwidth}
+        \centering
+        \includegraphics[width=0.9\textwidth]{images/templats/Second282.jpg} % second figure itself
+        %\caption{second figure}
+    \end{minipage}
+    \begin{minipage}{0.45\textwidth}
+        \centering
+        \includegraphics[width=0.9\textwidth]{images/templats/Third2141.jpg} % second figure itself
+        %\caption{second figure}
+    \end{minipage}
+    \caption{Examples of templates used at the St.Andrews location. The templates are from semi-cluttered 3 environment for 3 different azimuth's and elevations}
+    \label{templates}
+\end{figure}
+
+
+
+%The original raw data of the template data is the template constructed on a original sampling rate of 219 KHz and the number of data points on the template are 7,499 points but the bat auditory model (ref Weigrabe) has a temporal integration interval of 350 $\mu$s so a corresponding sampling rate of 2.8 KHz was used 
+
+%\subsection{\textbf{Noise Floor}}
+%In case there were templates with no return echo which still contains non-zero signal values for the templates which were part of the environment noise and internal noise of the ensonification device. In order to avoid these noise values to contribute to the classification performance. (Place recognition paper) has evaluated the noise floor using the templates when the ensonification device was pointed to open spaces. T
+
+\section{Principal Component Analysis}
+
+Templates are time-energy time series with some level of interdependence between nearby samples. The correlation between template values is problematic because...  We used principal component analysis (PCA) to convert the templates in several uncorrelated template features. PCA reduces the dimensions by creating new uncorrelated features while maintaining the variance in the data. We found that reducing the 82-point templates to 25 principle components allowed capturing 99.5\% variance across the three sites.
+The variance captured per principal component and cumulative variance captured is illustrated in Figure \ref{PCAs}
+
+\begin{figure}[ht]
+    \centering
+    \begin{minipage}{0.5\textwidth}
+        \centering
+        \includegraphics[width=1\textwidth]{images/AndrewsPCsVariance.jpg} % first figure itself
+        %\caption{first figure}
+    \end{minipage}\hfill
+    \begin{minipage}{0.5\textwidth}
+        \centering
+        \includegraphics[width=1\textwidth]{images/AndrewsCumilativePCsVariance.jpg} % second figure itself
+        %\caption{second figure}
+    \end{minipage}
+    \begin{minipage}{0.49\textwidth}
+        \centering
+        \includegraphics[width=1.0\textwidth]{images/PCsVariance.jpg} % second figure itself
+        %\caption{second figure}
+    \end{minipage}
+    \begin{minipage}{0.49\textwidth}
+        \centering
+        \includegraphics[width=1\textwidth]{images/CumilativePCsVariance.jpg} % second figure itself
+        %\caption{second figure}
+    \end{minipage}
+    \caption{Given are the variance retained per principal component for the three sites}
+    \label{PCAs}
+\end{figure}
+
+\section{Synthetic Data Generation}
+
+We wished to ensure that the neural network memorized the templates and was able to classify them when faced with noise. Indeed, both in the biological system modeled and the envisioned application, templates will always be corrupted by some noise. Therefore, we added noise to the templates to generate the training data.
+
+We estimated the measurement noise level based on the data. At every location and orientation, echo measurement was conducted 3 times, and the templates generated were also across these three measurements. To create synthetic data, we assumed that the environment remains the same, and the data variability would arise just from the measurement noise.
+
+Using the empirical measurement noise to create training data is biologically warranted as bats have a better signal to noise ratio in their auditory systems compared to our measuring device. Indeed, their dynamic range is at least 30 dB larger than our measurement device. For robotic applications, the measurement noise in our current study is a representative example of the noise that can be expected in other ultrasonic devices. 
+
+
+
+
+
+%To make sure the neural network is less data sensitive it was important to add noise related data to the training process. As a new recorded template would always have some variability training the neural network with just the original data would most likely give margins for generalization errors.
+%Biologically The additional data would give us some better generalization accounting for the instrument inherent measurement noise.
+
+\begin{figure}[htbp]
+    \centering
+    \begin{minipage}{0.45\textwidth}
+        \centering
+        \includegraphics[width=0.9\textwidth]{images/201.jpg} % first figure itself
+        %\caption{first figure}
+    \end{minipage}\hfill
+    \begin{minipage}{0.45\textwidth}
+        \centering
+        \includegraphics[width=0.9\textwidth]{images/282.jpg} % second figure itself
+        %\caption{second figure}
+    \end{minipage}
+    \begin{minipage}{0.45\textwidth}
+        \centering
+        \includegraphics[width=0.9\textwidth]{images/2141.jpg} % second figure itself
+        %\caption{second figure}
+    \end{minipage}
+    \caption{Three noise generated templates across three different templates}
+    \label{NoiseData}
+\end{figure}
+
+Post the synthetic data generation added to the original data. The data set was randomly shuffled and setup the set for implementing a neural network for training and testing.
+
+Setup the table for data amount for each site and the dimensions of the feature table for various sites \ref{process}
+\begin{figure}[ht]
+	\includegraphics[width=\linewidth,,height=11cm]{images/ProcessFlow.JPG}
+	\caption{Process flow of the templates for neural network were generated across all three sites}
+	\label{process}
+\end{figure}
+
+
+
+\chapter{Template Classification}
+There exists various approaches to classify the template data. The original approach used in (cite place recognition) is based on a perfect memory approach where every template is stored in memory, the new measured template is compared to every template stored in memory and the minimum distance value is used to classify the corresponding best match. This approach is very memory extensive and needs a fair bit of computation and this mechanism is not possibly how bats localize in real time. The methodology used in this study has been inspired from the fact that bat brain is made of millions of complex neural nets to make complex decisions.
+
+\section{Artificial Neural Network (ANN):}
+Bats brain is a complex neural structure we are trying to replicate the a process used by bats to localize themselves using sonar templates. Machine Learning algorithms are resource intensive training highly complex data needs a complex structures which are computationally expensive. There has been significant development in the field of graphics processing units (GPUs) and Tensor processing units (TPUs) which allow us to handle complex large computations but result in high energy consumption so new research has been evolving in the neuromorphic hardware where neural circuits are made on a chip which does the same function of a complex neural network on a small chip and can be exceptionally fast. Inspired by this application an Artificial neural network (ANN) has been chosen as the classification methodology. A Feed Forward neural network architecture is explored to find a possible efficient neural network methodology to efficiently and effectively classify the template data. Although a neural network will take computational resources to train the best model. The model once implemented will be less memory intensive and computationally less expensive when we increase the amount of data to be processed during real time classification. The figure \ref{ANN} represents the basic structure of a ANN. It consists of the input feature vector which is passed through a number of hidden layers of neurons and output of each layer is acted upon by an activation function, the final layer represents the one hot representation of the template labels
+\begin{figure}[ht]
+	\includegraphics[width=15cm,,height=6cm]{images/ANNfigure.png}
+	\caption{A feed Forward Neural Network}
+	\label{ANN}
+\end{figure}
+
+
+
+%\currentpdfbookmark{Title Page}{titlePage}  %add PDF bookmark for this page
+
+\bibliographystyle{apalike}
+\bibliography{references}
+\end{document}

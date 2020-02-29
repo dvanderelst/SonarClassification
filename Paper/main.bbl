@@ -1,0 +1,285 @@
+\begin{thebibliography}{34}
+\expandafter\ifx\csname natexlab\endcsname\relax\def\natexlab#1{#1}\fi
+\providecommand{\bibinfo}[2]{#2}
+\ifx\xfnm\relax \def\xfnm[#1]{\unskip,\space#1}\fi
+%Type = Article
+\bibitem[{Baddeley et~al.(2012)Baddeley, Graham, Husbands \&
+  Philippides}]{Baddeley2012}
+\bibinfo{author}{Baddeley, B.}, \bibinfo{author}{Graham, P.},
+  \bibinfo{author}{Husbands, P.}, \& \bibinfo{author}{Philippides, A.}
+  (\bibinfo{year}{2012}).
+\newblock \bibinfo{title}{A model of ant route navigation driven by scene
+  familiarity}.
+\newblock {\it \bibinfo{journal}{PLoS computational biology}\/},  {\it
+  \bibinfo{volume}{8}\/}, \bibinfo{pages}{e1002336}.
+%Type = Article
+\bibitem[{Barchi et~al.(2013)Barchi, Knowles \& Simmons}]{Barchi2013}
+\bibinfo{author}{Barchi, J.~R.}, \bibinfo{author}{Knowles, J.~M.}, \&
+  \bibinfo{author}{Simmons, J.~A.} (\bibinfo{year}{2013}).
+\newblock \bibinfo{title}{Spatial memory and stereotypy of flight paths by big
+  brown bats in cluttered surroundings}.
+\newblock {\it \bibinfo{journal}{Journal of Experimental Biology}\/},  {\it
+  \bibinfo{volume}{216}\/}, \bibinfo{pages}{1053--1063}.
+%Type = Book
+\bibitem[{Braitenberg \& Sch{\"u}z(2013)}]{Braitenberg2013}
+\bibinfo{author}{Braitenberg, V.}, \& \bibinfo{author}{Sch{\"u}z, A.}
+  (\bibinfo{year}{2013}).
+\newblock {\it \bibinfo{title}{Cortex: statistics and geometry of neuronal
+  connectivity}\/}.
+\newblock \bibinfo{publisher}{Springer Science \& Business Media}.
+%Type = Article
+\bibitem[{Dau et~al.(1996)Dau, P{\"u}schel \& Kohlrausch}]{Dau1996}
+\bibinfo{author}{Dau, T.}, \bibinfo{author}{P{\"u}schel, D.}, \&
+  \bibinfo{author}{Kohlrausch, A.} (\bibinfo{year}{1996}).
+\newblock \bibinfo{title}{A quantitative model of the
+  ‘‘effective’’signal processing in the auditory system. i. model
+  structure}.
+\newblock {\it \bibinfo{journal}{The Journal of the Acoustical Society of
+  America}\/},  {\it \bibinfo{volume}{99}\/}, \bibinfo{pages}{3615--3622}.
+%Type = Article
+\bibitem[{Franz \& Mallot(2000)}]{Franz2000}
+\bibinfo{author}{Franz, M.~O.}, \& \bibinfo{author}{Mallot, H.~A.}
+  (\bibinfo{year}{2000}).
+\newblock \bibinfo{title}{Biomimetic robot navigation}.
+\newblock {\it \bibinfo{journal}{Robotics and autonomous Systems}\/},  {\it
+  \bibinfo{volume}{30}\/}, \bibinfo{pages}{133--153}.
+%Type = Article
+\bibitem[{Geberl et~al.(2019)Geberl, Kugler \& Wiegrebe}]{Geberl2019}
+\bibinfo{author}{Geberl, C.}, \bibinfo{author}{Kugler, K.}, \&
+  \bibinfo{author}{Wiegrebe, L.} (\bibinfo{year}{2019}).
+\newblock \bibinfo{title}{The {{Spatial Resolution}} of {{Bat Biosonar
+  Quantified}} with a {{Visual}}-{{Resolution Paradigm}}}.
+\newblock {\it \bibinfo{journal}{Current Biology}\/},  (p.
+  \bibinfo{pages}{S0960982219304750}).
+%Type = Book
+\bibitem[{Ghotra \& Dua(2017)}]{Ghotra2017}
+\bibinfo{author}{Ghotra, M.~S.}, \& \bibinfo{author}{Dua, R.}
+  (\bibinfo{year}{2017}).
+\newblock {\it \bibinfo{title}{Neural Network Programming with TensorFlow:
+  Unleash the power of TensorFlow to train efficient neural networks}\/}.
+\newblock \bibinfo{publisher}{Packt Publishing Ltd}.
+%Type = Article
+\bibitem[{Hawkins(2004)}]{Hawkins2004}
+\bibinfo{author}{Hawkins, D.~M.} (\bibinfo{year}{2004}).
+\newblock \bibinfo{title}{The {{Problem}} of {{Overfitting}}}.
+\newblock {\it \bibinfo{journal}{Journal of Chemical Information and Computer
+  Sciences}\/},  {\it \bibinfo{volume}{44}\/}, \bibinfo{pages}{1--12}.
+%Type = Article
+\bibitem[{Jakobsen et~al.(2012)Jakobsen, Ratcliffe \& Surlykke}]{Jakobsen2012}
+\bibinfo{author}{Jakobsen, L.}, \bibinfo{author}{Ratcliffe, J.~M.}, \&
+  \bibinfo{author}{Surlykke, A.} (\bibinfo{year}{2012}).
+\newblock \bibinfo{title}{Convergent acoustic field of view in echolocating
+  bats}.
+\newblock {\it \bibinfo{journal}{Nature}\/},  {\it \bibinfo{volume}{493}\/},
+  \bibinfo{pages}{93--96}.
+%Type = Article
+\bibitem[{Jensen et~al.(2005)Jensen, Moss \& Surlykke}]{Jensen2005}
+\bibinfo{author}{Jensen, M.~E.}, \bibinfo{author}{Moss, C.~F.}, \&
+  \bibinfo{author}{Surlykke, A.} (\bibinfo{year}{2005}).
+\newblock \bibinfo{title}{Echolocating bats can use acoustic landmarks for
+  spatial orientation}.
+\newblock {\it \bibinfo{journal}{Journal of experimental biology}\/},  {\it
+  \bibinfo{volume}{208}\/}, \bibinfo{pages}{4399--4410}.
+%Type = Article
+\bibitem[{Kingma \& Ba(2014)}]{Kingma2014}
+\bibinfo{author}{Kingma, D.~P.}, \& \bibinfo{author}{Ba, J.}
+  (\bibinfo{year}{2014}).
+\newblock \bibinfo{title}{Adam: A method for stochastic optimization}.
+\newblock {\it \bibinfo{journal}{arXiv preprint arXiv:1412.6980}\/}, .
+%Type = Article
+\bibitem[{Kuc(1997{\natexlab{a}})}]{Kuc1997}
+\bibinfo{author}{Kuc, R.} (\bibinfo{year}{1997}{\natexlab{a}}).
+\newblock \bibinfo{title}{Biomimetic sonar recognizes objects using binaural
+  information}.
+\newblock {\it \bibinfo{journal}{The Journal of the Acoustical Society of
+  America}\/},  {\it \bibinfo{volume}{102}\/}, \bibinfo{pages}{689--696}.
+%Type = Article
+\bibitem[{Kuc(1997{\natexlab{b}})}]{Kuc1997b}
+\bibinfo{author}{Kuc, R.~B.} (\bibinfo{year}{1997}{\natexlab{b}}).
+\newblock \bibinfo{title}{Biomimetic sonar differentiates coin head from tail}.
+\newblock {\it \bibinfo{journal}{The Journal of the Acoustical Society of
+  America}\/},  {\it \bibinfo{volume}{101}\/}, \bibinfo{pages}{3198}.
+%Type = Article
+\bibitem[{Lin et~al.(2017)Lin, Tegmark \& Rolnick}]{Lin2017a}
+\bibinfo{author}{Lin, H.~W.}, \bibinfo{author}{Tegmark, M.}, \&
+  \bibinfo{author}{Rolnick, D.} (\bibinfo{year}{2017}).
+\newblock \bibinfo{title}{Why {{Does Deep}} and {{Cheap Learning Work So
+  Well}}?}
+\newblock {\it \bibinfo{journal}{Journal of Statistical Physics}\/},  {\it
+  \bibinfo{volume}{168}\/}, \bibinfo{pages}{1223--1247}.
+%Type = Inproceedings
+\bibitem[{Mansour et~al.(2019)Mansour, Koreman, Laurijssen, Steckel, Peremans
+  \& Vanderelst}]{Mansour2019}
+\bibinfo{author}{Mansour, C.~B.}, \bibinfo{author}{Koreman, E.},
+  \bibinfo{author}{Laurijssen, D.}, \bibinfo{author}{Steckel, J.},
+  \bibinfo{author}{Peremans, H.}, \& \bibinfo{author}{Vanderelst, D.}
+  (\bibinfo{year}{2019}).
+\newblock \bibinfo{title}{Robotic models of obstacle avoidance in bats}.
+\newblock In {\it \bibinfo{booktitle}{The 2018 Conference on Artificial Life: A
+  Hybrid of the European Conference on Artificial Life (ECAL) and the
+  International Conference on the Synthesis and Simulation of Living Systems
+  (ALIFE)}\/} (pp. \bibinfo{pages}{463--464}).
+\newblock \bibinfo{organization}{MIT Press}.
+%Type = Book
+\bibitem[{McLeod et~al.(1998)McLeod, Plunkett \& Rolls}]{Mcleod1998}
+\bibinfo{author}{McLeod, P.}, \bibinfo{author}{Plunkett, K.}, \&
+  \bibinfo{author}{Rolls, E.~T.} (\bibinfo{year}{1998}).
+\newblock {\it \bibinfo{title}{Introduction to connectionist modelling of
+  cognitive processes.}\/}.
+\newblock \bibinfo{publisher}{Oxford University Press}.
+%Type = Article
+\bibitem[{Reijniers et~al.(2010)Reijniers, Vanderelst \&
+  Peremans}]{Reijniers2010}
+\bibinfo{author}{Reijniers, J.}, \bibinfo{author}{Vanderelst, D.}, \&
+  \bibinfo{author}{Peremans, H.} (\bibinfo{year}{2010}).
+\newblock \bibinfo{title}{Morphology-induced information transfer in bat
+  sonar}.
+\newblock {\it \bibinfo{journal}{Physical review letters}\/},  {\it
+  \bibinfo{volume}{105}\/}, \bibinfo{pages}{148701}.
+%Type = Article
+\bibitem[{Simmons et~al.(1989)Simmons, Freedman, Stevenson, Chen \&
+  Wohlgenant}]{Simmons1989}
+\bibinfo{author}{Simmons, J.~A.}, \bibinfo{author}{Freedman, E.~G.},
+  \bibinfo{author}{Stevenson, S.~B.}, \bibinfo{author}{Chen, L.}, \&
+  \bibinfo{author}{Wohlgenant, T.~J.} (\bibinfo{year}{1989}).
+\newblock \bibinfo{title}{{Clutter interference and the integration time of
+  echoes in the echolocating bat, Eptesicus fuscus}}.
+\newblock {\it \bibinfo{journal}{The Journal of the Acoustical Society of
+  America}\/},  {\it \bibinfo{volume}{86}\/}, \bibinfo{pages}{1318--1332}.
+%Type = Article
+\bibitem[{Steckel et~al.(2013)Steckel, Boen \& Peremans}]{Steckel2013a}
+\bibinfo{author}{Steckel, J.}, \bibinfo{author}{Boen, A.}, \&
+  \bibinfo{author}{Peremans, H.} (\bibinfo{year}{2013}).
+\newblock \bibinfo{title}{Broadband {3-D} sonar system using a sparse array for
+  indoor navigation}.
+\newblock {\it \bibinfo{journal}{IEEE Transactions on Robotics}\/},  {\it
+  \bibinfo{volume}{29}\/}, \bibinfo{pages}{161--171}.
+%Type = Article
+\bibitem[{Steckel \& Peremans(2013)}]{Steckel2013}
+\bibinfo{author}{Steckel, J.}, \& \bibinfo{author}{Peremans, H.}
+  (\bibinfo{year}{2013}).
+\newblock \bibinfo{title}{Batslam: Simultaneous localization and mapping using
+  biomimetic sonar}.
+\newblock {\it \bibinfo{journal}{PloS one}\/},  {\it \bibinfo{volume}{8}\/},
+  \bibinfo{pages}{e54076}.
+%Type = Article
+\bibitem[{Surlykke \& Bojesen(1996)}]{Surlykke1996}
+\bibinfo{author}{Surlykke, A.}, \& \bibinfo{author}{Bojesen, O.}
+  (\bibinfo{year}{1996}).
+\newblock \bibinfo{title}{Integration time for short broad band clicks in
+  echolocating fm-bats (eptesicus fuscus)}.
+\newblock {\it \bibinfo{journal}{Journal of Comparative Physiology A}\/},  {\it
+  \bibinfo{volume}{178}\/}, \bibinfo{pages}{235--241}.
+%Type = Article
+\bibitem[{Vanderelst(2015)}]{Vanderelst2015}
+\bibinfo{author}{Vanderelst, D.} (\bibinfo{year}{2015}).
+\newblock \bibinfo{title}{Social network analysis as a tool for research
+  policy}.
+\newblock {\it \bibinfo{journal}{Plos Neglected Tropical Diseases}\/}, .
+\newblock \bibinfo{note}{In press}.
+%Type = Article
+\bibitem[{Vanderelst et~al.(2010)Vanderelst, De~Mey, Peremans, Geipel, Kalko \&
+  Firzlaff}]{Vanderelst2010a}
+\bibinfo{author}{Vanderelst, D.}, \bibinfo{author}{De~Mey, F.},
+  \bibinfo{author}{Peremans, H.}, \bibinfo{author}{Geipel, I.},
+  \bibinfo{author}{Kalko, E.}, \& \bibinfo{author}{Firzlaff, U.}
+  (\bibinfo{year}{2010}).
+\newblock \bibinfo{title}{What noseleaves do for fm bats depends on their
+  degree of sensorial specialization}.
+\newblock {\it \bibinfo{journal}{PLOS ONE}\/},  {\it \bibinfo{volume}{5}\/},
+  \bibinfo{pages}{e11893}.
+%Type = Article
+\bibitem[{Vanderelst \& Peremans(2017)}]{Vanderelst2017}
+\bibinfo{author}{Vanderelst, D.}, \& \bibinfo{author}{Peremans, H.}
+  (\bibinfo{year}{2017}).
+\newblock \bibinfo{title}{A computational model of mapping in echolocating
+  bats}.
+\newblock {\it \bibinfo{journal}{Animal Behaviour}\/},  {\it
+  \bibinfo{volume}{131}\/}, \bibinfo{pages}{73--88}.
+%Type = Article
+\bibitem[{Vanderelst et~al.(2015)Vanderelst, Peremans \&
+  Holderied}]{Vanderelst2015a}
+\bibinfo{author}{Vanderelst, D.}, \bibinfo{author}{Peremans, H.}, \&
+  \bibinfo{author}{Holderied, M.} (\bibinfo{year}{2015}).
+\newblock \bibinfo{title}{Sensorimotor model of obstacle avoidance in
+  echolocating bats}.
+\newblock {\it \bibinfo{journal}{PLoS Computational Biology}\/}, .
+\newblock \bibinfo{note}{Paper accepted pending minor revisions}.
+%Type = Article
+\bibitem[{Vanderelst et~al.(2016)Vanderelst, Steckel, Boen, Peremans \&
+  Holderied}]{Vanderelst2016}
+\bibinfo{author}{Vanderelst, D.}, \bibinfo{author}{Steckel, J.},
+  \bibinfo{author}{Boen, A.}, \bibinfo{author}{Peremans, H.}, \&
+  \bibinfo{author}{Holderied, M.~W.} (\bibinfo{year}{2016}).
+\newblock \bibinfo{title}{Place recognition using batlike sonar}.
+\newblock {\it \bibinfo{journal}{Elife}\/},  {\it \bibinfo{volume}{5}\/},
+  \bibinfo{pages}{e14188}.
+%Type = Article
+\bibitem[{Verboom et~al.(1999)Verboom, Boonman \& Limpens}]{Verboom1999}
+\bibinfo{author}{Verboom, B.}, \bibinfo{author}{Boonman, A.~M.}, \&
+  \bibinfo{author}{Limpens, H.~J.} (\bibinfo{year}{1999}).
+\newblock \bibinfo{title}{Acoustic perception of landscape elements by the pond
+  bat (myotis dasycneme)}.
+\newblock {\it \bibinfo{journal}{Journal of Zoology}\/},  {\it
+  \bibinfo{volume}{248}\/}, \bibinfo{pages}{59--66}.
+%Type = Inbook
+\bibitem[{Von~Helversen \& Winter(2005)}]{VonHelversen2005}
+\bibinfo{author}{Von~Helversen, O.}, \& \bibinfo{author}{Winter, Y.}
+  (\bibinfo{year}{2005}).
+\newblock \bibinfo{title}{Bat ecology}.
+\newblock chapter \bibinfo{chapter}{Glossophagine Bats and Their Flowers: Costs
+  and Benefits for Plants and Pollinators}. (p. \bibinfo{pages}{346}).
+\newblock \bibinfo{publisher}{University of Chicago Press}.
+%Type = Article
+\bibitem[{Warnecke et~al.(2018)Warnecke, Mac{\'i}as, Falk \&
+  Moss}]{Warnecke2018}
+\bibinfo{author}{Warnecke, M.}, \bibinfo{author}{Mac{\'i}as, S.},
+  \bibinfo{author}{Falk, B.}, \& \bibinfo{author}{Moss, C.~F.}
+  (\bibinfo{year}{2018}).
+\newblock \bibinfo{title}{Echo interval and not echo intensity drives bat
+  flight behavior in structured corridors}.
+\newblock {\it \bibinfo{journal}{The Journal of Experimental Biology}\/},  {\it
+  \bibinfo{volume}{221}\/}, \bibinfo{pages}{jeb191155}.
+%Type = Article
+\bibitem[{Wiegrebe(2008)}]{Wiegrebe2008}
+\bibinfo{author}{Wiegrebe, L.} (\bibinfo{year}{2008}).
+\newblock \bibinfo{title}{An autocorrelation model of bat sonar}.
+\newblock {\it \bibinfo{journal}{Biological cybernetics}\/},  {\it
+  \bibinfo{volume}{98}\/}, \bibinfo{pages}{587--595}.
+%Type = Article
+\bibitem[{Wiegrebe \& Schmidt(1996)}]{Wiegrebe1996}
+\bibinfo{author}{Wiegrebe, L.}, \& \bibinfo{author}{Schmidt, S.}
+  (\bibinfo{year}{1996}).
+\newblock \bibinfo{title}{Temporal integration in the echolocating bat,
+  megaderma lyra}.
+\newblock {\it \bibinfo{journal}{Hearing research}\/},  {\it
+  \bibinfo{volume}{102}\/}, \bibinfo{pages}{35--42}.
+%Type = Incollection
+\bibitem[{Williams(2000)}]{Williams2000}
+\bibinfo{author}{Williams, R.~W.} (\bibinfo{year}{2000}).
+\newblock \bibinfo{title}{Mapping genes that modulate mouse brain development:
+  a quantitative genetic approach}.
+\newblock In {\it \bibinfo{booktitle}{Mouse brain development}\/} (pp.
+  \bibinfo{pages}{21--49}).
+\newblock \bibinfo{publisher}{Springer}.
+%Type = Article
+\bibitem[{Yovel et~al.(2009)Yovel, Stilz, Franz, Boonman \&
+  Schnitzler}]{Yovel2009}
+\bibinfo{author}{Yovel, Y.}, \bibinfo{author}{Stilz, P.},
+  \bibinfo{author}{Franz, M.~O.}, \bibinfo{author}{Boonman, A.}, \&
+  \bibinfo{author}{Schnitzler, H.~U.} (\bibinfo{year}{2009}).
+\newblock \bibinfo{title}{{What a plant sounds like: The statistics of
+  vegetation echoes as received by echolocating bats}}.
+\newblock {\it \bibinfo{journal}{PLoS Computational Biology}\/},  {\it
+  \bibinfo{volume}{5}\/}.
+%Type = Article
+\bibitem[{Yu et~al.(2019)Yu, Luo, Wohlgemuth \& Moss}]{Yu2019}
+\bibinfo{author}{Yu, C.}, \bibinfo{author}{Luo, J.},
+  \bibinfo{author}{Wohlgemuth, M.}, \& \bibinfo{author}{Moss, C.~F.}
+  (\bibinfo{year}{2019}).
+\newblock \bibinfo{title}{Echolocating bats inspect and discriminate landmark
+  features to guide navigation}.
+\newblock {\it \bibinfo{journal}{The Journal of Experimental Biology}\/},  (p.
+  \bibinfo{pages}{jeb.191965}).
+
+\end{thebibliography}
