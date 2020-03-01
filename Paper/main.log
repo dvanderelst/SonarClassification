@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019) (preloaded format=pdflatex 2019.7.10)  28 FEB 2020 13:17
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019) (preloaded format=pdflatex 2019.7.10)  29 FEB 2020 15:02
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -717,6 +717,15 @@ LaTeX Font Info:    Try loading font information for U+msb on input line 87.
 (/usr/local/texlive/2019/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
+Package hyperref Info: bookmark level for unknown todo defaults to 0 on input l
+ine 107.
+
+Overfull \hbox (4.49133pt too wide) in paragraph at lines 109--110
+\OT1/cmr/m/n/10 of in-for-ma-tion ([][]Kuc[][], [][]1997b[][],[][]a[][]). We pr
+e-vi-ously demon-strated
+ []
+
+
 Overfull \hbox (2.22221pt too wide) has occurred while \output is active
 [] 
  []
@@ -725,27 +734,27 @@ Overfull \hbox (2.22221pt too wide) has occurred while \output is active
 
 
 ]
-<../results/synthetic_templates.pdf, id=178, 867.24pt x 505.89pt>
+<../results/synthetic_templates.pdf, id=186, 867.24pt x 505.89pt>
 File: ../results/synthetic_templates.pdf Graphic file (type pdf)
 <use ../results/synthetic_templates.pdf>
 Package pdftex.def Info: ../results/synthetic_templates.pdf  used on input line
  129.
 (pdftex.def)             Requested size: 522.0pt x 304.51668pt.
-<../results/components.pdf, id=190, 722.7pt x 505.89pt>
+<../results/components.pdf, id=198, 722.7pt x 505.89pt>
 File: ../results/components.pdf Graphic file (type pdf)
 <use ../results/components.pdf>
-Package pdftex.def Info: ../results/components.pdf  used on input line 140.
+Package pdftex.def Info: ../results/components.pdf  used on input line 142.
 (pdftex.def)             Requested size: 252.0pt x 176.40028pt.
 
-Overfull \hbox (8.6115pt too wide) in paragraph at lines 145--146
+Overfull \hbox (8.6115pt too wide) in paragraph at lines 147--148
 \OT1/cmr/m/n/10 re-ceived by bats can be con-sid-ered as gen-er-ated by anisotr
 op-
  []
 
-<figures/datacollection.pdf, id=197, 476.29135pt x 581.09995pt>
+<figures/datacollection.pdf, id=205, 476.29135pt x 581.09995pt>
 File: figures/datacollection.pdf Graphic file (type pdf)
 <use figures/datacollection.pdf>
-Package pdftex.def Info: figures/datacollection.pdf  used on input line 155.
+Package pdftex.def Info: figures/datacollection.pdf  used on input line 157.
 (pdftex.def)             Requested size: 252.0pt x 307.45836pt.
 [2] [3 <../results/synthetic_templates.pdf>] [4 <../results/components.pdf> <./
 figures/datacollection.pdf
@@ -753,43 +762,43 @@ figures/datacollection.pdf
 pdfTeX warning: /usr/local/bin/pdflatex (file ./figures/datacollection.pdf): PD
 F inclusion: multiple pdfs with page group included in a single page
 >]
-Overfull \hbox (5.0467pt too wide) in paragraph at lines 182--183
+Overfull \hbox (5.0467pt too wide) in paragraph at lines 184--185
 \OT1/cmr/m/n/10 for-ma-tion to be rec-og-nized. Pre-vi-ously, we as-sessed whet
 her
  []
 
-<figures/networks.pdf, id=326, 469.04712pt x 284.82687pt>
+<figures/networks.pdf, id=337, 469.04712pt x 284.82687pt>
 File: figures/networks.pdf Graphic file (type pdf)
 <use figures/networks.pdf>
-Package pdftex.def Info: figures/networks.pdf  used on input line 196.
+Package pdftex.def Info: figures/networks.pdf  used on input line 198.
 (pdftex.def)             Requested size: 252.0pt x 153.03061pt.
 [5 <./figures/networks.pdf>]
-<../results/templates.pdf, id=356, 722.7pt x 361.35pt>
+<../results/templates.pdf, id=365, 722.7pt x 361.35pt>
 File: ../results/templates.pdf Graphic file (type pdf)
 <use ../results/templates.pdf>
-Package pdftex.def Info: ../results/templates.pdf  used on input line 217.
+Package pdftex.def Info: ../results/templates.pdf  used on input line 219.
 (pdftex.def)             Requested size: 252.0pt x 126.00021pt.
 
-Overfull \hbox (2.66702pt too wide) in paragraph at lines 222--223
+Overfull \hbox (2.66702pt too wide) in paragraph at lines 224--225
 []\OT1/cmr/m/n/10 In our pre-vi-ous work [][]Van-derelst et al.[][] ([][]2016[]
 []), we showed
  []
 
-<../results/history.pdf, id=360, 361.35pt x 180.675pt>
+<../results/history.pdf, id=369, 361.35pt x 180.675pt>
 File: ../results/history.pdf Graphic file (type pdf)
 <use ../results/history.pdf>
-Package pdftex.def Info: ../results/history.pdf  used on input line 228.
+Package pdftex.def Info: ../results/history.pdf  used on input line 230.
 (pdftex.def)             Requested size: 252.0pt x 126.0002pt.
-<figures/israel_performance.pdf, id=364, 867.24pt x 722.7pt>
+<figures/israel_performance.pdf, id=373, 867.24pt x 722.7pt>
 File: figures/israel_performance.pdf Graphic file (type pdf)
 <use figures/israel_performance.pdf>
-Package pdftex.def Info: figures/israel_performance.pdf  used on input line 240
+Package pdftex.def Info: figures/israel_performance.pdf  used on input line 242
 .
 (pdftex.def)             Requested size: 522.0pt x 435.02383pt.
-<figures/royal_performance.pdf, id=367, 867.24pt x 722.7pt>
+<figures/royal_performance.pdf, id=376, 867.24pt x 722.7pt>
 File: figures/royal_performance.pdf Graphic file (type pdf)
 <use figures/royal_performance.pdf>
-Package pdftex.def Info: figures/royal_performance.pdf  used on input line 249.
+Package pdftex.def Info: figures/royal_performance.pdf  used on input line 251.
 
 (pdftex.def)             Requested size: 522.0pt x 435.02383pt.
 [6 <../results/templates.pdf> <../results/history.pdf
@@ -797,13 +806,11 @@ Package pdftex.def Info: figures/royal_performance.pdf  used on input line 249.
 pdfTeX warning: /usr/local/bin/pdflatex (file ../results/history.pdf): PDF incl
 usion: multiple pdfs with page group included in a single page
 >] [7 <./figures/israel_performance.pdf>] [8 <./figures/royal_performance.pdf>]
-(./main.bbl [9]) [10
-
-]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 297.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 297.
+(./main.bbl [9]) [10]
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 299.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 299.
  (./main.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 297.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 299.
 
 
  *File List*
@@ -904,19 +911,19 @@ figures/royal_performance.pdf
     main.bbl
  ***********
 
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 297.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 299.
 Package rerunfilecheck Info: File `main.out' has not changed.
 (rerunfilecheck)             Checksum: 16A7821C743AA8EC67216B988108ABC5;1077.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 297.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 299.
  ) 
 Here is how much of TeX's memory you used:
- 17509 strings out of 492609
- 329964 string characters out of 6129033
- 415978 words of memory out of 5000000
- 21040 multiletter control sequences out of 15000+600000
+ 17578 strings out of 492609
+ 331694 string characters out of 6129033
+ 419237 words of memory out of 5000000
+ 21107 multiletter control sequences out of 15000+600000
  9743 words of font info for 38 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 62i,8n,81p,1186b,495s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 62i,8n,81p,1186b,866s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb
 ></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb>
 </usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></
@@ -929,10 +936,10 @@ xlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/tex
 live/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texli
 ve/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/local/texliv
 e/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmti8.pfb>
-Output written on main.pdf (10 pages, 3462721 bytes).
+Output written on main.pdf (10 pages, 2657325 bytes).
 PDF statistics:
- 670 PDF objects out of 1000 (max. 8388607)
- 400 compressed objects within 4 object streams
- 71 named destinations out of 1000 (max. 500000)
+ 683 PDF objects out of 1000 (max. 8388607)
+ 409 compressed objects within 5 object streams
+ 73 named destinations out of 1000 (max. 500000)
  277 words of extra memory for PDF output out of 10000 (max. 10000000)
 

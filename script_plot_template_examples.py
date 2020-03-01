@@ -25,8 +25,8 @@ mx_templates = 0.35
 mn_templates = 0.15
 
 label0 = '5_5_0'
-label1 = '40_40_0'
-label2 = '160_160_0'
+label1 = '10_10_0'
+label2 = '250_250_0'
 
 echo_0 = synthetic_echoes[label0]
 echo_1 = synthetic_echoes[label1]

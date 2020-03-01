@@ -14,9 +14,9 @@ pyplot.style.use(settings.style)
 # n_seed_levels = [5, 10, 20, 40, 80, 160, 320]
 # n_cloud_levels = [5, 10, 20, 40, 80, 160, 320]
 
-repeats = 10
-n_seed_levels = [1, 2, 5, 10, 250]
-n_cloud_levels = [1, 2, 5, 10, 250]
+repeats = 25
+n_seed_levels = [1, 2, 5, 10, 20, 250]
+n_cloud_levels = [1, 2, 5, 10, 20,  250]
 
 print('---> CREATE SYNTHETIC TEMPLATES')
 
@@ -53,6 +53,7 @@ for seed_level_i in range(len(n_seed_levels)):
 
             # Make echo sequence
             echo_sequence = generate_functions.distances2echo_sequence(distances, caller, emission)
+            #numpy.random.shuffle(echo_sequence)
 
             # Store echoes
             a = n_seed_levels[seed_level_i]

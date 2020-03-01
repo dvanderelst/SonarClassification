@@ -51,3 +51,13 @@ print(table)
 
 pyplot.imshow(table)
 pyplot.show()
+
+#%%
+selected = 1
+t = templates_synthetic[selected,:]
+r = reconstructed_synthetic[selected,:]
+
+pyplot.plot(t)
+pyplot.plot(r)
+
+pyplot.show()

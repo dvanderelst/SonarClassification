@@ -24,17 +24,23 @@ def create_emission():
     return emission
 
 def generative_model(parameters):
-    minimum_distance = 0.25
-    standard_deviation = 0.05
+    minimum_distance = 1
+    maximum_distance = 7
+    standard_deviation = 0.1
     n_seed_points = parameters.pop('n_seed_points')
     n_cloud_points = parameters.pop('n_cloud_points')
     keys = parameters.keys()
     if len(keys) > 0: print('***********Warning', keys)
     distances = numpy.array([])
-    seed_points = random.uniform(minimum_distance, 7, n_seed_points)
+    seed_points = random.uniform(minimum_distance, maximum_distance, n_seed_points)
     for loc in seed_points:
         g = random.normal(loc=loc, scale=standard_deviation, size=n_cloud_points)
         distances = numpy.concatenate((distances, g))
+
+    # add close echo to ensure that even seqs with low n have a strong echo
+    close = random.uniform(minimum_distance, minimum_distance+1, 1)
+    g = numpy.array([minimum_distance])
+    distances = numpy.concatenate((distances, close))
     return distances
 
 def distances2echo_sequence(distances, caller, emission):
