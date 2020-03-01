@@ -23,6 +23,7 @@ def create_emission():
     emission = emission * emission_window
     return emission
 
+
 def generative_model(parameters):
     minimum_distance = 1
     maximum_distance = 7
@@ -80,10 +81,10 @@ def echo_sequence2template(echo_sequence, wiegrebe):
     wiegrebe_result = wiegrebe_result.reshape(1, -1)
 
     # Subsample
-    mask = numpy.ones((1, integration_samples))
-    mask = mask / numpy.sum(mask)
-    wiegrebe_result = convolve(wiegrebe_result, mask, mode='same')
-    wiegrebe_result = wiegrebe_result[:, ::integration_samples]
+    #mask = numpy.ones((1, integration_samples))
+    #mask = mask / numpy.sum(mask)
+    #wiegrebe_result = convolve(wiegrebe_result, mask, mode='same')
+    #wiegrebe_result = wiegrebe_result[:, ::integration_samples]
     wiegrebe_result = wiegrebe_result[0]
     return wiegrebe_result
 
