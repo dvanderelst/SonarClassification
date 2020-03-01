@@ -17,14 +17,14 @@ def preprocess(file_name, verbose=True):
 
     initial_omission_samples = math.ceil(initial_zero_time * fs)
     integration_samples = math.ceil(fs * integration_time)
-    final_samples = math.ceil(raw_collected_samples / integration_samples)
+    #final_samples = math.ceil(raw_collected_samples / integration_samples)
 
     if verbose:
         print('+-' * 10 + '+')
         print('PREPROCESSING', file_name)
-        print('integration samples', integration_samples)
+        #print('integration samples', integration_samples)
         print('initial zero samples', initial_omission_samples)
-        print('final samples', final_samples)
+        #print('final samples', final_samples)
 
     data = io.loadmat(file_name)
     data = data['Templates']
@@ -32,7 +32,8 @@ def preprocess(file_name, verbose=True):
     azimuth = data[0, 0][1]
     elevation = data[0, 0][2]
 
-    processed = numpy.zeros((7, 31, final_samples, 3))
+    #processed = numpy.zeros((7, 31, final_samples, 3))
+    processed = numpy.zeros((7, 31, raw_collected_samples, 3))
 
     for i in range(3):
         repetition = templates[:, :, i]
@@ -54,12 +55,21 @@ def preprocess(file_name, verbose=True):
         el_box = el_box[numpy.ix_(row_indices, col_indices)]
         mn_box = mn_box[numpy.ix_(row_indices, col_indices)]
 
-        # Average across directions and time
-        mask = numpy.ones((3, 3, integration_samples))
+        # Average across directions
+        mask = numpy.ones((3, 3, 1))
         mask = mask / numpy.sum(mask)
         mn_box = convolve(mn_box, mask, mode='same')
-        # Subsample
-        mn_box = mn_box[:, :, ::integration_samples]
+
+        # # Average across directions and time
+        # mask = numpy.ones((3, 3, integration_samples))
+        # mask = mask / numpy.sum(mask)
+        # mn_box = convolve(mn_box, mask, mode='same')
+        # # Subsample
+        # mn_box = mn_box[:, :, ::integration_samples]
+
+        if verbose: print('final samples', mn_box.shape[2])
+
+
         processed[:, :, :, i] = mn_box
         processed[processed < noise_floor] = noise_floor
     return processed, az_box, el_box
@@ -94,7 +104,6 @@ def process_data_set(data_set, filter_threshold = 0.1):
         mns = numpy.mean(data, axis=3)
         vrs = numpy.var(data, axis=3)
 
-        print(data.shape)
         all_mns[i, :, :, :] = mns
         all_vrs[i, :, :, :] = vrs
 

@@ -9,84 +9,81 @@ from library import misc, process_functions, settings
 data_set = 'royal'
 
 
-generate_data = False
-do_training = True
 layers = [50, 75, 75, 50]
 nr_epochs = 5000
 
 for selected_dimension in ['lcs', 'azs','els']:
     file_names = misc.folder_names(data_set, selected_dimension)
-    if generate_data: process_functions.process_data_set(data_set)
-    if do_training:
-        # Read prepared data
-        data = numpy.load(file_names['npz_file'])
-        pca_model = misc.pickle_load(settings.pca_file)
 
-        # Select inputs
-        if selected_dimension == 'lcs': unencoded_data = data['long_lcs']
-        if selected_dimension == 'azs': unencoded_data = data['long_azs']
-        if selected_dimension == 'els': unencoded_data = data['long_els']
-        if selected_dimension == 'lcs' and data_set in ['israel', 'royal']: unencoded_data = misc.map_lcs_to_distances(data)
+    # Read prepared data
+    data = numpy.load(file_names['npz_file'])
+    pca_model = misc.pickle_load(settings.pca_file)
 
-        # Encode targets
-        encoder, targets = process_functions.get_encoding(unencoded_data)
-        target_n = targets.shape[1]
+    # Select inputs
+    if selected_dimension == 'lcs': unencoded_data = data['long_lcs']
+    if selected_dimension == 'azs': unencoded_data = data['long_azs']
+    if selected_dimension == 'els': unencoded_data = data['long_els']
+    if selected_dimension == 'lcs' and data_set in ['israel', 'royal']: unencoded_data = misc.map_lcs_to_distances(data)
 
-        # Get PCA-ed template inputs
-        templates = data['long_data']
-        pca_templates = pca_model.transform(templates)
-        n_components = settings.n_components
-        inputs = pca_templates[:, :n_components]
+    # Encode targets
+    encoder, targets = process_functions.get_encoding(unencoded_data)
+    target_n = targets.shape[1]
 
-        # Scale inputs to a minimum of zero
-        inputs = inputs - numpy.min(inputs)
+    # Get PCA-ed template inputs
+    templates = data['long_data']
+    pca_templates = pca_model.transform(templates)
+    n_components = settings.n_components
+    inputs = pca_templates[:, :n_components]
 
-        # Make model
-        model = keras.Sequential()
-        noise_layer = keras.layers.GaussianNoise(input_shape=(n_components,), stddev=settings.stochaistic_noise * 1)
-        output_layer = keras.layers.Dense(target_n, activation='softmax')
-        model.add(noise_layer)
-        for nodes in layers: model.add(keras.layers.Dense(nodes, activation='relu'))
-        model.add(output_layer)
+    # Scale inputs to a minimum of zero
+    inputs = inputs - numpy.min(inputs)
 
-        # Train Model
-        loss = keras.losses.CategoricalCrossentropy()
-        model.compile('adam', loss=loss)
-        training_history = model.fit(inputs, targets, epochs=nr_epochs)
-        model.save(file_names['model_file'])
+    # Make model
+    model = keras.Sequential()
+    noise_layer = keras.layers.GaussianNoise(input_shape=(n_components,), stddev=settings.stochaistic_noise * 1)
+    output_layer = keras.layers.Dense(target_n, activation='softmax')
+    model.add(noise_layer)
+    for nodes in layers: model.add(keras.layers.Dense(nodes, activation='relu'))
+    model.add(output_layer)
 
-        predictions_matrix = model.predict(inputs)
-        binary_predictions = misc.binarize_prediction(predictions_matrix)
-        interpreted_predictions = encoder.inverse_transform(binary_predictions)
-        interpreted_predictions = interpreted_predictions.flatten()
+    # Train Model
+    loss = keras.losses.CategoricalCrossentropy()
+    model.compile('adam', loss=loss)
+    training_history = model.fit(inputs, targets, epochs=nr_epochs)
+    model.save(file_names['model_file'])
 
-        results = {'target': unencoded_data, 'prediction': interpreted_predictions}
-        results = pandas.DataFrame(results)
-        results['dummy'] = 1
-        misc.pickle_save(file_names['results_file'], results)
+    predictions_matrix = model.predict(inputs)
+    binary_predictions = misc.binarize_prediction(predictions_matrix)
+    interpreted_predictions = encoder.inverse_transform(binary_predictions)
+    interpreted_predictions = interpreted_predictions.flatten()
 
-        # Save history
-        misc.pickle_save(file_names['history_file'], training_history.history)
-        # Plot history
-        pyplot.plot(training_history.history['loss'])
-        pyplot.title(data_set + ' ' + selected_dimension)
-        pyplot.savefig(os.path.join(file_names['result_folder'],'plots',file_names['base_name'] + '_trace.png'))
-        pyplot.show()
+    results = {'target': unencoded_data, 'prediction': interpreted_predictions}
+    results = pandas.DataFrame(results)
+    results['dummy'] = 1
+    misc.pickle_save(file_names['results_file'], results)
 
-        # Plot errors
-        errors = interpreted_predictions - unencoded_data
-        pyplot.hist(errors, 100)
-        pyplot.title(data_set + ' ' + selected_dimension)
-        pyplot.savefig(os.path.join(file_names['result_folder'],'plots', file_names['base_name'] + '_errrors.png'))
-        pyplot.show()
+    # Save history
+    misc.pickle_save(file_names['history_file'], training_history.history)
+    # Plot history
+    pyplot.plot(training_history.history['loss'])
+    pyplot.title(data_set + ' ' + selected_dimension)
+    pyplot.savefig(os.path.join(file_names['result_folder'],'plots',file_names['base_name'] + '_trace.png'))
+    pyplot.show()
 
-        # Get confusion table and plot it
-        table, labels = misc.make_confusion_matrix(results)
-        pyplot.matshow(table)
-        pyplot.colorbar()
-        pyplot.title(data_set + ' ' + selected_dimension)
-        pyplot.savefig(os.path.join(file_names['result_folder'],'plots', file_names['base_name'] + '_matrix.png'))
-        pyplot.show()
+    # Plot errors
+    errors = interpreted_predictions - unencoded_data
+    pyplot.hist(errors, 100)
+    pyplot.title(data_set + ' ' + selected_dimension)
+    pyplot.savefig(os.path.join(file_names['result_folder'],'plots', file_names['base_name'] + '_errrors.png'))
+    pyplot.show()
+
+    # Get confusion table and plot it
+    table, labels = misc.make_confusion_matrix(results)
+    pyplot.matshow(table)
+    pyplot.colorbar()
+    pyplot.title(data_set + ' ' + selected_dimension)
+    pyplot.savefig(os.path.join(file_names['result_folder'],'plots', file_names['base_name'] + '_matrix.png'))
+    pyplot.show()
 
 # %%
 # keras.utils.plot_model(
