@@ -15,8 +15,8 @@ pyplot.style.use(settings.style)
 # n_cloud_levels = [5, 10, 20, 40, 80, 160, 320]
 
 repeats = 25
-n_seed_levels = [1, 2, 5, 10, 20, 250]
-n_cloud_levels = [1, 2, 5, 10, 20,  250]
+n_seed_levels = [1, 2]
+n_cloud_levels = [1, 2]
 
 print('---> CREATE SYNTHETIC TEMPLATES')
 
