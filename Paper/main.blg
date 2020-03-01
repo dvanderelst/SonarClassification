@@ -1,0 +1,49 @@
+This is BibTeX, Version 0.99d (TeX Live 2019)
+Capacity: max_strings=100000, hash_size=100000, hash_prime=85009
+The top-level auxiliary file: main.aux
+The style file: model5-names.bst
+Database file #1: references.bib
+Reallocated wiz_functions (elt_size=4) to 6000 items from 3000.
+Warning--empty booktitle in VonHelversen2005
+You've used 34 entries,
+            3092 wiz_defined-function locations,
+            890 strings with 11004 characters,
+and the built_in function-call counts, 23417 in all, are:
+= -- 1898
+> -- 1022
+< -- 21
++ -- 893
+- -- 288
+* -- 2602
+:= -- 3207
+add.period$ -- 107
+call.type$ -- 34
+change.case$ -- 269
+chr.to.int$ -- 33
+cite$ -- 35
+duplicate$ -- 1472
+empty$ -- 1449
+format.name$ -- 396
+if$ -- 4355
+int.to.chr$ -- 2
+int.to.str$ -- 1
+missing$ -- 297
+newline$ -- 181
+num.names$ -- 136
+pop$ -- 512
+preamble$ -- 1
+purify$ -- 232
+quote$ -- 0
+skip$ -- 719
+stack$ -- 0
+substring$ -- 1009
+swap$ -- 1314
+text.length$ -- 6
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 294
+warning$ -- 1
+while$ -- 147
+width$ -- 0
+write$ -- 484
+(There was 1 warning)

@@ -2,9 +2,7 @@ import numpy
 import pandas
 import scipy.spatial.distance as distance
 
-import misc
-import process_functions
-import settings
+from library import misc, process_functions, settings
 
 data_set = 'israel'
 generate_data = False

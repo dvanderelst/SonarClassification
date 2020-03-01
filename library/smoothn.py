@@ -87,9 +87,9 @@ def smoothn(y,nS0=10,axis=None,smoothOrder=2.0,sd=None,verbose=False,\
    y[[70, 75, 80]] = [5.5, 5, 6];
    z = smoothn(y); # Regular smoothing
    zr = smoothn(y,'robust'); # Robust smoothing
-   subplot(121), plot(x,y,'r.',x,z,'k','LineWidth',2)
+   subplot(121), plot(x,y,'seed_points.',x,z,'k','LineWidth',2)
    axis square, title('Regular smoothing')
-   subplot(122), plot(x,y,'r.',x,zr,'k','LineWidth',2)
+   subplot(122), plot(x,y,'seed_points.',x,zr,'k','LineWidth',2)
    axis square, title('Robust smoothing')
 
    # 2-D example
@@ -97,9 +97,9 @@ def smoothn(y,nS0=10,axis=None,smoothOrder=2.0,sd=None,verbose=False,\
    [x,y] = meshgrid(xp);
    f = exp(x+y) + sin((x-2*y)*3);
    fn = f + randn(size(f))*0.5;
-   fs = smoothn(fn);
+   sample_frequency = smoothn(fn);
    subplot(121), surf(xp,xp,fn), zlim([0 8]), axis square
-   subplot(122), surf(xp,xp,fs), zlim([0 8]), axis square
+   subplot(122), surf(xp,xp,sample_frequency), zlim([0 8]), axis square
 
    # 2-D example with missing data
    n = 256;
@@ -131,7 +131,7 @@ def smoothn(y,nS0=10,axis=None,smoothOrder=2.0,sd=None,verbose=False,\
    x = 2*cos(t).*(1-cos(t)) + randn(size(t))*0.1;
    y = 2*sin(t).*(1-cos(t)) + randn(size(t))*0.1;
    z = smoothn(complex(x,y));
-   plot(x,y,'r.',real(z),imag(z),'k','linewidth',2)
+   plot(x,y,'seed_points.',real(z),imag(z),'k','linewidth',2)
    axis equal tight
 
    # Cellular vortical flow
@@ -253,7 +253,8 @@ def smoothn(y,nS0=10,axis=None,smoothOrder=2.0,sd=None,verbose=False,\
     siz0[i] = sizy[i];
     # cos(pi*(reshape(1:sizy(i),siz0)-1)/sizy(i)))
     # (arange(1,sizy[i]+1).reshape(siz0) - 1.)/sizy[i]
-    Lambda = Lambda + (cos(pi*(arange(1,sizy[i]+1) - 1.)/sizy[i]).reshape(siz0))
+    d = int(siz0[0])
+    Lambda = Lambda + (cos(pi*(arange(1,sizy[i]+1) - 1.)/sizy[i]).reshape(d))
     #else:
     #  Lambda = Lambda + siz0
   Lambda = -2.*(len(axis)-Lambda);
@@ -324,7 +325,7 @@ def smoothn(y,nS0=10,axis=None,smoothOrder=2.0,sd=None,verbose=False,\
     #---
     while tol>TolZ and nit<MaxIter:
         if verbose:
-          print('tol',tol,'nit',nit)
+          print(('tol',tol,'nit',nit))
         nit = nit+1;
         DCTy = dctND(Wtot*(y-z)+z,f=dct);
         if isauto and not remainder(log2(nit),1):
@@ -405,7 +406,7 @@ def smoothn(y,nS0=10,axis=None,smoothOrder=2.0,sd=None,verbose=False,\
 
 def warning(s1,s2):
   print(s1)
-  print(s2[0])
+  print((s2[0]))
 
 ## GCV score
 #---
@@ -429,7 +430,7 @@ def gcv(p,Lambda,aow,DCTy,IsFinite,Wtot,y,nof,noe,smoothOrder):
     return GCVscore
 
 ## Robust weights
-#function W = RobustWeights(r,I,h,wstr)
+#function W = RobustWeights(seed_points,I,h,wstr)
 def RobustWeights(r,I,h,wstr):
     # weights for robust smoothing.
     MAD = median(abs(r[I]-median(r[I]))); # median absolute deviation
@@ -469,7 +470,7 @@ def InitialGuess(y,I):
     k = array(z.shape)
     m = ceil(k/10)+1
     d = []
-    for i in xrange(len(k)):
+    for i in range(len(k)):
       d.append(arange(m[i],k[i]))
     d = np.array(d).astype(int)
     z[d] = 0.
@@ -507,7 +508,7 @@ def peaks(n):
   xp = arange(n)
   [x,y] = meshgrid(xp,xp)
   z = np.zeros_like(x).astype(float)
-  for i in xrange(n/5):
+  for i in range(n/5):
     x0 = random()*n
     y0 = random()*n
     sdx = random()*n/4.
@@ -529,11 +530,11 @@ def test1():
    z = smoothn(y)[0]; # Regular smoothing
    zr = smoothn(y,isrobust=True)[0]; # Robust smoothing
    subplot(121)
-   plot(x,y,'r.')
+   plot(x,y,'seed_points.')
    plot(x,z,'k')
    title('Regular smoothing')
    subplot(122)
-   plot(x,y,'r.')
+   plot(x,y,'seed_points.')
    plot(x,zr,'k')
    title('Robust smoothing')
 
@@ -556,7 +557,7 @@ def test3(axis=None):
    n = 256;
    y0 = peaks(n);
    y = (y0 + random(shape(y0))*2 - 1.0).flatten();
-   I = np.random.permutation(range(n**2));
+   I = np.random.permutation(list(range(n**2)));
    y[I[1:n**2*0.5]] = nan; # lose 50% of data
    y = y.reshape(y0.shape)
    y[40:90,140:190] = nan; # create a hole
@@ -604,7 +605,7 @@ def test5():
    plt.figure(5)
    plt.clf()
    plt.title('Cardioid')
-   plot(x,y,'r.')
+   plot(x,y,'seed_points.')
    plot(zx,zy,'k')
 
 def test6(noise=0.05,nout=30):
@@ -615,7 +616,7 @@ def test6(noise=0.05,nout=30):
   Vy0 = sin(2*pi*x+pi/2)*sin(2*pi*y);
   Vx = Vx0 + noise*randn(24,24); # adding Gaussian noise
   Vy = Vy0 + noise*randn(24,24); # adding Gaussian noise
-  I = np.random.permutation(range(Vx.size))
+  I = np.random.permutation(list(range(Vx.size)))
   Vx = Vx.flatten()
   Vx[I[0:nout]] = (rand(nout,1)-0.5)*5; # adding outliers
   Vx = Vx.reshape(Vy.shape)
@@ -636,7 +637,7 @@ def sparseSVD(D):
   try:
     import sparsesvd
   except:
-    print 'bummer ... better get sparsesvd'
+    print('bummer ... better get sparsesvd')
     exit(0)
   Ds = scipy.sparse.csc_matrix(D)
   a = sparsesvd.sparsesvd(Ds,Ds.shape[0])

@@ -1,13 +1,8 @@
 import numpy
-import pandas
-import os
-from matplotlib import pyplot
 from tensorflow import keras
 import pandas
-import misc
-import process_functions
-import settings
-
+from library import misc, settings
+import os
 
 ns = []
 ws = []
@@ -62,5 +57,11 @@ output['R'] = rs
 output = pandas.DataFrame(output)
 latex = output.to_latex(index=False)
 print(latex)
+
+html_output = os.path.join(settings.result_folder, 'table.html')
+html = output.to_html()
+f = open(html_output, 'w')
+f.write(html)
+f.close()
 
 
