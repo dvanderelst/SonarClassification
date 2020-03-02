@@ -18,7 +18,7 @@ noise_floor = 0.18 # should be determined on open space
 stochaistic_noise = 0.02 # stdv, See paper for determination, before pca mapping
 integration_time = 350 / 1000000  # integration constant
 initial_zero_time = 6 / 1000  # initial time to omit
-n_components = 20
+n_components = 100
 ####################################################
 ##Generative modelling settings
 ####################################################
@@ -27,13 +27,17 @@ emission_frequency_low = 40000
 emission_frequency_high = 100000
 emission_frequency_mean = round((emission_frequency_low + emission_frequency_high) / 2)
 
-synthetic_echoes_file = os.path.join(result_folder, 'synthetic_echoes.pck')
-synthetic_echoes_indices = os.path.join(result_folder, 'synthetic_echoes_indices.pck')
-synthetic_templates_file = os.path.join(result_folder, 'synthetic_templates.npy')
-reconstructed_synthetic_templates_file = os.path.join(result_folder, 'reconstructed_synthetic_templates.npy')
-scaled_synthetic_templates_file = os.path.join(result_folder, 'scaled_synthetic_templates.npy')
+#synthetic_echoes_file = os.path.join(result_folder, 'synthetic_echoes.pck')
+#synthetic_echoes_indices = os.path.join(result_folder, 'synthetic_echoes_indices.pck')
 
-reconstructed_templates_file =  os.path.join(result_folder, 'reconstructed_templates.npy')
+synthetic_echoes_file = os.path.join(result_folder, 'synthetic_echoes.npz')
+synthetic_templates_file = os.path.join(result_folder, 'synthetic_templates.npz')
+scaled_synthetic_templates_file = os.path.join(result_folder, 'scaled_synthetic_templates.npz')
+reconstructed_synthetic_templates_file = os.path.join(result_folder, 'reconstructed_synthetic_templates.npz')
+
+#Dont save this, as it results in a big file that takes ages to sync.
+#reconstructed_templates_file =  os.path.join(result_folder, 'reconstructed_templates.npz')
+
 
 pca_file = os.path.join(result_folder, 'PCA.pca')
 pca_components_plot = os.path.join(result_folder, 'components.pdf')

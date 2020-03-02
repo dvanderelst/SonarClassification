@@ -13,8 +13,6 @@ n = settings.n_components
 pca_model = misc.pickle_load(settings.pca_file)
 components = pca_model.components_
 
-
-
 mx = numpy.max(numpy.abs(components))
 n = components.shape[1]
 x = numpy.array(range(n))
