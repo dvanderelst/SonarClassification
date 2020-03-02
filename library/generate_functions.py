@@ -39,9 +39,9 @@ def generative_model(parameters):
         distances = numpy.concatenate((distances, g))
 
     # add close echo to ensure that even seqs with low n have a strong echo
-    close = random.uniform(minimum_distance, minimum_distance+1, 1)
-    g = numpy.array([minimum_distance])
-    distances = numpy.concatenate((distances, close))
+    #close = random.uniform(minimum_distance, minimum_distance+1, 1)
+    #g = numpy.array([minimum_distance])
+    #distances = numpy.concatenate((distances, close))
     return distances
 
 def distances2echo_sequence(distances, caller, emission):
@@ -74,7 +74,7 @@ def distances2echo_sequence(distances, caller, emission):
 def echo_sequence2template(echo_sequence, wiegrebe):
     sample_frequency = settings.sample_frequency
     integration_time = settings.integration_time
-    integration_samples = math.ceil(sample_frequency * integration_time)
+    #integration_samples = math.ceil(sample_frequency * integration_time)
 
     # Run Wiegrebe model
     wiegrebe_result = wiegrebe.run_model(echo_sequence, dechirp=True)

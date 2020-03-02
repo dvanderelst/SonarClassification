@@ -18,13 +18,13 @@ noise_floor = 0.18 # should be determined on open space
 stochaistic_noise = 0.02 # stdv, See paper for determination, before pca mapping
 integration_time = 350 / 1000000  # integration constant
 initial_zero_time = 6 / 1000  # initial time to omit
-n_components = 100
+n_components = 75
 ####################################################
 ##Generative modelling settings
 ####################################################
 emission_duration = 0.001
-emission_frequency_low = 40000
-emission_frequency_high = 100000
+emission_frequency_low = 50000
+emission_frequency_high = 50001
 emission_frequency_mean = round((emission_frequency_low + emission_frequency_high) / 2)
 
 #synthetic_echoes_file = os.path.join(result_folder, 'synthetic_echoes.pck')

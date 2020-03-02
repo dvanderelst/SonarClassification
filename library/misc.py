@@ -7,6 +7,20 @@ import scipy.interpolate as interpolate
 from matplotlib import pyplot
 from sklearn.preprocessing import Normalizer
 
+def load_all_templates():
+    data_set = 'israel'
+    file_names = folder_names(data_set, None)
+    data = numpy.load(file_names['npz_file'])
+    template_israel = data['long_data']
+
+    data_set = 'royal'
+    file_names = folder_names(data_set, None)
+    data = numpy.load(file_names['npz_file'])
+    templates_royal = data['long_data']
+
+    all_templates = numpy.row_stack((templates_royal, template_israel))
+    return all_templates
+
 
 def map_lcs_to_distances(data):
     distances = extract_distances_from_filenames(data['files'])
