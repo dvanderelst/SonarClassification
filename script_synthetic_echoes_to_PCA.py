@@ -1,15 +1,19 @@
 import math
 import numpy
 from library import settings
-
+from library import misc
 from library import generate_functions
 from pyBat import Call
 from pyBat import Wiegrebe
 
 repeats = 10
-
 n_seed_levels = [5, 10, 20, 50, 100, 200]
 n_cloud_levels = [5, 10, 20, 50, 100, 200]
+
+#repeats = 3
+#n_seed_levels = [5, 10]
+#n_cloud_levels = [5, 10]
+
 
 sample_frequency = settings.sample_frequency
 number_of_samples = settings.raw_collected_samples
@@ -40,14 +44,20 @@ for seed_level_i in range(len(n_seed_levels)):
             echo_sequence, impulse_response = generate_functions.distances2echo_sequence(distances, caller, emission)
             echo_sequence[0:initial_zero_samples] = 0
             template = generate_functions.echo_sequence2template(echo_sequence, wiegrebe)
+
+            synthetic_impulses.append(impulse_response)
             synthetic_echoes.append(echo_sequence)
             synthetic_templates.append(template)
-
-print('---> SAVE ECHOES AND TEMPLATES')
 
 synthetic_impulses = numpy.array(synthetic_impulses)
 synthetic_echoes = numpy.array(synthetic_echoes)
 synthetic_templates = numpy.array(synthetic_templates)
+
+print('---> SCALE SYNTHETIC TEMPLATES')
+empirical_templates = misc.load_all_templates()
+synthetic_templates = misc.scale_synthetic_templates(empirical_templates, synthetic_templates)
+
+print('---> SAVE ECHOES AND TEMPLATES')
 
 numpy.savez_compressed(settings.synthetic_impulses_file, synthetic_impulses=synthetic_impulses)
 numpy.savez_compressed(settings.synthetic_echoes_file, synthetic_echoes=synthetic_echoes)
@@ -58,103 +68,36 @@ import importlib
 import numpy
 from library import settings
 from library import misc
-from matplotlib import pyplot
-
 
 importlib.reload(settings)
+importlib.reload(misc)
 
-print('-----> LOADING EMPIRICAL DATA')
-empirical_templates = misc.load_all_templates()
+print('---> LOADING SYNTHETIC DATA')
+loaded = numpy.load(settings.synthetic_impulses_file)
+synthetic_impulses = loaded['synthetic_impulses']
 
-print('-----> LOADING SYNTHETIC DATA')
 loaded = numpy.load(settings.synthetic_echoes_file)
 synthetic_echoes = loaded['synthetic_echoes']
 
 loaded = numpy.load(settings.synthetic_templates_file)
 synthetic_templates = loaded['synthetic_templates']
 
-print('-----> SCALE SYNTHETIC TEMPLATES')
+print('---> RUN PCA FOR SYNTHETIC IMPULSE RESPONSES')
+output = settings.synthetic_impulses_pca_results
+pca_model_impulses, results_impulses = misc.run_pca(synthetic_impulses, criterion=0.99, save_file=output)
+misc.pickle_save(settings.pca_impulses_model_file, pca_model_impulses)
 
-# Plot means
-mean_empirical = numpy.mean(empirical_templates, axis=0)
-mean_synthetic = numpy.mean(synthetic_templates, axis=0)
+print('---> RUN PCA FOR SYNTHETIC ECHOES')
+output = settings.synthetic_echoes_pca_results
+pca_model_echoes, results_echoes = misc.run_pca(synthetic_echoes, criterion=0.99, save_file=output)
+misc.pickle_save(settings.pca_echoes_model_file, pca_model_echoes)
 
-pyplot.plot(mean_empirical)
-pyplot.plot(mean_synthetic)
-pyplot.legend(['Empirical', 'Synthetic'])
-pyplot.show()
+print('---> RUN PCA FOR SYNTHETIC TEMPLATES')
+output = settings.synthetic_templates_pca_results
+pca_model_templates, results_templates = misc.run_pca(synthetic_templates, criterion=0.99, save_file=output)
+misc.pickle_save(settings.pca_templates_model_file, pca_model_templates)
 
-# Plot correct mean and offset and plot again
-r_empirical = numpy.max(mean_empirical) - numpy.min(mean_empirical)
-r_synthetic = numpy.max(mean_synthetic) - numpy.min(mean_synthetic)
-scale = r_empirical / r_synthetic
-offset = numpy.min(mean_empirical)
-synthetic_templates = synthetic_templates * scale + offset
-
-# Plot again
-mean_empirical = numpy.mean(empirical_templates, axis=0)
-mean_synthetic = numpy.mean(synthetic_templates, axis=0)
-pyplot.plot(mean_empirical)
-pyplot.plot(mean_synthetic)
-pyplot.legend(['Empirical', 'Synthetic'])
-pyplot.show()
-
-print('-----> RUN PCAs FOR SYNTHETIC DATA')
-pca_model_echoes = PCA()
-transformed_synthetic_echoes = pca_model_echoes.fit_transform(synthetic_echoes)
-reconstructed_synthetic_echoes = pca_model_echoes.inverse_transform(transformed_synthetic_echoes)
-pca_model_echoes.fit_transform(synthetic_echoes)
-cummmulative_echoes = numpy.cumsum(pca_model_echoes.explained_variance_ratio_)
-suggestion_echoes = numpy.min(numpy.where(cummmulative_echoes > 0.99)[0])
-print('+ SUGGESTED NR OF PCs for waveforms:', suggestion_echoes)
-
-pca_model_templates = PCA()
-transformed_synthetic_templates = pca_model_templates.fit_transform(synthetic_templates)
-reconstructed_synthetic_templates = pca_model_templates.inverse_transform(transformed_synthetic_templates)
-cummmulative_templates = numpy.cumsum(pca_model_templates.explained_variance_ratio_)
-suggestion_templates = numpy.min(numpy.where(cummmulative_templates > 0.99)[0])
-print('+ SUGGESTED NR OF PCs for templates:', suggestion_templates)
-
-print('------> RUN PCAs FOR COMPARISON WITH EMPIRICAL DATA')
-transformed_empirical_templates = pca_model_templates.transform(empirical_templates)
-reconstructed_empirical_templates = pca_model_templates.inverse_transform(transformed_empirical_templates)
-
-print('---> GET CORRELATIONS')
-
-x = reconstructed_synthetic_templates.flatten()
-y = synthetic_templates.flatten()
-
-n = x.size
-selected = numpy.random.randint(0, n, [1,10000])
-x = x[selected]
-y = y[selected]
-
-r0 = numpy.corrcoef(x, y)[0, 1]
-
-x = reconstructed_empirical_templates.flatten()
-y = empirical_templates.flatten()
-
-n = x.size
-selected = numpy.random.randint(0, n, [1,10000])
-x = x[selected]
-y = y[selected]
-
-r1 = numpy.corrcoef(x, y)[0, 1]
-
-print('+ Correlations:', r0, r1)
-
-print('---> SAVE DATA')
-misc.pickle_save(settings.pca_templates_file, pca_model_templates)
-misc.pickle_save(settings.pca_echoes_file, pca_model_echoes)
-numpy.savez_compressed(settings.scaled_synthetic_templates_file, synthetic_templates=synthetic_templates)
-numpy.savez_compressed(settings.reconstructed_synthetic_templates_file, reconstructed_synthetic_templates=reconstructed_synthetic_templates)
-numpy.savez_compressed(settings.reconstructed_synthetic_echoes_file, reconstructed_synthetic_echoes=reconstructed_synthetic_echoes)
-
-print('---> PLOTS')
-
-pyplot.figure()
-pyplot.subplot(1,2,1)
-pyplot.plot(cummmulative_echoes)
-pyplot.plot(cummmulative_templates)
-
-pyplot.show()
+#%%
+print('---> LOADING EMPIRICAL DATA')
+empirical_templates = misc.load_all_templates()
+transformed, reconstructed, correlation = misc.project_and_reconstruct(pca_model_templates, empirical_templates)

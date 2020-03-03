@@ -10,9 +10,39 @@ from sklearn.preprocessing import Normalizer
 from sklearn.decomposition import PCA
 
 
+def scale_synthetic_templates(empirical_templates, synthetic_templates):
+    # Plot means
+    mean_empirical = numpy.mean(empirical_templates, axis=0)
+    mean_synthetic = numpy.mean(synthetic_templates, axis=0)
+
+    pyplot.plot(mean_empirical)
+    pyplot.plot(mean_synthetic)
+    pyplot.legend(['Empirical', 'Synthetic'])
+    pyplot.show()
+
+    # Plot correct mean and offset
+    r_empirical = numpy.max(mean_empirical) - numpy.min(mean_empirical)
+    r_synthetic = numpy.max(mean_synthetic) - numpy.min(mean_synthetic)
+    scale = r_empirical / r_synthetic
+    offset = numpy.min(mean_empirical)
+    synthetic_templates = synthetic_templates * scale + offset
+
+    # Plot again
+    mean_empirical = numpy.mean(empirical_templates, axis=0)
+    mean_synthetic = numpy.mean(synthetic_templates, axis=0)
+
+    pyplot.plot(mean_empirical)
+    pyplot.plot(mean_synthetic)
+    pyplot.legend(['Empirical', 'Synthetic'])
+    pyplot.show()
+
+
+    return synthetic_templates
+
+
 def corr2(a, b):
-    n = a.shape()[0]
-    correlations = numpy.zerosn()
+    n = a.shape[0]
+    correlations = numpy.zeros(n)
     for i in range(n):
         x = a[i, :]
         y = b[i, :]
@@ -21,8 +51,15 @@ def corr2(a, b):
     correlation = numpy.mean(correlations)
     return correlation
 
+def project_and_reconstruct(pca_model, data):
+    transformed = pca_model.fit_transform(data)
+    reconstructed = pca_model.inverse_transform(transformed)
+    correlation = corr2(data, reconstructed)
+    return transformed, reconstructed, correlation
 
-def run_pca(data, criterion=0.99):
+
+
+def run_pca(data, criterion=0.99, save_file = None):
     # Run all components
     pca_model = PCA()
     pca_model.fit(data)
@@ -31,9 +68,22 @@ def run_pca(data, criterion=0.99):
 
     # Run with n components for criterion
     pca_model = PCA(n_components=suggestion)
-    transformed = pca_model.fit_transform(data)
-    reconstructed = pca_model.inverse_transform(transformed)
-    correlations = corr2(data, reconstructed)
+    transformed, reconstructed, correlation = project_and_reconstruct(pca_model, data)
+    # Get results
+    result = {}
+    result['transformed'] = transformed
+    result['reconstructed'] = reconstructed
+    result['correlation'] = correlation
+    result['suggestion'] = suggestion
+
+
+    if save_file is not None:
+        numpy.savez_compressed(save_file,
+                               original=data,
+                               transformed=transformed,
+                               reconstructed=reconstructed)
+
+    return pca_model, result
 
 
 def load_all_templates():
