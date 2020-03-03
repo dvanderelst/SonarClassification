@@ -68,7 +68,7 @@ def distances2echo_sequence(distances, caller, emission):
     # Generate echo sequency
     echo_sequence = numpy.convolve(emission, impulse_response, mode='same')
     echo_sequence[0:number_of_zero_samples] = 0
-    return echo_sequence
+    return echo_sequence, impulse_response
 
 
 def echo_sequence2template(echo_sequence, wiegrebe):

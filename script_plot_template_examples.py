@@ -7,31 +7,35 @@ from library import misc, settings
 # Synthetic echoes, templates and reconstruction
 #
 
-mx_echoes = 0.05
-mx_templates = 3.5
-mn_templates = 0.15
+mx_echoes = 0.1
+mx_templates = 0.25
+mn_templates = 0.17
 
 index0 = 10
-index1 = 50
-index2 = 400
+index1 = 100
+index2 = 250
 
 pyplot.style.use(settings.style)
 
 print('-----> LOADING DATA')
 loaded = numpy.load(settings.synthetic_echoes_file)
-synthetic_echoes = loaded['echoes_synthetic']
+synthetic_echoes = loaded['synthetic_echoes']
 
 loaded = numpy.load(settings.scaled_synthetic_templates_file)
-synthetic_templates = loaded['templates_synthetic']
+synthetic_templates = loaded['synthetic_templates']
 
 loaded = numpy.load(settings.reconstructed_synthetic_templates_file)
-reconstructed_synthetic_templates = loaded['reconstructed_synthetic']
+reconstructed_synthetic_templates = loaded['reconstructed_synthetic_templates']
 
-pca_model = misc.pickle_load(settings.pca_file)
+loaded = numpy.load(settings.reconstructed_synthetic_echoes_file)
+reconstructed_synthetic_echoes = loaded['reconstructed_synthetic_echoes']
+
+
+pca_model = misc.pickle_load(settings.pca_templates_file)
 cummulative_variance = numpy.cumsum(pca_model.explained_variance_ratio_)
 
-x = synthetic_templates.flatten()
-y = reconstructed_synthetic_templates.flatten()
+#x = synthetic_templates.flatten()
+#y = reconstructed_synthetic_templates.flatten()
 
 print('-----> GETTING DATA FROM ARRAYS')
 
@@ -42,6 +46,10 @@ echo_2 = synthetic_echoes[index2]
 template_0 = synthetic_templates[index0, :]
 template_1 = synthetic_templates[index1, :]
 template_2 = synthetic_templates[index2, :]
+
+reconstructed_echo_0 = reconstructed_synthetic_echoes[index0, :]
+reconstructed_echo_1 = reconstructed_synthetic_echoes[index1, :]
+reconstructed_echo_2 = reconstructed_synthetic_echoes[index2, :]
 
 reconstructed_template_0 = reconstructed_synthetic_templates[index0, :]
 reconstructed_template_1 = reconstructed_synthetic_templates[index1, :]
@@ -55,6 +63,7 @@ pyplot.figure(figsize=(12, 7))
 print('-----> PLOTTING 2')
 pyplot.subplot(2, 4, 2)
 pyplot.plot(echo_0)
+pyplot.plot(reconstructed_echo_0, alpha=0.5)
 pyplot.ylim([-mx_echoes, mx_echoes])
 pyplot.xticks([])
 pyplot.yticks([])
@@ -63,6 +72,7 @@ pyplot.ylabel('Echo amplitude, model units')
 print('-----> PLOTTING 3')
 pyplot.subplot(2, 4, 3)
 pyplot.plot(echo_1)
+pyplot.plot(reconstructed_echo_1, alpha=0.5)
 pyplot.ylim([-mx_echoes, mx_echoes])
 pyplot.xticks([])
 pyplot.yticks([])
@@ -70,6 +80,7 @@ pyplot.yticks([])
 print('-----> PLOTTING 4')
 pyplot.subplot(2, 4, 4)
 pyplot.plot(echo_2)
+pyplot.plot(reconstructed_echo_2, alpha=0.5)
 pyplot.ylim([-mx_echoes, mx_echoes])
 pyplot.xticks([])
 pyplot.yticks([])
@@ -137,6 +148,7 @@ templates_royal = data['long_data']
 
 all_templates = numpy.row_stack((templates_royal, template_israel))
 reconstructed_templates = numpy.load(settings.reconstructed_templates_file)
+
 
 pyplot.figure(figsize=(10, 5))
 for i in range(len(selected_indices)):

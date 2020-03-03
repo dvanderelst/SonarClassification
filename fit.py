@@ -9,7 +9,7 @@ echoes = misc.pickle_load(settings.synthetic_echoes_file)
 indices = misc.pickle_load(settings.synthetic_echoes_indices)
 templates_synthetic = numpy.load(settings.synthetic_templates_file)
 
-pca_model = misc.pickle_load(settings.pca_file)
+pca_model = misc.pickle_load(settings.pca_templates_file)
 
 
 transformed_synthetic = pca_model.fit_transform(templates_synthetic)

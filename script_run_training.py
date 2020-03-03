@@ -17,7 +17,7 @@ for selected_dimension in ['lcs', 'azs','els']:
 
     # Read prepared data
     data = numpy.load(file_names['npz_file'])
-    pca_model = misc.pickle_load(settings.pca_file)
+    pca_model = misc.pickle_load(settings.pca_templates_file)
 
     # Select inputs
     if selected_dimension == 'lcs': unencoded_data = data['long_lcs']
@@ -32,7 +32,7 @@ for selected_dimension in ['lcs', 'azs','els']:
     # Get PCA-ed template inputs
     templates = data['long_data']
     pca_templates = pca_model.transform(templates)
-    n_components = settings.n_components
+    n_components = settings.n_components_templates
     inputs = pca_templates[:, :n_components]
 
     # Scale inputs to a minimum of zero

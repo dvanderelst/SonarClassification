@@ -7,6 +7,35 @@ import scipy.interpolate as interpolate
 from matplotlib import pyplot
 from sklearn.preprocessing import Normalizer
 
+from sklearn.decomposition import PCA
+
+
+def corr2(a, b):
+    n = a.shape()[0]
+    correlations = numpy.zerosn()
+    for i in range(n):
+        x = a[i, :]
+        y = b[i, :]
+        r = numpy.corrcoef(x, y)[0, 1]
+        correlations[i] = r
+    correlation = numpy.mean(correlations)
+    return correlation
+
+
+def run_pca(data, criterion=0.99):
+    # Run all components
+    pca_model = PCA()
+    pca_model.fit(data)
+    cummmulative_echoes = numpy.cumsum(pca_model.explained_variance_ratio_)
+    suggestion = numpy.min(numpy.where(cummmulative_echoes > criterion)[0])
+
+    # Run with n components for criterion
+    pca_model = PCA(n_components=suggestion)
+    transformed = pca_model.fit_transform(data)
+    reconstructed = pca_model.inverse_transform(transformed)
+    correlations = corr2(data, reconstructed)
+
+
 def load_all_templates():
     data_set = 'israel'
     file_names = folder_names(data_set, None)
@@ -74,7 +103,7 @@ def folder_names(data_set, dimension):
     result['result_folder'] = result_folder
     result['log_folder'] = log_folder
     result['npz_file'] = npz_file
-    #call_result['pca_file'] = pca_file
+    # call_result['pca_file'] = pca_file
     result['model_file'] = model_file
     result['results_file'] = res_file
     result['history_file'] = hist_file
@@ -96,7 +125,6 @@ def pickle_load(file):
     return object
 
 
-
 def make_confusion_matrix(results, normalize=True):
     N = Normalizer()
     values = results.target.unique()
@@ -109,7 +137,7 @@ def make_confusion_matrix(results, normalize=True):
             pv = values[pi]
             selected = results.query("target==@tv and prediction==@pv")
             selected_n = selected.shape[0]
-            #print(selected_n)
+            # print(selected_n)
             table[ti, pi] = selected_n
     labels = values
     table[numpy.isnan(table)] = 0
@@ -125,16 +153,15 @@ def label_confusion_matrix(labels):
     if len(labels) == 40: ticks = list(range(10, 40, 10))
     ticks_locs = numpy.array(ticks)
 
-
     new_labels = []
-    for x in labels: new_labels.append('%.1f'%x)
+    for x in labels: new_labels.append('%.1f' % x)
     new_labels = numpy.array(new_labels)
 
     pyplot.xticks(ticks_locs, new_labels[ticks_locs])
     pyplot.yticks(ticks_locs, new_labels[ticks_locs])
 
-    pyplot.xlim([-0.5, len(labels)-0.5])
-    pyplot.ylim([-0.5, len(labels)-0.5])
+    pyplot.xlim([-0.5, len(labels) - 0.5])
+    pyplot.ylim([-0.5, len(labels) - 0.5])
 
 
 def get_error_histogram(results, normalize=True, cummmulative=False):
@@ -163,16 +190,16 @@ def plot_inference_lines(error, number, xs):
     legend_entries = []
     i = 0
     for (x, y) in zip(xs, ys):
-        string_x = "x=%4.2f"%x
-        string_y = "y=%4.2f"%y
+        string_x = "x=%4.2f" % x
+        string_y = "y=%4.2f" % y
         string = string_x + ', ' + string_y
         color = settings.qualitative_colors[i, :]
         pyplot.plot([x, x], [0, y], '--', color=color, alpha=1)
         pyplot.plot([0, x], [y, y], '--', color=color, alpha=1, label='_nolegend_')
         legend_entries.append(string)
-        i+=1
-    #print(list(pyplot.xticks()[0]))
-    #pyplot.xticks(list(pyplot.xticks()[0]) + list(xs))
-    #pyplot.yticks(list(pyplot.yticks()[0]) + list(ys))
+        i += 1
+    # print(list(pyplot.xticks()[0]))
+    # pyplot.xticks(list(pyplot.xticks()[0]) + list(xs))
+    # pyplot.yticks(list(pyplot.yticks()[0]) + list(ys))
 
     return ys, legend_entries

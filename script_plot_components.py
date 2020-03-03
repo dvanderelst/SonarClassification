@@ -8,9 +8,9 @@ from library import misc, settings
 from PyAstronomy.pyaC import zerocross1d
 
 pyplot.style.use(settings.style)
-n = settings.n_components
+n = settings.n_components_templates
 
-pca_model = misc.pickle_load(settings.pca_file)
+pca_model = misc.pickle_load(settings.pca_templates_file)
 components = pca_model.components_
 
 mx = numpy.max(numpy.abs(components))

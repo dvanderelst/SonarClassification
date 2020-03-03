@@ -1,81 +1,83 @@
+import math
 import numpy
-from matplotlib import pyplot
-from library import generate_functions
 from library import settings
+
+from library import generate_functions
 from pyBat import Call
 from pyBat import Wiegrebe
 
-pyplot.style.use(settings.style)
+repeats = 10
 
-reflector_distances = numpy.linspace(1,6, 500)
-
-print('---> CREATE SYNTHETIC TEMPLATES')
+n_seed_levels = [5, 10, 20, 50, 100, 200]
+n_cloud_levels = [5, 10, 20, 50, 100, 200]
 
 sample_frequency = settings.sample_frequency
 number_of_samples = settings.raw_collected_samples
 initial_zero_time = settings.initial_zero_time
 emission_frequency_mean = settings.emission_frequency_mean
+initial_zero_samples = math.ceil(initial_zero_time * sample_frequency)
 
 caller = Call.Call(None, [emission_frequency_mean])
 emission = generate_functions.create_emission()
 
-emission_padding = settings.raw_collected_samples - emission.shape[0]
+emission_padding = number_of_samples - emission.shape[0]
 padded_emission = numpy.pad(emission, (0, emission_padding), 'constant')
 
 wiegrebe = Wiegrebe.ModelWiegrebe(sample_frequency, emission_frequency_mean, 4, emission=padded_emission)
 
-templates_synthetic = []
-echoes_synthetic = []
+synthetic_impulses = []
+synthetic_echoes = []
+synthetic_templates = []
 
-for reflector_distance in reflector_distances:
-    print('Current distance:', reflector_distance)
-    # Make echo sequence
-    distances = numpy.array([reflector_distance])
-    echo_sequence = generate_functions.distances2echo_sequence(distances, caller, emission)
-
-    # Create template
-    template = generate_functions.echo_sequence2template(echo_sequence, wiegrebe)
-    templates_synthetic.append(template)
-    echoes_synthetic.append(echo_sequence)
+for seed_level_i in range(len(n_seed_levels)):
+    for cloud_level_i in range(len(n_cloud_levels)):
+        print(seed_level_i, cloud_level_i)
+        for i in range(repeats):
+            generative_model_parameters = {}
+            generative_model_parameters['n_seed_points'] = n_seed_levels[seed_level_i]
+            generative_model_parameters['n_cloud_points'] = n_cloud_levels[cloud_level_i]
+            distances = generate_functions.generative_model(generative_model_parameters)
+            echo_sequence, impulse_response = generate_functions.distances2echo_sequence(distances, caller, emission)
+            echo_sequence[0:initial_zero_samples] = 0
+            template = generate_functions.echo_sequence2template(echo_sequence, wiegrebe)
+            synthetic_echoes.append(echo_sequence)
+            synthetic_templates.append(template)
 
 print('---> SAVE ECHOES AND TEMPLATES')
 
-templates_synthetic = numpy.array(templates_synthetic)
-echoes_synthetic = numpy.array(echoes_synthetic)
+synthetic_impulses = numpy.array(synthetic_impulses)
+synthetic_echoes = numpy.array(synthetic_echoes)
+synthetic_templates = numpy.array(synthetic_templates)
 
-numpy.savez_compressed(settings.synthetic_templates_file, templates_synthetic=templates_synthetic)
-numpy.savez_compressed(settings.synthetic_echoes_file, echoes_synthetic=echoes_synthetic)
+numpy.savez_compressed(settings.synthetic_impulses_file, synthetic_impulses=synthetic_impulses)
+numpy.savez_compressed(settings.synthetic_echoes_file, synthetic_echoes=synthetic_echoes)
+numpy.savez_compressed(settings.synthetic_templates_file, synthetic_templates=synthetic_templates)
+
 # %%
 import importlib
 import numpy
 from library import settings
 from library import misc
 from matplotlib import pyplot
-from sklearn.decomposition import PCA
+
 
 importlib.reload(settings)
 
-print('---> LOAD ISRAEL and ROYAL DATA')
+print('-----> LOADING EMPIRICAL DATA')
+empirical_templates = misc.load_all_templates()
 
-data_set = 'israel'
-file_names = misc.folder_names(data_set, None)
-data = numpy.load(file_names['npz_file'])
-template_israel = data['long_data']
+print('-----> LOADING SYNTHETIC DATA')
+loaded = numpy.load(settings.synthetic_echoes_file)
+synthetic_echoes = loaded['synthetic_echoes']
 
-data_set = 'royal'
-file_names = misc.folder_names(data_set, None)
-data = numpy.load(file_names['npz_file'])
-templates_royal = data['long_data']
-
-all_templates = numpy.row_stack((templates_royal, template_israel))
-
-print('---> SCALE SYNTHETIC TEMPLATES')
 loaded = numpy.load(settings.synthetic_templates_file)
-templates_synthetic = loaded['templates_synthetic']
+synthetic_templates = loaded['synthetic_templates']
+
+print('-----> SCALE SYNTHETIC TEMPLATES')
 
 # Plot means
-mean_empirical = numpy.mean(all_templates, axis=0)
-mean_synthetic = numpy.mean(templates_synthetic, axis=0)
+mean_empirical = numpy.mean(empirical_templates, axis=0)
+mean_synthetic = numpy.mean(synthetic_templates, axis=0)
 
 pyplot.plot(mean_empirical)
 pyplot.plot(mean_synthetic)
@@ -87,56 +89,72 @@ r_empirical = numpy.max(mean_empirical) - numpy.min(mean_empirical)
 r_synthetic = numpy.max(mean_synthetic) - numpy.min(mean_synthetic)
 scale = r_empirical / r_synthetic
 offset = numpy.min(mean_empirical)
-templates_synthetic = templates_synthetic * scale + offset
+synthetic_templates = synthetic_templates * scale + offset
 
 # Plot again
-mean_empirical = numpy.mean(all_templates, axis=0)
-mean_synthetic = numpy.mean(templates_synthetic, axis=0)
+mean_empirical = numpy.mean(empirical_templates, axis=0)
+mean_synthetic = numpy.mean(synthetic_templates, axis=0)
 pyplot.plot(mean_empirical)
 pyplot.plot(mean_synthetic)
 pyplot.legend(['Empirical', 'Synthetic'])
 pyplot.show()
 
-print('---> RUN AND SAVE PCA MODEL')
+print('-----> RUN PCAs FOR SYNTHETIC DATA')
+pca_model_echoes = PCA()
+transformed_synthetic_echoes = pca_model_echoes.fit_transform(synthetic_echoes)
+reconstructed_synthetic_echoes = pca_model_echoes.inverse_transform(transformed_synthetic_echoes)
+pca_model_echoes.fit_transform(synthetic_echoes)
+cummmulative_echoes = numpy.cumsum(pca_model_echoes.explained_variance_ratio_)
+suggestion_echoes = numpy.min(numpy.where(cummmulative_echoes > 0.99)[0])
+print('+ SUGGESTED NR OF PCs for waveforms:', suggestion_echoes)
 
-print('------> RUN FOR ALL PCs')
-pca_model = PCA()
-transformed_synthetic = pca_model.fit_transform(templates_synthetic)
-cummmulative = numpy.cumsum(pca_model.explained_variance_ratio_)
-pyplot.plot(cummmulative)
-pyplot.show()
+pca_model_templates = PCA()
+transformed_synthetic_templates = pca_model_templates.fit_transform(synthetic_templates)
+reconstructed_synthetic_templates = pca_model_templates.inverse_transform(transformed_synthetic_templates)
+cummmulative_templates = numpy.cumsum(pca_model_templates.explained_variance_ratio_)
+suggestion_templates = numpy.min(numpy.where(cummmulative_templates > 0.99)[0])
+print('+ SUGGESTED NR OF PCs for templates:', suggestion_templates)
 
-suggestion = numpy.min(numpy.where(cummmulative>0.99)[0])
-print('------> SUGGESTED NR OF PCs:', suggestion)
-
-print('------> RUN FOR SELECTED PCs')
-pca_model = PCA(n_components=settings.n_components)
-transformed_synthetic = pca_model.fit_transform(templates_synthetic)
-
-misc.pickle_save(settings.pca_file, pca_model)
-
-reconstructed_synthetic = pca_model.inverse_transform(transformed_synthetic)
-
-transformed_empirical = pca_model.transform(all_templates)
-reconstructed_empirical = pca_model.inverse_transform(transformed_empirical)
+print('------> RUN PCAs FOR COMPARISON WITH EMPIRICAL DATA')
+transformed_empirical_templates = pca_model_templates.transform(empirical_templates)
+reconstructed_empirical_templates = pca_model_templates.inverse_transform(transformed_empirical_templates)
 
 print('---> GET CORRELATIONS')
 
-x = reconstructed_synthetic.flatten()
-y = templates_synthetic.flatten()
+x = reconstructed_synthetic_templates.flatten()
+y = synthetic_templates.flatten()
+
+n = x.size
+selected = numpy.random.randint(0, n, [1,10000])
+x = x[selected]
+y = y[selected]
+
 r0 = numpy.corrcoef(x, y)[0, 1]
 
-x = reconstructed_empirical.flatten()
-y = all_templates.flatten()
+x = reconstructed_empirical_templates.flatten()
+y = empirical_templates.flatten()
+
+n = x.size
+selected = numpy.random.randint(0, n, [1,10000])
+x = x[selected]
+y = y[selected]
+
 r1 = numpy.corrcoef(x, y)[0, 1]
 
-print('------> Correlations:', r0, r1)
+print('+ Correlations:', r0, r1)
 
 print('---> SAVE DATA')
-numpy.savez_compressed(settings.scaled_synthetic_templates_file, templates_synthetic=templates_synthetic)
-numpy.savez_compressed(settings.reconstructed_synthetic_templates_file, reconstructed_synthetic=reconstructed_synthetic)
+misc.pickle_save(settings.pca_templates_file, pca_model_templates)
+misc.pickle_save(settings.pca_echoes_file, pca_model_echoes)
+numpy.savez_compressed(settings.scaled_synthetic_templates_file, synthetic_templates=synthetic_templates)
+numpy.savez_compressed(settings.reconstructed_synthetic_templates_file, reconstructed_synthetic_templates=reconstructed_synthetic_templates)
+numpy.savez_compressed(settings.reconstructed_synthetic_echoes_file, reconstructed_synthetic_echoes=reconstructed_synthetic_echoes)
 
-#Dont save this, as it results in a big file that takes ages to sync.
-#numpy.savez_compressed(settings.reconstructed_templates_file, reconstructed_empirical=reconstructed_empirical)
+print('---> PLOTS')
 
-print('---> DONE')
+pyplot.figure()
+pyplot.subplot(1,2,1)
+pyplot.plot(cummmulative_echoes)
+pyplot.plot(cummmulative_templates)
+
+pyplot.show()

@@ -16,7 +16,7 @@ for data_set in ['israel', 'royal']:
     data = numpy.load(file_names['npz_file'])
     templates = data['long_data']
 
-    total_n_numbers = templates.shape[0] * settings.n_components
+    total_n_numbers = templates.shape[0] * settings.n_components_templates
 
     new_model = keras.models.load_model(file_names['model_file'])
     weights = new_model.get_weights()

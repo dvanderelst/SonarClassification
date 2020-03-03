@@ -25,7 +25,7 @@ correct_ids[:, 0] = corridor_distances
 
 templates = data['long_data']
 pca_templates = pca.transform(templates)
-n_components = settings.n_components
+n_components = settings.n_components_templates
 inputs = pca_templates[:, :n_components]
 
 # Scale inputs to a minimum of zero
