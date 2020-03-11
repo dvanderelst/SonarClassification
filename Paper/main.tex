@@ -4,6 +4,8 @@
 \usepackage{todonotes}
 \usepackage{booktabs}
 \usepackage{amssymb}
+\usepackage{acronym}
+\usepackage{glossaries}
 %\usepackage{lineno,hyperref}
 %\modulolinenumbers[5]
 
@@ -59,6 +61,16 @@
 \newcommand{\noisefloor}{\mathcal{N}_f}
 \newcommand{\stochasticnoise}{\mathcal{N}_s}
 \newcommand{\db}{dB}
+
+
+\newacronym{PCA}{PCA}{Principal Component Analysis}
+\newcommand{\PCA}{\gls{PCA}} 
+
+\newacronym{pc}{PC}{principal component}
+\newcommand{\pc}{\gls{pc}} 
+\newcommand{\pcs}{\glspl{pc}} 
+
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \begin{frontmatter}
@@ -108,41 +120,54 @@ We have suggested before that limitations of the bat's sonar system result in ba
 
 Low dimensional descriptions potentially contain a lot of information \citep{Kuc1997b,Kuc1997}. We previously demonstrated that bats might use sonar template-based scene recognition \citep{Vanderelst2016,Vanderelst2017}. In this approach, bats are assumed to compare the acoustic signature of the environment to a set of previously stored signatures. We operationalized these acoustic signatures as time-intensity profiles, which could be derived directly from the cochlear output.
 
-In this paper, we directly evaluate the hypothesis that sonar provides bats inherently with a low dimensional, yet sufficiently rich, description of the world.  We test this hypothesis in two steps. In a first step, we generate a large collection of synthetic echo sequences. We filter these sequences using a model of the bat's auditory periphery \citep{Wiegrebe2008}. The synthetic echo sequences differ greatly in complexity. Nevertheless, we show that their resulting cochlear output can be mapped into a lower dimensional space. In a second step, we show that echoes collected in real bat habitats can be mapped into the same lower dimensional space, without loss of information. We do this by demonstrating that the low dimensional feature space allows recognizing locations in real habitats. 
+In this paper, we directly evaluate the hypothesis that sonar provides bats inherently with a low dimensional, yet sufficiently rich, description of the world.
+
+We test this hypothesis in two steps. In a first step, we generate a large collection of synthetic echo sequences. We assess the compressibility of these echo signals using \PCA. Next, we filter the echo sequences using a model of the bat's auditory periphery \citep{Wiegrebe2008}. The synthetic echo sequences differ greatly in complexity. Nevertheless, we show that they can be compressed considerably. Moreover, the output of the cochlear model can be mapped onto an even lower dimensional space. In a second step, we show that echoes collected in real bat habitats can be mapped into the same lower dimensional space, without loss of information. We do this by demonstrating that the low dimensional feature space allows recognizing locations in real habitats. 
 
 Together these results suggest that echolocating bats live in a low dimensional perceptual world. The physics of the sonar system and the auditory periphery map the complexity of the 3D environment onto a small number of features, irrespective of whether we use artificial or real echo sequences. Nevertheless, these features are sufficiently rich for bats to recognize locations, and as we discuss, support flight control.
 
 \section{Methods}
 
-\subsection{Synthetic echoes and templates}
+\subsection{Synthetic echoes}
 
-In this section of the paper, we derive a low dimensional space for describing templates. We do this by presenting a simple generative model for echo sequences received by bats. Next, we assess whether the templates derived from these synthetic echo sequences can be projected into a low dimensional space. 
+In this section of the paper, we asses how the filtering in the auditory periphery reduces the complexity of input signals. We do this by presenting a simple generative model for echo sequences received by bats. Next, we assess whether the cochlear representation derived from these synthetic echo sequences can be projected into a low dimensional space. 
 
 We created artificial echo sequences by randomly spacing ideal point reflectors. The distances of the point reflectors were selected using a two-step process. First we selected $n_{s}$ seed points $s$, uniformly distributed over a range from 0.5 to 7 meters. Next, for every seed point $s$, we selected $n_{c}$ cloud points normally distributed around $s$, with standard deviation 0.25 m. This two step process to modeling natural reflectors was inspired by the results of \citet{Yovel2009}, who found that echoes returning from vegetation could be better modeled using a similar two-step process than simply using uniformly spaced points. We generated xx sets of points for each combination of $n_s \in [xx,xx,xx, xx]$ and $n_c \in [xx, xx, xx, xx]$. Synthetic echoes consisting of few reflectors are likely to consist of only weak echoes. To ensure that all sequences included at least one strong echo, we added a single reflector at a distance between xx and xx to each collection of points.
 
 Each set of points was converted to an impulse response with a sample frequency $f_s$ of 219 kHz. The impulse response was limited to 7499 samples. These parameters correspond to the recording length and the sampling frequency used in the acoustic data collection (see below). In converting the point to an impulse response, we modeled attenuation of the echoes due to spherical spreading (both ways) and atmospheric attenuation. The atmospheric attenuation was xx dB/m, corresponding to the attenuation at xx kHz. We did not model any variation in target strength.
 
-Finally, the impulse responses were converted to echo sequences by convolving them with a 1 millisecond long linear frequency-swept cosine starting at 100 kHz and ending at 40 Khz. Again, these parameters correspond to those used in the acoustic data collection described below. Example of the resulting echo sequences are shown in figure \ref{fig:synthetictemplates}.
+\todo[inline]{Implement variations in echo strength. And include frequency specific absorption.}
 
-\begin{figure*}
+Finally, the impulse responses were converted to echo sequences by convolving them with a 1 millisecond long linear frequency-swept cosine starting at 100 kHz and ending at 40 Khz. Again, these parameters correspond to those used in the acoustic data collection described below. Example of the resulting echo sequences are shown in figure \ref{fig:synthetictemplates}. 
+
+Artificial echo sequences were filtered using a model of the bat's auditory periphery as proposed by \citet{Wiegrebe2008}. This model simulates the temporal and spectral resolution of the bat's cochlea. The model consists of a gammatone filterbank followed by half-wave rectification and non-linear compression. Finally, the model assumes a 1 kHz low-pass filter modeling the response characteristics of the inner hair cells. In the current implementation, we used a gammatone filterbank with xx filters, centered around xx kHz. The filters were spaced to correspond equivalent rectangular bandwidths \citep{Glasberg1990}. The first 6 ms of data were removed. This was done to ensure the data corresponded with the acoustic data. As indicated below, we removed the first 6 ms of those data to avoid including the pickup of the emitted signal. 
+
+Figure \ref{fig:processing} depicts a single example of a synthetic echo sequence. It also depicts the resulting response for each of the xx channels of the \citet{Wiegrebe2008} model. From these responses, it can be inferred that these are highly correlated. This is confirmed when analyzing the average cross-channel correlation for all xx synthetic echo sequences (Fig. \ref{fig:processing}xx). From these high cross-channel correlations we conclude that the output of the cochlear model can be summarized by averaging across channels without extensive loss of information. An example of such a cross-channel sum is plotted in figure \ref{fig:processing}xx. In correspondence to our our previous work \citep{Vanderelst2016}, we refer to this average across frequency channels as a template.
+
+\begin{figure*}[tb]
+	\centering
+	\includegraphics[width=1\linewidth]{../results/processing}
+	\caption{Example of synthetic echo sequence and its processing using the \citet{Wiegrebe2008} model. (xx) Example of a single synthetic echo sequence. (xx-xx) Response of the xx frequency channels in the \citet{Wiegrebe2008} model. From these plots, it can be seen that channels highly correlate. This is confirmed in panel xx, depicting the average correlation across channels for all xx synthetic echo sequences analyzed. (xx) The output of the \citet{Wiegrebe2008} model summed across the frequency channels, is referred to as a template in this paper. The template resulting from the echo sequence in panel xx is shown in panel xx. Panel xx shows the cumulative proportion of explained variance as a function of number of \pc\ across all templates for all synthetic echo sequences.}
+	\label{fig:processing}
+\end{figure*}
+
+We used \PCA\ to assess the dimensionality of the  templates generated from the synthetic echo sequences. We found that almost all of the variance in the templates could be captured by \pca\ components (see figure \ref{fig:processing}xx). Some examples of templates reconstructed from the principal components are shown in \ref{fig:synthetictemplates}xx).
+
+\begin{figure*}[tb]
 	\centering
 	\includegraphics[width=1\linewidth]{../results/synthetic_templates}
-	\caption{Low dimensional mapping of synthetic echoes. Panels xx-xx, examples of artificial echo sequences. Panels xx-xx, templates derived from each of the echo sequences shown in xx-xx. The templates constructed from the artificial echoes could be projected in a lower dimensional space. A principal component analysis showed that \pca\ components captured almost all variance. Panels xx-xx, also depict (in blue) the result of projecting the templates into the \pca D space and transforming back to the orginal space. The good fit between the orginal and the reconstructed templates attests to the amount of variance captured by the \pca\ principal components.}
+	\caption{Example of synthetic echo sequences, their corresponding templates and the templates reconstructed from the \pca\ \pcs. (xx-xx) Three examples of synthetic echo sequence waveforms. Panels xx-xx depict the resulting templates (i.e., summation across the output channels of the \citet{Wiegrebe2008} model). These panels also show the result of projecting the templates into a \pca D space and transforming the result back to the original coordinates.}
 	\label{fig:synthetictemplates}
 \end{figure*}
 
-Artificial echo sequences were filtered using a model of the bat's auditory periphery as proposed by \citet{Wiegrebe2008}. This model simulates the temporal and spectral resolution of the bat's cochlea. The output of the cochlear model was averaged across frequencies to obtain a time-intensity profile. The templates were downsampled to a sampling rate of 2.8 kHz. This sampling rate corresponds to a temporal integration of 350 $\mu$s, corresponding to what has been reported for bats' auditory systems \citep{Wiegrebe1996,Simmons1989}. This operation reduced the number of samples in a template from 7499 to \prepca\ data points. Finally, the first 6 ms of data were removed. This was done to ensure the data corresponded with the acoustic data. As indicated below, we removed the first 6 ms of those data to avoid including the pickup of the emitted signal. Selected examples of templates are depicted in figure \ref{fig:synthetictemplates}.
 
-We used principal component analysis to assess the dimensionality of the artificial templates. We found that almost all of the variance in the templates could be captured by \pca\ components (see figure \ref{fig:synthetictemplates}xx). Some examples of templates reconstructed from the principal components are shown in \ref{fig:synthetictemplates}xx). Panel xx of figure \ref{fig:synthetictemplates}xx) shows that most of the variance not captured by these components results in some additional noise for very low values of the templates. The components are visualized in figure \ref{fig:components}.
 
-\todo[inline]{Should we talk about the fact that the PCA model fits well across templates generated with different number of reflectors? This seems to depend on the echo having at least one strong (aka nearby) reflector.}
 
-\begin{figure}
-	\centering
-	\includegraphics[width=1\linewidth]{../results/components}
-	\caption{Plots showing the \pca\ principal components derived from the templates constructed using synthetic echoes.}
-	\label{fig:components}
-\end{figure}
+%Selected examples of templates are depicted in figure \ref{fig:synthetictemplates}.
+
+%The output of the cochlear model was averaged across frequencies to obtain a time-intensity profile. The templates were downsampled to a sampling rate of 2.8 kHz. This sampling rate corresponds to a temporal integration of 350 $\mu$s, corresponding to what has been reported for bats' auditory systems \citep{Wiegrebe1996,Simmons1989}. This operation reduced the number of samples in a template from 7499 to \prepca\ data points. Finally, 
+
+%We used principal component analysis to assess the dimensionality of the artificial templates. We found that almost all of the variance in the templates could be captured by \pca\ components (see figure \ref{fig:synthetictemplates}xx). Some examples of templates reconstructed from the principal components are shown in \ref{fig:synthetictemplates}xx). Panel xx of figure \ref{fig:synthetictemplates}xx) shows that most of the variance not captured by these components results in some additional noise for very low values of the templates. The components are visualized in figure \ref{fig:components}.
 
 In this section, we proposed a simple generative model for naturalistic echoes. We assumed that echoes sequences received by bats can be considered as generated by anisotropically distributed point reflectors. Using this model, we have derived a low dimensional space ($D = \pca$) which can be used to describe the templates resulting from the artificial echo sequences. This implies that, after filtering through (a model of) the bats auditory system, these artificial echoes can be converted to low dimensional descriptions. The original echo sequences, generated by xx to xx point reflectors effectively map to \pca\ dimensional vector. In the remainder of the paper, we will assess whether this low dimensional space allows describing the echoes from real bat habitats as collected using an ensonification device.
 
@@ -167,7 +192,7 @@ The second site, at the University of Bristol Royal Fort Gardens (UK), data were
 
 For every azimuth and elevation direction at each of the  40 or 50 locations, a biologically plausible acoustic signature of the environment was derived from the echoes, i.e., a template. Below, we briefly outline the steps used to derive templates from the acoustic data. Again, we refer to our previous work for details on this procedure \citep{Vanderelst2016}.
 
-As we did for the synthetic echoes sequences, the echoes trains collected in bat habitats were filtered using a model of the bat's auditory periphery as proposed by \citet{Wiegrebe2008}. Again, the output of the cochlear model was averaged across frequencies to obtain a time-intensity profile. The beam of the emitter used was more narrow than the typically combined hearing and emission directionality of bats \citep{Vanderelst2010a,Reijniers2010,Jakobsen2012}. Therefore, templates were averaged across three neighboring directions. The templates were downsampled to a sampling rate of 2.8 kHz. Finally, the first 6 ms of data were removed to avoid using emitted signals for analysis. Accordingly, each template consisted of \pca\ points. The processing steps outlined above resulted in 3 $\times$ 217 templates, for each location at each site, corresponding to 217 directions and three repeats.
+As we did for the synthetic echoes sequences, the echoes trains collected in bat habitats were filtered using a model of the bat's auditory periphery as proposed by \citet{Wiegrebe2008}. As we concluded from the analyzing the synthetic echoes that the response in different frequency channels is highly correlated, the output of the cochlear model was averaged across frequencies to obtain a time-intensity profile. The beam of the emitter used was more narrow than the typically combined hearing and emission directionality of bats \citep{Vanderelst2010a,Reijniers2010,Jakobsen2012}. Therefore, templates were averaged across three neighboring directions. The first 6 ms of data were removed to avoid using emitted signals for analysis. Accordingly, each template consisted of \pca\ points. The processing steps outlined above resulted in 3 $\times$ 217 templates, for each location at each site, corresponding to 217 directions and three repeats.
 
 Among the sets of templates, some had very little energy in them, notably those collected for directions without reflectors. For example, aiming the ensonification device upwards often resulted in no echoes returning. These templates could not be classified \citep{Vanderelst2016}. Therefore, we removed them from the current analyses by omitting all templates with very low energy. The resulting number of templates included in the current analyses are given in table \ref{tab:sizes}.
 
@@ -177,7 +202,7 @@ Internal (and, potentially, external) noise results in template values greater t
 
 \subsubsection{Mapping templates into the \pca-dimensional space}
 
-The templates from both sites were mapped into the \pca-dimensional space derived from the synthetic echoes (i.e., using the components depicted in figure \ref{fig:components}), described above. We assessed how well the templates collected in real habitats can be represented by the \pca\ components by mapping the templates into this space and transforming the results back to the original space. Next, we calculated the correlation (and explained variance) between the original templates and the reconstructed templates.
+The templates from both sites were mapped into the \pca-dimensional space derived from the synthetic echoes, described above. We assessed how well the templates collected in real habitats can be represented by the \pca\ components by mapping the templates into this space and transforming the results back to the original space. Next, we calculated the correlation (and explained variance) between the original templates and the reconstructed templates.
 
 \subsection{Artificial Neural Networks}
 
@@ -187,7 +212,7 @@ Here, we used a more biologically plausible memory system: an artificial neural 
 
 Simple artificial feedforward neural networks were implemented using Tensorflow 2 for Python. The first layer of the neural network added Gaussian noise to each input sample ($\sigma(\stochasticnoise) = 0.01$). The following layers were completely connected and used the rectified linear activation function. The output layer used a softmax activation function (or the normalized exponential function), normalizing the output into a probability distribution consisting of probabilities proportional to the exponentials of the output layer's activation. The loss was calculated as the cross-entropy between the target output and the actual output of the neural network. Weights were updated after each epoch using the Adam algorithm \citep{Kingma2014} .
 
-For each site, we trained three neural networks, each taking the 25-sample templates as input. The first neural network was trained to output the azimuth direction associated with the template (31 targets). The second network was trained to return the elevation (7 different targets). The final network returned the location (50 or 40 different targets). The targets for the network were encoded using the one-hot encoding scheme. 
+For each site, we trained three neural networks, each taking the \pca-sample templates as input. The first neural network was trained to output the azimuth direction associated with the template (31 targets). The second network was trained to return the elevation (7 different targets). The final network returned the location (50 or 40 different targets). The targets for the network were encoded using the one-hot encoding scheme. 
 
 Training a different neural network for each of these features ensured that the training algorithm paid equal attention to each feature. When training a single network for all features, the optimizer could preferably reduce errors in the location predictions as this feature has the largest variance. The full architecture can be considered as a single network with different streams for each feature (fig. \ref{fig:networks}).
 
@@ -212,18 +237,19 @@ To be able to directly compare the results of the neural networks with the perfe
 
 \section{Results}
 
-We found that the templates derived from acoustic data collected in real habitats could be well represented by the \pca\ components derived from synthetic data. This \pca-dimensional space could represent xx\% of the variance in the templates. Figure \ref{fig:templates} shows examples of templates and their reconstructed counterparts. Therefore, although the model used to generate echo sequences was very simple, the resulting underlying \pca D feature space could adequately represent templates resulting from real acoustic data.
+We found that the templates derived from acoustic data collected in real habitats could be well represented by the \pca\ components derived from synthetic data. This \pca-dimensional space could represent xx\% of the variance in the templates. Figure \ref{fig:empiricaltemplates} shows examples of templates and their reconstructed counterparts. Therefore, although the model used to generate echo sequences was very simple, the resulting underlying \pca D feature space could adequately represent templates resulting from real acoustic data.
 
-\begin{figure}
+\begin{figure*}[tb]
 	\centering
-	\includegraphics[width=1\linewidth]{../results/templates}
-	\caption{Examples of three templates selected from the Israel and Royal Fort data (red). Blue lines depict the result of projecting the templates in the \pca-dimensions space and reconstructing by transforming the results back to the original space.}
-	\label{fig:templates}
-\end{figure}
+	\includegraphics[width=1\linewidth]{../results/empirical_templates}
+	\caption{Examples of three templates generated from the echoes collected at the Israel and Royal Fort Gardens site. The panels also depict the result of projecting the templates in the 
+	\pca-dimensional space and transforming the result back to the original coordinates.}
+	\label{fig:empiricaltemplates}
+\end{figure*}
 
-In our previous work \cite{Vanderelst2016}, we showed that the templates could be used to recognize locations in bat habitats. As we have just shown that the templates can be projected into a lower \pca D feature space without loss, it can be expected that these \pca\ features can be used to locations as well. We found this to be indeed the case.
+In our previous work \cite{Vanderelst2016}, we showed that the templates could be used to recognize locations in bat habitats. As we have shown that the templates can be projected into a lower \pca D feature space without loss, it can be expected that these \pca\ features can be used to locations as well. We found this to be indeed the case.
 
-Figure \ref{fig:history} depicts the training history of all networks. This figure shows that, in all cases, training almost reached an asymptote around or before 250 epochs. However, some additional training can be seen up to xxx epochs.
+Figure \ref{fig:history} depicts the training history of all networks. This figure shows that, in all cases, training almost reached an asymptote around or before 250 epochs. However, some additional training can be seen up to xx epochs.
 
 \begin{figure}
 	\centering
@@ -232,14 +258,13 @@ Figure \ref{fig:history} depicts the training history of all networks. This figu
 	\label{fig:history}
 \end{figure}
 
-
 Figure \ref{fig:israelperformance} summarizes the performance of the three neural networks trained on the Israel templates. The performance was obtained by assuming that the most active output neuron represented the classification of the network. Inspecting the cumulative distribution of error reveals that the neural network encoding outperformed the perfect memory approach. The number of small errors was larger for the neural network than for the perfect memory. The neural network was able to classify about 70\% of templates with an error of less than 30 degrees in azimuth. In elevation, almost all templates were classified with an error below 15 degrees. Most (70\%) errors in location attribution were smaller than 0.5 meters. The confusion matrices confirm that most classification errors were small.
 
 Interestingly, for azimuth and elevation, classification errors were not uniform across directions. This can be seen by the classification entropy plotted in figure \ref{fig:israelperformance}. In particular, these curves show interesting peaks around zero azimuth and medium elevations. The geometry of the environment can explain these peaks. The corridor (fig. \ref{fig:datacollection}) does not return a lot of echoes from azimuths around zero. Indeed, this direction is mostly open space. The same is true for elevations above 0. Elevations around 25 return very few echoes and this serves as a reliable indicator for classifying these templates, explaining the drop in entropy for elevation = 25 degrees.
 
 \begin{figure*}
 	\centering
-	\includegraphics[width=1\linewidth]{figures/israel_performance}
+	\includegraphics[width=1\linewidth]{../results/israel_results.pdf}
 	\caption{Classification results for the Israel site. Top row: cumulative error distributions for the azimuth, elevation and location classification. Middle row: Confusion matrices for the classifications. Bottom row: remaining classification entropy for each target (derived from the confusion matrices).}
 	\label{fig:israelperformance}
 \end{figure*}
@@ -248,7 +273,7 @@ Figure \ref{fig:royalperformance} shows the results for the Royal Fort Park data
 
 \begin{figure*}
 	\centering
-	\includegraphics[width=1\linewidth]{figures/royal_performance}
+	\includegraphics[width=1\linewidth]{../results/royal_results.pdf}
 	\caption{Simular as fig \ref{fig:israelperformance}, but for the Royal Fort Park site.}
 	\label{fig:royalperformance}
 \end{figure*}
@@ -296,4 +321,16 @@ From our current work, in combination with previous results \citep{Vanderelst201
 
 
 \bibliography{references}
+
+\onecolumn
+\appendix
+\section{Supplementary material}
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=1\linewidth]{../results/components}
+	\caption{}
+	\label{fig:components}
+\end{figure}
+
+
 \end{document}

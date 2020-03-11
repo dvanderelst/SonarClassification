@@ -59,6 +59,14 @@
   Unleash the power of TensorFlow to train efficient neural networks}\/}.
 \newblock \bibinfo{publisher}{Packt Publishing Ltd}.
 %Type = Article
+\bibitem[{Glasberg \& Moore(1990)}]{Glasberg1990}
+\bibinfo{author}{Glasberg, B.~R.}, \& \bibinfo{author}{Moore, B.~C.}
+  (\bibinfo{year}{1990}).
+\newblock \bibinfo{title}{Derivation of auditory filter shapes from
+  notched-noise data}.
+\newblock {\it \bibinfo{journal}{Hearing research}\/},  {\it
+  \bibinfo{volume}{47}\/}, \bibinfo{pages}{103--138}.
+%Type = Article
 \bibitem[{Hawkins(2004)}]{Hawkins2004}
 \bibinfo{author}{Hawkins, D.~M.} (\bibinfo{year}{2004}).
 \newblock \bibinfo{title}{The {{Problem}} of {{Overfitting}}}.
@@ -99,14 +107,6 @@
 \newblock \bibinfo{title}{Biomimetic sonar differentiates coin head from tail}.
 \newblock {\it \bibinfo{journal}{The Journal of the Acoustical Society of
   America}\/},  {\it \bibinfo{volume}{101}\/}, \bibinfo{pages}{3198}.
-%Type = Article
-\bibitem[{Lin et~al.(2017)Lin, Tegmark \& Rolnick}]{Lin2017a}
-\bibinfo{author}{Lin, H.~W.}, \bibinfo{author}{Tegmark, M.}, \&
-  \bibinfo{author}{Rolnick, D.} (\bibinfo{year}{2017}).
-\newblock \bibinfo{title}{Why {{Does Deep}} and {{Cheap Learning Work So
-  Well}}?}
-\newblock {\it \bibinfo{journal}{Journal of Statistical Physics}\/},  {\it
-  \bibinfo{volume}{168}\/}, \bibinfo{pages}{1223--1247}.
 %Type = Inproceedings
 \bibitem[{Mansour et~al.(2019)Mansour, Koreman, Laurijssen, Steckel, Peremans
   \& Vanderelst}]{Mansour2019}

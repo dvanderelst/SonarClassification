@@ -7,37 +7,37 @@ Reallocated wiz_functions (elt_size=4) to 6000 items from 3000.
 Warning--empty booktitle in VonHelversen2005
 You've used 34 entries,
             3092 wiz_defined-function locations,
-            890 strings with 11004 characters,
-and the built_in function-call counts, 23417 in all, are:
-= -- 1898
-> -- 1022
-< -- 21
-+ -- 893
-- -- 288
-* -- 2602
-:= -- 3207
+            890 strings with 10977 characters,
+and the built_in function-call counts, 23322 in all, are:
+= -- 1892
+> -- 1011
+< -- 22
++ -- 881
+- -- 285
+* -- 2591
+:= -- 3196
 add.period$ -- 107
 call.type$ -- 34
-change.case$ -- 269
+change.case$ -- 268
 chr.to.int$ -- 33
 cite$ -- 35
-duplicate$ -- 1472
-empty$ -- 1449
-format.name$ -- 396
-if$ -- 4355
+duplicate$ -- 1470
+empty$ -- 1446
+format.name$ -- 395
+if$ -- 4338
 int.to.chr$ -- 2
 int.to.str$ -- 1
-missing$ -- 297
+missing$ -- 296
 newline$ -- 181
 num.names$ -- 136
-pop$ -- 512
+pop$ -- 508
 preamble$ -- 1
-purify$ -- 232
+purify$ -- 231
 quote$ -- 0
-skip$ -- 719
+skip$ -- 716
 stack$ -- 0
-substring$ -- 1009
-swap$ -- 1314
+substring$ -- 1003
+swap$ -- 1311
 text.length$ -- 6
 text.prefix$ -- 0
 top$ -- 0

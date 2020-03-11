@@ -1,6 +1,6 @@
 \BOOKMARK [1][-]{section.1}{introduction}{}% 1
 \BOOKMARK [1][-]{section.2}{Methods}{}% 2
-\BOOKMARK [2][-]{subsection.2.1}{Synthetic echoes and templates}{section.2}% 3
+\BOOKMARK [2][-]{subsection.2.1}{Synthetic echoes}{section.2}% 3
 \BOOKMARK [2][-]{subsection.2.2}{Natural Templates}{section.2}% 4
 \BOOKMARK [3][-]{subsubsection.2.2.1}{Acoustic data}{subsection.2.2}% 5
 \BOOKMARK [3][-]{subsubsection.2.2.2}{Template construction}{subsection.2.2}% 6
@@ -14,3 +14,4 @@
 \BOOKMARK [2][-]{subsection.4.1}{The low dimensional world of bats}{section.4}% 14
 \BOOKMARK [2][-]{subsection.4.2}{Template encoding}{section.4}% 15
 \BOOKMARK [2][-]{subsection.4.3}{Conclusion}{section.4}% 16
+\BOOKMARK [1][-]{appendix.A}{Supplementary material}{}% 17

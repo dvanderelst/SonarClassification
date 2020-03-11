@@ -1,0 +1,60 @@
+\ifglsentryexists{PCA}{}%
+{%
+\gls@defglossaryentry{PCA}%
+{%
+name={PCA},%
+sort={PCA},%
+type={main},%
+first={Principal Component Analysis\glsspace (PCA)},%
+firstplural={Principal Component Analysiss\glsspace (PCAs)},%
+text={PCA},%
+plural={PCAs},%
+description={Principal Component Analysis},%
+descriptionplural={Principal Component Analysis\acrpluralsuffix },%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={Principal Component Analysis},%
+longplural={Principal Component Analysiss},%
+short={PCA},%
+shortplural={PCAs},%
+counter={page},%
+parent={},%
+%
+}%
+}%
+\ifglsentryexists{pc}{}%
+{%
+\gls@defglossaryentry{pc}%
+{%
+name={PC},%
+sort={PC},%
+type={main},%
+first={principal component\glsspace (PC)},%
+firstplural={principal components\glsspace (PCs)},%
+text={PC},%
+plural={PCs},%
+description={principal component},%
+descriptionplural={principal component\acrpluralsuffix },%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={principal component},%
+longplural={principal components},%
+short={PC},%
+shortplural={PCs},%
+counter={page},%
+parent={},%
+%
+}%
+}%

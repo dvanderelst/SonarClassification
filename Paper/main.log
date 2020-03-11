@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019) (preloaded format=pdflatex 2019.7.10)  29 FEB 2020 15:02
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019) (preloaded format=pdflatex 2019.7.10)  10 MAR 2020 10:04
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -604,37 +604,268 @@ Package: amsfonts 2013/01/14 v3.01 Basic AMSFonts support
 LaTeX Font Info:    Overwriting math alphabet `\mathfrak' in version `bold'
 (Font)                  U/euf/m/n --> U/euf/b/n on input line 106.
 ))
-(./main.aux)
+(/usr/local/texlive/2019/texmf-dist/tex/latex/acronym/acronym.sty
+Package: acronym 2015/03/21 v1.41 Support for acronyms (Tobias Oetiker)
+
+(/usr/local/texlive/2019/texmf-dist/tex/latex/bigfoot/suffix.sty
+Package: suffix 2006/07/15 1.5a Variant command support
+)
+(/usr/local/texlive/2019/texmf-dist/tex/generic/xstring/xstring.sty
+(/usr/local/texlive/2019/texmf-dist/tex/generic/xstring/xstring.tex
+\integerpart=\count138
+\decimalpart=\count139
+)
+Package: xstring 2019/02/06 v1.83 String manipulations (CT)
+)
+\AC@clearlist=\toks33
+)
+(/usr/local/texlive/2019/texmf-dist/tex/latex/glossaries/base/glossaries.sty
+Package: glossaries 2019/01/06 v4.42 (NLCT)
+
+(/usr/local/texlive/2019/texmf-dist/tex/latex/mfirstuc/mfirstuc.sty
+Package: mfirstuc 2017/11/14 v2.06 (NLCT)
+
+(/usr/local/texlive/2019/texmf-dist/tex/latex/etoolbox/etoolbox.sty
+Package: etoolbox 2018/08/19 v2.5f e-TeX tools for LaTeX (JAW)
+\etb@tempcnta=\count140
+)
+\@glsmfirst=\toks34
+\@glsmrest=\toks35
+)
+(/usr/local/texlive/2019/texmf-dist/tex/latex/textcase/textcase.sty
+Package: textcase 2004/10/07 v0.07 Text only upper/lower case changing (DPC)
+)
+(/usr/local/texlive/2019/texmf-dist/tex/latex/xfor/xfor.sty
+Package: xfor 2009/02/05 v1.05 (NLCT)
+)
+(/usr/local/texlive/2019/texmf-dist/tex/latex/datatool/datatool-base.sty
+Package: datatool-base 2018/12/07 v2.31 (NLCT)
+
+(/usr/local/texlive/2019/texmf-dist/tex/latex/amsmath/amsmath.sty
+Package: amsmath 2018/12/01 v2.17b AMS math features
+\@mathmargin=\skip51
+
+For additional information on amsmath, use the `?' option.
+(/usr/local/texlive/2019/texmf-dist/tex/latex/amsmath/amstext.sty
+Package: amstext 2000/06/29 v2.01 AMS text
+
+(/usr/local/texlive/2019/texmf-dist/tex/latex/amsmath/amsgen.sty
+File: amsgen.sty 1999/11/30 v2.0 generic functions
+\@emptytoks=\toks36
+\ex@=\dimen186
+))
+(/usr/local/texlive/2019/texmf-dist/tex/latex/amsmath/amsbsy.sty
+Package: amsbsy 1999/11/29 v1.2d Bold Symbols
+\pmbraise@=\dimen187
+)
+(/usr/local/texlive/2019/texmf-dist/tex/latex/amsmath/amsopn.sty
+Package: amsopn 2016/03/08 v2.02 operator names
+)
+\inf@bad=\count141
+LaTeX Info: Redefining \frac on input line 223.
+\uproot@=\count142
+\leftroot@=\count143
+LaTeX Info: Redefining \overline on input line 385.
+\classnum@=\count144
+\DOTSCASE@=\count145
+LaTeX Info: Redefining \ldots on input line 482.
+LaTeX Info: Redefining \dots on input line 485.
+LaTeX Info: Redefining \cdots on input line 606.
+\Mathstrutbox@=\box44
+\strutbox@=\box45
+\big@size=\dimen188
+LaTeX Font Info:    Redeclaring font encoding OML on input line 729.
+LaTeX Font Info:    Redeclaring font encoding OMS on input line 730.
+\macc@depth=\count146
+\c@MaxMatrixCols=\count147
+\dotsspace@=\muskip11
+\c@parentequation=\count148
+\dspbrk@lvl=\count149
+\tag@help=\toks37
+\row@=\count150
+\column@=\count151
+\maxfields@=\count152
+\andhelp@=\toks38
+\eqnshift@=\dimen189
+\alignsep@=\dimen190
+\tagshift@=\dimen191
+\tagwidth@=\dimen192
+\totwidth@=\dimen193
+\lineht@=\dimen194
+\@envbody=\toks39
+\multlinegap=\skip52
+\multlinetaggap=\skip53
+\mathdisplay@stack=\toks40
+LaTeX Info: Redefining \[ on input line 2844.
+LaTeX Info: Redefining \] on input line 2845.
+)
+(/usr/local/texlive/2019/texmf-dist/tex/latex/substr/substr.sty
+Package: substr 2009/10/20 v1.2 Handle substrings
+\c@su@anzahl=\count153
+)
+(/usr/local/texlive/2019/texmf-dist/tex/latex/datatool/datatool-fp.sty
+Package: datatool-fp 2018/12/07 v2.31 (NLCT)
+
+(/usr/local/texlive/2019/texmf-dist/tex/latex/fp/fp.sty
+Package: fp 1995/04/02
+
+`Fixed Point Package', Version 0.8, April 2, 1995 (C) Michael Mehlich
+(/usr/local/texlive/2019/texmf-dist/tex/latex/fp/defpattern.sty
+Package: defpattern 1994/10/12
+\actioncount=\count154
+)
+(/usr/local/texlive/2019/texmf-dist/tex/latex/fp/fp-basic.sty
+Package: fp-basic 1996/05/13
+\FP@xs=\count155
+\FP@xia=\count156
+\FP@xib=\count157
+\FP@xfa=\count158
+\FP@xfb=\count159
+\FP@rega=\count160
+\FP@regb=\count161
+\FP@regs=\count162
+\FP@times=\count163
+)
+(/usr/local/texlive/2019/texmf-dist/tex/latex/fp/fp-addons.sty
+Package: fp-addons 1995/03/15
+)
+(/usr/local/texlive/2019/texmf-dist/tex/latex/fp/fp-snap.sty
+Package: fp-snap 1995/04/05
+)
+(/usr/local/texlive/2019/texmf-dist/tex/latex/fp/fp-exp.sty
+Package: fp-exp 1995/04/03
+)
+(/usr/local/texlive/2019/texmf-dist/tex/latex/fp/fp-trigo.sty
+Package: fp-trigo 1995/04/14
+)
+(/usr/local/texlive/2019/texmf-dist/tex/latex/fp/fp-pas.sty
+Package: fp-pas 1994/08/29
+)
+(/usr/local/texlive/2019/texmf-dist/tex/latex/fp/fp-random.sty
+Package: fp-random 1995/02/23
+\FPseed=\count164
+)
+(/usr/local/texlive/2019/texmf-dist/tex/latex/fp/fp-eqn.sty
+Package: fp-eqn 1995/04/03
+)
+(/usr/local/texlive/2019/texmf-dist/tex/latex/fp/fp-upn.sty
+Package: fp-upn 1996/10/21
+)
+(/usr/local/texlive/2019/texmf-dist/tex/latex/fp/fp-eval.sty
+Package: fp-eval 1995/04/03
+)))
+\@dtl@toks=\toks41
+\@dtl@tmpcount=\count165
+\dtl@tmplength=\skip54
+\dtl@sortresult=\count166
+\@dtl@numgrpsepcount=\count167
+\@dtl@datatype=\count168
+\dtl@codeA=\count169
+\dtl@codeB=\count170
+\@dtl@foreach@level=\count171
+)
+(/usr/local/texlive/2019/texmf-dist/tex/latex/glossaries/base/glossaries-compat
+ible-307.sty
+Package: glossaries-compatible-307 2019/01/06 v4.42 (NLCT)
+)
+\gls@level=\count172
+\@gls@tmpb=\toks42
+\gls@tmplen=\skip55
+\glskeylisttok=\toks43
+\glslabeltok=\toks44
+\glsshorttok=\toks45
+\glslongtok=\toks46
+
+(/usr/local/texlive/2019/texmf-dist/tex/latex/glossaries/styles/glossary-hypern
+av.sty
+Package: glossary-hypernav 2019/01/06 v4.42 (NLCT)
+)
+(/usr/local/texlive/2019/texmf-dist/tex/latex/glossaries/styles/glossary-list.s
+ty
+Package: glossary-list 2019/01/06 v4.42 (NLCT)
+\glslistdottedwidth=\skip56
+)
+(/usr/local/texlive/2019/texmf-dist/tex/latex/glossaries/styles/glossary-long.s
+ty
+Package: glossary-long 2019/01/06 v4.42 (NLCT)
+ (/usr/local/texlive/2019/texmf-dist/tex/latex/tools/longtable.sty
+Package: longtable 2014/10/28 v4.11 Multi-page Table package (DPC)+ FMi change
+\LTleft=\skip57
+\LTright=\skip58
+\LTpre=\skip59
+\LTpost=\skip60
+\LTchunksize=\count173
+\LTcapwidth=\dimen195
+\LT@head=\box46
+\LT@firsthead=\box47
+\LT@foot=\box48
+\LT@lastfoot=\box49
+\LT@cols=\count174
+\LT@rows=\count175
+\c@LT@tables=\count176
+\c@LT@chunks=\count177
+\LT@p@ftn=\toks47
+)
+\glsdescwidth=\skip61
+\glspagelistwidth=\skip62
+)
+(/usr/local/texlive/2019/texmf-dist/tex/latex/glossaries/styles/glossary-super.
+sty
+Package: glossary-super 2019/01/06 v4.42 (NLCT)
+ (/usr/local/texlive/2019/texmf-dist/tex/latex/supertabular/supertabular.sty
+Package: supertabular 2004/02/20 v4.1e the supertabular environment
+\c@tracingst=\count178
+\ST@wd=\dimen196
+\ST@rightskip=\skip63
+\ST@leftskip=\skip64
+\ST@parfillskip=\skip65
+\ST@pageleft=\dimen197
+\ST@headht=\dimen198
+\ST@tailht=\dimen199
+\ST@pagesofar=\dimen256
+\ST@pboxht=\dimen257
+\ST@lineht=\dimen258
+\ST@stretchht=\dimen259
+\ST@prevht=\dimen260
+\ST@toadd=\dimen261
+\ST@dimen=\dimen262
+\ST@pbox=\box50
+))
+(/usr/local/texlive/2019/texmf-dist/tex/latex/glossaries/styles/glossary-tree.s
+ty
+Package: glossary-tree 2019/01/06 v4.42 (NLCT)
+\glstreeindent=\skip66
+)) (./main.aux)
 \openout1 = `main.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 46.
-LaTeX Font Info:    ... okay on input line 46.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 46.
-LaTeX Font Info:    ... okay on input line 46.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 46.
-LaTeX Font Info:    ... okay on input line 46.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 46.
-LaTeX Font Info:    ... okay on input line 46.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 46.
-LaTeX Font Info:    ... okay on input line 46.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 46.
-LaTeX Font Info:    ... okay on input line 46.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 46.
-LaTeX Font Info:    ... okay on input line 46.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 48.
+LaTeX Font Info:    ... okay on input line 48.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 48.
+LaTeX Font Info:    ... okay on input line 48.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 48.
+LaTeX Font Info:    ... okay on input line 48.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 48.
+LaTeX Font Info:    ... okay on input line 48.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 48.
+LaTeX Font Info:    ... okay on input line 48.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 48.
+LaTeX Font Info:    ... okay on input line 48.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 48.
+LaTeX Font Info:    ... okay on input line 48.
 
 (/usr/local/texlive/2019/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count138
-\scratchdimen=\dimen186
-\scratchbox=\box44
-\nofMPsegments=\count139
-\nofMParguments=\count140
-\everyMPshowfont=\toks33
-\MPscratchCnt=\count141
-\MPscratchDim=\dimen187
-\MPnumerator=\count142
-\makeMPintoPDFobject=\count143
-\everyMPtoPDFconversion=\toks34
+\scratchcounter=\count179
+\scratchdimen=\dimen263
+\scratchbox=\box51
+\nofMPsegments=\count180
+\nofMParguments=\count181
+\everyMPshowfont=\toks48
+\MPscratchCnt=\count182
+\MPscratchDim=\dimen264
+\MPnumerator=\count183
+\makeMPintoPDFobject=\count184
+\everyMPtoPDFconversion=\toks49
 ) (/usr/local/texlive/2019/texmf-dist/tex/latex/oberdiek/epstopdf-base.sty
 Package: epstopdf-base 2016/05/15 v2.6 Base part for package epstopdf
 
@@ -688,39 +919,41 @@ e
 * \@reversemarginfalse
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
-\AtBeginShipoutBox=\box45
-Package hyperref Info: Link coloring ON on input line 46.
+\AtBeginShipoutBox=\box52
+Package hyperref Info: Link coloring ON on input line 48.
 (/usr/local/texlive/2019/texmf-dist/tex/latex/hyperref/nameref.sty
 Package: nameref 2016/05/21 v2.44 Cross-referencing by name of section
 
 (/usr/local/texlive/2019/texmf-dist/tex/generic/oberdiek/gettitlestring.sty
 Package: gettitlestring 2016/05/16 v1.5 Cleanup title references (HO)
 )
-\c@section@level=\count144
+\c@section@level=\count185
 )
-LaTeX Info: Redefining \ref on input line 46.
-LaTeX Info: Redefining \pageref on input line 46.
-LaTeX Info: Redefining \nameref on input line 46.
+LaTeX Info: Redefining \ref on input line 48.
+LaTeX Info: Redefining \pageref on input line 48.
+LaTeX Info: Redefining \nameref on input line 48.
 
 (./main.out) (./main.out)
 \@outlinefile=\write5
 \openout5 = `main.out'.
 
- ABD: EveryShipout initializing macros
-LaTeX Font Info:    Try loading font information for U+msa on input line 87.
+ ABD: EveryShipout initializing macros (./main.glsdefs)
+\@gls@deffile=\write6
+\openout6 = `main.glsdefs'.
 
-(/usr/local/texlive/2019/texmf-dist/tex/latex/amsfonts/umsa.fd
+LaTeX Font Info:    Try loading font information for U+msa on input line 99.
+ (/usr/local/texlive/2019/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Try loading font information for U+msb on input line 87.
+LaTeX Font Info:    Try loading font information for U+msb on input line 99.
 
 (/usr/local/texlive/2019/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
 Package hyperref Info: bookmark level for unknown todo defaults to 0 on input l
-ine 107.
+ine 119.
 
-Overfull \hbox (4.49133pt too wide) in paragraph at lines 109--110
+Overfull \hbox (4.49133pt too wide) in paragraph at lines 121--122
 \OT1/cmr/m/n/10 of in-for-ma-tion ([][]Kuc[][], [][]1997b[][],[][]a[][]). We pr
 e-vi-ously demon-strated
  []
@@ -734,83 +967,97 @@ Overfull \hbox (2.22221pt too wide) has occurred while \output is active
 
 
 ]
-<../results/synthetic_templates.pdf, id=186, 867.24pt x 505.89pt>
+<../results/processing.pdf, id=203, 1445.4pt x 722.7pt>
+File: ../results/processing.pdf Graphic file (type pdf)
+<use ../results/processing.pdf>
+Package pdftex.def Info: ../results/processing.pdf  used on input line 149.
+(pdftex.def)             Requested size: 522.0pt x 260.99886pt.
+<../results/synthetic_templates.pdf, id=221, 650.43pt x 289.08pt>
 File: ../results/synthetic_templates.pdf Graphic file (type pdf)
 <use ../results/synthetic_templates.pdf>
 Package pdftex.def Info: ../results/synthetic_templates.pdf  used on input line
- 129.
-(pdftex.def)             Requested size: 522.0pt x 304.51668pt.
-<../results/components.pdf, id=198, 722.7pt x 505.89pt>
-File: ../results/components.pdf Graphic file (type pdf)
-<use ../results/components.pdf>
-Package pdftex.def Info: ../results/components.pdf  used on input line 142.
-(pdftex.def)             Requested size: 252.0pt x 176.40028pt.
+ 158.
+(pdftex.def)             Requested size: 522.0pt x 232.01859pt.
 
-Overfull \hbox (8.6115pt too wide) in paragraph at lines 147--148
+Overfull \hbox (8.6115pt too wide) in paragraph at lines 172--173
 \OT1/cmr/m/n/10 re-ceived by bats can be con-sid-ered as gen-er-ated by anisotr
 op-
  []
 
-<figures/datacollection.pdf, id=205, 476.29135pt x 581.09995pt>
+[2]
+<figures/datacollection.pdf, id=248, 476.29135pt x 581.09995pt>
 File: figures/datacollection.pdf Graphic file (type pdf)
 <use figures/datacollection.pdf>
-Package pdftex.def Info: figures/datacollection.pdf  used on input line 157.
+Package pdftex.def Info: figures/datacollection.pdf  used on input line 182.
 (pdftex.def)             Requested size: 252.0pt x 307.45836pt.
-[2] [3 <../results/synthetic_templates.pdf>] [4 <../results/components.pdf> <./
-figures/datacollection.pdf
-
-pdfTeX warning: /usr/local/bin/pdflatex (file ./figures/datacollection.pdf): PD
-F inclusion: multiple pdfs with page group included in a single page
->]
-Overfull \hbox (5.0467pt too wide) in paragraph at lines 184--185
+ [3 <../results/processing.pdf>]
+Overfull \hbox (5.0467pt too wide) in paragraph at lines 209--210
 \OT1/cmr/m/n/10 for-ma-tion to be rec-og-nized. Pre-vi-ously, we as-sessed whet
 her
  []
 
-<figures/networks.pdf, id=337, 469.04712pt x 284.82687pt>
+[4 <../results/synthetic_templates.pdf>]
+<figures/networks.pdf, id=373, 469.04712pt x 284.82687pt>
 File: figures/networks.pdf Graphic file (type pdf)
 <use figures/networks.pdf>
-Package pdftex.def Info: figures/networks.pdf  used on input line 198.
+Package pdftex.def Info: figures/networks.pdf  used on input line 223.
 (pdftex.def)             Requested size: 252.0pt x 153.03061pt.
-[5 <./figures/networks.pdf>]
-<../results/templates.pdf, id=365, 722.7pt x 361.35pt>
-File: ../results/templates.pdf Graphic file (type pdf)
-<use ../results/templates.pdf>
-Package pdftex.def Info: ../results/templates.pdf  used on input line 219.
-(pdftex.def)             Requested size: 252.0pt x 126.00021pt.
+ [5 <./figures/datacollection.pdf> <./figures/networks.pdf
 
-Overfull \hbox (2.66702pt too wide) in paragraph at lines 224--225
+pdfTeX warning: /usr/local/bin/pdflatex (file ./figures/networks.pdf): PDF incl
+usion: multiple pdfs with page group included in a single page
+>]
+<../results/empirical_templates.pdf, id=405, 578.16pt x 180.675pt>
+File: ../results/empirical_templates.pdf Graphic file (type pdf)
+<use ../results/empirical_templates.pdf>
+Package pdftex.def Info: ../results/empirical_templates.pdf  used on input line
+ 244.
+(pdftex.def)             Requested size: 522.0pt x 163.13254pt.
+
+Overfull \hbox (2.66702pt too wide) in paragraph at lines 250--251
 []\OT1/cmr/m/n/10 In our pre-vi-ous work [][]Van-derelst et al.[][] ([][]2016[]
 []), we showed
  []
 
-<../results/history.pdf, id=369, 361.35pt x 180.675pt>
+<../results/history.pdf, id=409, 505.89pt x 216.81pt>
 File: ../results/history.pdf Graphic file (type pdf)
 <use ../results/history.pdf>
-Package pdftex.def Info: ../results/history.pdf  used on input line 230.
-(pdftex.def)             Requested size: 252.0pt x 126.0002pt.
-<figures/israel_performance.pdf, id=373, 867.24pt x 722.7pt>
-File: figures/israel_performance.pdf Graphic file (type pdf)
-<use figures/israel_performance.pdf>
-Package pdftex.def Info: figures/israel_performance.pdf  used on input line 242
-.
-(pdftex.def)             Requested size: 522.0pt x 435.02383pt.
-<figures/royal_performance.pdf, id=376, 867.24pt x 722.7pt>
-File: figures/royal_performance.pdf Graphic file (type pdf)
-<use figures/royal_performance.pdf>
-Package pdftex.def Info: figures/royal_performance.pdf  used on input line 251.
+Package pdftex.def Info: ../results/history.pdf  used on input line 256.
+(pdftex.def)             Requested size: 252.0pt x 108.00111pt.
+<../results/israel_results.pdf, id=413, 867.24pt x 722.7pt>
+File: ../results/israel_results.pdf Graphic file (type pdf)
+<use ../results/israel_results.pdf>
+Package pdftex.def Info: ../results/israel_results.pdf  used on input line 267.
 
 (pdftex.def)             Requested size: 522.0pt x 435.02383pt.
-[6 <../results/templates.pdf> <../results/history.pdf
+<../results/royal_results.pdf, id=416, 867.24pt x 722.7pt>
+File: ../results/royal_results.pdf Graphic file (type pdf)
+<use ../results/royal_results.pdf>
+Package pdftex.def Info: ../results/royal_results.pdf  used on input line 276.
+(pdftex.def)             Requested size: 522.0pt x 435.02383pt.
+
+LaTeX Warning: Reference `fig:templates' on page 6 undefined on input line 286.
+
+
+[6] (./main.bbl [7 <../results/empirical_templates.pdf> <../results/history.pdf
+
 
 pdfTeX warning: /usr/local/bin/pdflatex (file ../results/history.pdf): PDF incl
 usion: multiple pdfs with page group included in a single page
->] [7 <./figures/israel_performance.pdf>] [8 <./figures/royal_performance.pdf>]
-(./main.bbl [9]) [10]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 299.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 299.
+>] [8 <../results/israel_results.pdf>] [9 <../results/royal_results.pdf>])
+[10]
+<../results/components.pdf, id=650, 722.7pt x 505.89pt>
+File: ../results/components.pdf Graphic file (type pdf)
+<use ../results/components.pdf>
+Package pdftex.def Info: ../results/components.pdf  used on input line 330.
+(pdftex.def)             Requested size: 522.0pt x 365.39839pt.
+ [11
+
+ <../results/components.pdf>]
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 336.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 336.
  (./main.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 299.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 336.
 
 
  *File List*
@@ -890,6 +1137,42 @@ pgfcomp-version-1-18.sty    2019/05/09 v3.1.3 (3.1.3)
 booktabs.sty    2016/04/27 v1.618033 publication quality tables
  amssymb.sty    2013/01/14 v3.01 AMS font symbols
 amsfonts.sty    2013/01/14 v3.01 Basic AMSFonts support
+ acronym.sty    2015/03/21 v1.41 Support for acronyms (Tobias Oetiker)
+  suffix.sty    2006/07/15 1.5a Variant command support
+ xstring.sty    2019/02/06 v1.83 String manipulations (CT)
+glossaries.sty    2019/01/06 v4.42 (NLCT)
+mfirstuc.sty    2017/11/14 v2.06 (NLCT)
+etoolbox.sty    2018/08/19 v2.5f e-TeX tools for LaTeX (JAW)
+textcase.sty    2004/10/07 v0.07 Text only upper/lower case changing (DPC)
+    xfor.sty    2009/02/05 v1.05 (NLCT)
+datatool-base.sty    2018/12/07 v2.31 (NLCT)
+ amsmath.sty    2018/12/01 v2.17b AMS math features
+ amstext.sty    2000/06/29 v2.01 AMS text
+  amsgen.sty    1999/11/30 v2.0 generic functions
+  amsbsy.sty    1999/11/29 v1.2d Bold Symbols
+  amsopn.sty    2016/03/08 v2.02 operator names
+  substr.sty    2009/10/20 v1.2 Handle substrings
+datatool-fp.sty    2018/12/07 v2.31 (NLCT)
+      fp.sty    1995/04/02
+defpattern.sty    1994/10/12
+fp-basic.sty    1996/05/13
+fp-addons.sty    1995/03/15
+ fp-snap.sty    1995/04/05
+  fp-exp.sty    1995/04/03
+fp-trigo.sty    1995/04/14
+  fp-pas.sty    1994/08/29
+fp-random.sty    1995/02/23
+  fp-eqn.sty    1995/04/03
+  fp-upn.sty    1996/10/21
+ fp-eval.sty    1995/04/03
+glossaries-compatible-307.sty    2019/01/06 v4.42 (NLCT)
+glossary-hypernav.sty    2019/01/06 v4.42 (NLCT)
+glossary-list.sty    2019/01/06 v4.42 (NLCT)
+glossary-long.sty    2019/01/06 v4.42 (NLCT)
+longtable.sty    2014/10/28 v4.11 Multi-page Table package (DPC)+ FMi change
+glossary-super.sty    2019/01/06 v4.42 (NLCT)
+supertabular.sty    2004/02/20 v4.1e the supertabular environment
+glossary-tree.sty    2019/01/06 v4.42 (NLCT)
 supp-pdf.mkii
 epstopdf-base.sty    2016/05/15 v2.6 Base part for package epstopdf
   grfext.sty    2016/05/16 v1.2 Manage graphics extensions (HO)
@@ -898,48 +1181,59 @@ epstopdf-sys.cfg    2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Live
 gettitlestring.sty    2016/05/16 v1.5 Cleanup title references (HO)
     main.out
     main.out
+    main.glsdefs
     umsa.fd    2013/01/14 v3.01 AMS symbols A
     umsb.fd    2013/01/14 v3.01 AMS symbols B
+../results/processing.pdf
 ../results/synthetic_templates.pdf
-../results/components.pdf
 figures/datacollection.pdf
 figures/networks.pdf
-../results/templates.pdf
+../results/empirical_templates.pdf
 ../results/history.pdf
-figures/israel_performance.pdf
-figures/royal_performance.pdf
+../results/israel_results.pdf
+../results/royal_results.pdf
     main.bbl
+../results/components.pdf
  ***********
 
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 299.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 336.
 Package rerunfilecheck Info: File `main.out' has not changed.
-(rerunfilecheck)             Checksum: 16A7821C743AA8EC67216B988108ABC5;1077.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 299.
+(rerunfilecheck)             Checksum: 479356E3211828029F6C98F56A5759D1;1122.
+
+LaTeX Warning: There were undefined references.
+
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 336.
  ) 
 Here is how much of TeX's memory you used:
- 17578 strings out of 492609
- 331694 string characters out of 6129033
- 419237 words of memory out of 5000000
- 21107 multiletter control sequences out of 15000+600000
+ 22324 strings out of 492609
+ 402345 string characters out of 6129033
+ 553276 words of memory out of 5000000
+ 25722 multiletter control sequences out of 15000+600000
  9743 words of font info for 38 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 62i,8n,81p,1186b,866s stack positions out of 5000i,500n,10000p,200000b,80000s
-</usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb
-></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb>
-</usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></
-usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></us
-r/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/
-local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/lo
-cal/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/local
-/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/te
-xlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/tex
-live/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texli
-ve/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/local/texliv
-e/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmti8.pfb>
-Output written on main.pdf (10 pages, 2657325 bytes).
+ 62i,8n,81p,1969b,867s stack positions out of 5000i,500n,10000p,200000b,80000s
+pdfTeX warning (dest): name{glo:pc} has been referenced but does not exist, r
+eplaced by a fixed one
+
+pdfTeX warning (dest): name{glo:PCA} has been referenced but does not exist, re
+placed by a fixed one
+
+</usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb><
+/usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></
+usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></us
+r/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/
+local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/lo
+cal/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/loca
+l/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/local/t
+exlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/texl
+ive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texli
+ve/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texlive
+/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/local/texlive/
+2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmti8.pfb>
+Output written on main.pdf (11 pages, 1640464 bytes).
 PDF statistics:
- 683 PDF objects out of 1000 (max. 8388607)
- 409 compressed objects within 5 object streams
- 73 named destinations out of 1000 (max. 500000)
- 277 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 754 PDF objects out of 1000 (max. 8388607)
+ 441 compressed objects within 5 object streams
+ 78 named destinations out of 1000 (max. 500000)
+ 290 words of extra memory for PDF output out of 10000 (max. 10000000)
 
