@@ -14,13 +14,14 @@ padded_emission = numpy.pad(emission, (0, emission_padding), 'constant')
 sample_frequency = settings.sample_frequency
 emission_frequency_mean = settings.emission_frequency_mean
 
-wiegrebe = Wiegrebe.ModelWiegrebe(sample_frequency, emission_frequency_mean, 4, emission=padded_emission)
+wiegrebe = Wiegrebe.ModelWiegrebe(sample_frequency, emission_frequency_mean, 4)
 
 do_calc = True
 
 if do_calc:
 
     print('---> LOADING SYNTHETIC DATA')
+    # THESE HAVE ALREADY BEEN DECHIRPED .....
     loaded = numpy.load(settings.synthetic_echoes_file)
     synthetic_echoes = loaded['synthetic_echoes']
     n = synthetic_echoes.shape[0]
@@ -38,7 +39,7 @@ if do_calc:
             print(i, filter, shuffle)
             signal = synthetic_echoes[i, :]
             if shuffle: numpy.random.shuffle(signal)
-            template = wiegrebe.run_model(signal, dechirp=True, apply_attenuation=True)
+            template = wiegrebe.run_model(signal, apply_attenuation=True)
             if not filter: template = numpy.mean(wiegrebe.compressed, axis=0)
             spectrum = misc.template2fft(template)
             spectra.append(spectrum)

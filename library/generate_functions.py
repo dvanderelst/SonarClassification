@@ -82,7 +82,7 @@ def distances2echo_sequence(distances, emission, noise_sd=10):
 
 
 def echo_sequence2template(echo_sequence, wiegrebe):
-    wiegrebe_result = wiegrebe.run_model(echo_sequence, dechirp=True, apply_attenuation=True)
+    wiegrebe_result = wiegrebe.run_model(echo_sequence, apply_attenuation=True)
     wiegrebe_result = wiegrebe_result.reshape(1, -1)
     wiegrebe_result = wiegrebe_result[0]
     return wiegrebe_result

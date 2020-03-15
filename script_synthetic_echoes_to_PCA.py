@@ -3,7 +3,7 @@ import numpy
 from library import settings
 from library import misc
 from library import generate_functions
-from pyBat import Wiegrebe
+from pyBat import Wiegrebe, Signal
 
 repeats = 10
 n_seed_levels = [5, 10, 20, 50, 100, 200]
@@ -21,10 +21,8 @@ initial_zero_samples = math.ceil(initial_zero_time * sample_frequency)
 
 emission = generate_functions.create_emission()
 
-emission_padding = number_of_samples - emission.shape[0]
-padded_emission = numpy.pad(emission, (0, emission_padding), 'constant')
 
-wiegrebe = Wiegrebe.ModelWiegrebe(sample_frequency, emission_frequency_mean, 4, emission=padded_emission)
+wiegrebe = Wiegrebe.ModelWiegrebe(sample_frequency, emission_frequency_mean, 4)
 
 synthetic_impulses = []
 synthetic_echoes = []
@@ -41,6 +39,7 @@ for seed_level_i in range(len(n_seed_levels)):
             generative_model_parameters['n_cloud_points'] = n_cloud_levels[cloud_level_i]
             distances = generate_functions.generative_model(generative_model_parameters)
             echo_sequence, impulse_response = generate_functions.distances2echo_sequence(distances, emission)
+            echo_sequence = Signal.dechirp(emission, echo_sequence)
             template = generate_functions.echo_sequence2template(echo_sequence, wiegrebe)
 
             impulse_response[0:initial_zero_samples] = 0
