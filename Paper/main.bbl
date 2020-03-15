@@ -1,4 +1,4 @@
-\begin{thebibliography}{34}
+\begin{thebibliography}{44}
 \expandafter\ifx\csname natexlab\endcsname\relax\def\natexlab#1{#1}\fi
 \providecommand{\bibinfo}[2]{#2}
 \ifx\xfnm\relax \def\xfnm[#1]{\unskip,\space#1}\fi
@@ -27,6 +27,14 @@
 \newblock {\it \bibinfo{title}{Cortex: statistics and geometry of neuronal
   connectivity}\/}.
 \newblock \bibinfo{publisher}{Springer Science \& Business Media}.
+%Type = Article
+\bibitem[{Clare \& Holderied(2015)}]{Clare2015}
+\bibinfo{author}{Clare, E.~L.}, \& \bibinfo{author}{Holderied, M.~W.}
+  (\bibinfo{year}{2015}).
+\newblock \bibinfo{title}{Acoustic shadows help gleaning bats find prey, but
+  may be defeated by prey acoustic camouflage on rough surfaces}.
+\newblock {\it \bibinfo{journal}{Elife}\/},  {\it \bibinfo{volume}{4}\/},
+  \bibinfo{pages}{e07404}.
 %Type = Article
 \bibitem[{Dau et~al.(1996)Dau, P{\"u}schel \& Kohlrausch}]{Dau1996}
 \bibinfo{author}{Dau, T.}, \bibinfo{author}{P{\"u}schel, D.}, \&
@@ -66,6 +74,16 @@
   notched-noise data}.
 \newblock {\it \bibinfo{journal}{Hearing research}\/},  {\it
   \bibinfo{volume}{47}\/}, \bibinfo{pages}{103--138}.
+%Type = Article
+\bibitem[{Grunwald et~al.(2004)Grunwald, Sch\"{o}rnich \&
+  Wiegrebe}]{Grunwald2004}
+\bibinfo{author}{Grunwald, J.-E.}, \bibinfo{author}{Sch\"{o}rnich, S.}, \&
+  \bibinfo{author}{Wiegrebe, L.} (\bibinfo{year}{2004}).
+\newblock \bibinfo{title}{{Classification of natural textures in
+  echolocation.}}
+\newblock {\it \bibinfo{journal}{Proceedings of the National Academy of
+  Sciences of the United States of America}\/},  {\it \bibinfo{volume}{101}\/},
+  \bibinfo{pages}{5670--5674}.
 %Type = Article
 \bibitem[{Hawkins(2004)}]{Hawkins2004}
 \bibinfo{author}{Hawkins, D.~M.} (\bibinfo{year}{2004}).
@@ -107,6 +125,16 @@
 \newblock \bibinfo{title}{Biomimetic sonar differentiates coin head from tail}.
 \newblock {\it \bibinfo{journal}{The Journal of the Acoustical Society of
   America}\/},  {\it \bibinfo{volume}{101}\/}, \bibinfo{pages}{3198}.
+%Type = Article
+\bibitem[{Lee et~al.(2017)Lee, Falk, Chiu, Krishnan, Arbour \& Moss}]{Lee2017}
+\bibinfo{author}{Lee, W.-J.}, \bibinfo{author}{Falk, B.},
+  \bibinfo{author}{Chiu, C.}, \bibinfo{author}{Krishnan, A.},
+  \bibinfo{author}{Arbour, J.~H.}, \& \bibinfo{author}{Moss, C.~F.}
+  (\bibinfo{year}{2017}).
+\newblock \bibinfo{title}{Tongue-driven sonar beam steering by a
+  lingual-echolocating fruit bat}.
+\newblock {\it \bibinfo{journal}{PLoS biology}\/},  {\it
+  \bibinfo{volume}{15}\/}, \bibinfo{pages}{e2003148}.
 %Type = Inproceedings
 \bibitem[{Mansour et~al.(2019)Mansour, Koreman, Laurijssen, Steckel, Peremans
   \& Vanderelst}]{Mansour2019}
@@ -128,6 +156,28 @@
   cognitive processes.}\/}.
 \newblock \bibinfo{publisher}{Oxford University Press}.
 %Type = Article
+\bibitem[{Meddis(2006)}]{Meddis2006}
+\bibinfo{author}{Meddis, R.} (\bibinfo{year}{2006}).
+\newblock \bibinfo{title}{Auditory-nerve first-spike latency and auditory
+  absolute threshold: a computer model}.
+\newblock {\it \bibinfo{journal}{The Journal of the Acoustical Society of
+  America}\/},  {\it \bibinfo{volume}{119}\/}, \bibinfo{pages}{406--417}.
+%Type = Article
+\bibitem[{Moss \& Surlykke(2001)}]{Moss2001}
+\bibinfo{author}{Moss, C.~F.}, \& \bibinfo{author}{Surlykke, a.}
+  (\bibinfo{year}{2001}).
+\newblock \bibinfo{title}{{Auditory scene analysis by echolocation in bats.}}
+\newblock {\it \bibinfo{journal}{The Journal of the Acoustical Society of
+  America}\/},  {\it \bibinfo{volume}{110}\/}, \bibinfo{pages}{2207--2226}.
+%Type = Article
+\bibitem[{Reijniers \& Peremans(2010)}]{Reijniers2010a}
+\bibinfo{author}{Reijniers, J.}, \& \bibinfo{author}{Peremans, H.}
+  (\bibinfo{year}{2010}).
+\newblock \bibinfo{title}{On population encoding and decoding of auditory
+  information for bat echolocation}.
+\newblock {\it \bibinfo{journal}{Biological Cybernetics}\/},  {\it
+  \bibinfo{volume}{102}\/}, \bibinfo{pages}{311--326}.
+%Type = Article
 \bibitem[{Reijniers et~al.(2010)Reijniers, Vanderelst \&
   Peremans}]{Reijniers2010}
 \bibinfo{author}{Reijniers, J.}, \bibinfo{author}{Vanderelst, D.}, \&
@@ -136,6 +186,22 @@
   sonar}.
 \newblock {\it \bibinfo{journal}{Physical review letters}\/},  {\it
   \bibinfo{volume}{105}\/}, \bibinfo{pages}{148701}.
+%Type = Article
+\bibitem[{Schnitzler et~al.(2003)Schnitzler, Moss \&
+  Denzinger}]{Schnitzler2003}
+\bibinfo{author}{Schnitzler, H.-U.}, \bibinfo{author}{Moss, C.~F.}, \&
+  \bibinfo{author}{Denzinger, A.} (\bibinfo{year}{2003}).
+\newblock \bibinfo{title}{From spatial orientation to food acquisition in
+  echolocating bats}.
+\newblock {\it \bibinfo{journal}{Trends in Ecology \& Evolution}\/},  {\it
+  \bibinfo{volume}{18}\/}, \bibinfo{pages}{386--394}.
+%Type = Article
+\bibitem[{Simmons(2012)}]{Simmons2012}
+\bibinfo{author}{Simmons, J.~a.} (\bibinfo{year}{2012}).
+\newblock \bibinfo{title}{{Bats use a neuronally implemented computational
+  acoustic model to form sonar images}}.
+\newblock {\it \bibinfo{journal}{Current Opinion in Neurobiology}\/},  {\it
+  \bibinfo{volume}{22}\/}, \bibinfo{pages}{311--319}.
 %Type = Article
 \bibitem[{Simmons et~al.(1989)Simmons, Freedman, Stevenson, Chen \&
   Wohlgenant}]{Simmons1989}
@@ -170,6 +236,23 @@
   echolocating fm-bats (eptesicus fuscus)}.
 \newblock {\it \bibinfo{journal}{Journal of Comparative Physiology A}\/},  {\it
   \bibinfo{volume}{178}\/}, \bibinfo{pages}{235--241}.
+%Type = Incollection
+\bibitem[{Surlykke et~al.(2016)Surlykke, Simmons \& Moss}]{Surlykke2016}
+\bibinfo{author}{Surlykke, A.}, \bibinfo{author}{Simmons, J.~A.}, \&
+  \bibinfo{author}{Moss, C.~F.} (\bibinfo{year}{2016}).
+\newblock \bibinfo{title}{Perceiving the world through echolocation and
+  vision}.
+\newblock In {\it \bibinfo{booktitle}{Bat Bioacoustics}\/} (pp.
+  \bibinfo{pages}{265--288}).
+\newblock \bibinfo{publisher}{Springer}.
+%Type = Article
+\bibitem[{Ulanovsky \& Moss(2008)}]{Ulanovsky2008}
+\bibinfo{author}{Ulanovsky, N.}, \& \bibinfo{author}{Moss, C.~F.}
+  (\bibinfo{year}{2008}).
+\newblock \bibinfo{title}{What the bat's voice tells the bat's brain}.
+\newblock {\it \bibinfo{journal}{Proceedings of the National Academy of
+  Sciences of the United States of America}\/},  {\it \bibinfo{volume}{105}\/},
+  \bibinfo{pages}{8491--8498}.
 %Type = Article
 \bibitem[{Vanderelst(2015)}]{Vanderelst2015}
 \bibinfo{author}{Vanderelst, D.} (\bibinfo{year}{2015}).

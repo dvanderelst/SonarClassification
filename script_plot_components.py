@@ -8,9 +8,8 @@ from library import misc, settings
 from PyAstronomy.pyaC import zerocross1d
 
 pyplot.style.use(settings.style)
-n = settings.n_components_templates
 
-pca_model = misc.pickle_load(settings.pca_templates_file)
+pca_model = misc.pickle_load(settings.pca_templates_model_file)
 components = pca_model.components_
 
 mx = numpy.max(numpy.abs(components))
@@ -19,13 +18,13 @@ x = numpy.array(range(n))
 
 pyplot.figure(figsize=(10, 7))
 
-for i in range(20):
+for i in range(25):
     component = components[i, :]
     crossings = zerocross1d(x, component)
     n_crossings = crossings.size
     title = '$PC_{%i}$' % (i + 1)
 
-    pyplot.subplot(4, 5, i + 1)
+    pyplot.subplot(5, 5, i + 1)
     pyplot.plot(component)
     pyplot.ylim([-mx, mx])
     pyplot.hlines(0, 0, n, alpha=0.25)

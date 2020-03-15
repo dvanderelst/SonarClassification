@@ -1,0 +1,11 @@
+import script_preprocess_empirical_data
+
+import script_synthetic_echoes_to_PCA
+import script_plot_processing_synthetic
+
+import script_plot_template_examples
+import script_plot_components
+
+import script_run_training
+
+import script_run_perfect_memory

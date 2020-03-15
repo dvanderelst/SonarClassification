@@ -17,7 +17,6 @@ results_els = misc.pickle_load(files_els['results_file'])
 results_lcs = misc.pickle_load(files_lcs['results_file'])
 perfect_memory = misc.pickle_load(files_lcs['perfect_memory_file'])
 
-output_file = os.path.join(settings.figure_folder, data_set + '_performance.pdf')
 
 # %% Plot errors
 
@@ -100,5 +99,6 @@ pyplot.xlabel('Location (meters)')
 pyplot.ylim([0, 5])
 
 pyplot.tight_layout()
-pyplot.savefig(output_file)
+if data_set == 'israel': pyplot.savefig(settings.israel_results_plot)
+if data_set == 'royal': pyplot.savefig(settings.royal_results_plot)
 pyplot.show()

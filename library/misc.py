@@ -6,8 +6,30 @@ import numpy
 import scipy.interpolate as interpolate
 from matplotlib import pyplot
 from sklearn.preprocessing import Normalizer
+import string
 
 from sklearn.decomposition import PCA
+
+def template2fft(template):
+    template = template - numpy.mean(template)
+    spectrum = numpy.abs(numpy.fft.fft(template))
+    return spectrum
+
+
+def label(x,y , txt, ax=None, fontsize=12):
+    if type(txt)==int: txt = '(' + string.ascii_letters[txt] + ')'
+    if ax is None: ax = pyplot.gca()
+    pyplot.text(x, y, txt, transform=ax.transAxes,
+                horizontalalignment='center',
+                verticalalignment = 'center',
+                fontsize=fontsize)
+
+def average_correlation_matrix(array):
+    size =array.shape[0]
+    mask = ~numpy.eye(size, dtype=bool)
+    values = array[mask]
+    mn = numpy.mean(values)
+    return mn
 
 
 def scale_synthetic_templates(empirical_templates, synthetic_templates):
@@ -18,6 +40,7 @@ def scale_synthetic_templates(empirical_templates, synthetic_templates):
     pyplot.plot(mean_empirical)
     pyplot.plot(mean_synthetic)
     pyplot.legend(['Empirical', 'Synthetic'])
+    pyplot.title('Before scaling')
     pyplot.show()
 
     # Plot correct mean and offset
@@ -34,6 +57,7 @@ def scale_synthetic_templates(empirical_templates, synthetic_templates):
     pyplot.plot(mean_empirical)
     pyplot.plot(mean_synthetic)
     pyplot.legend(['Empirical', 'Synthetic'])
+    pyplot.title('After scaling scaling')
     pyplot.show()
 
 
@@ -58,8 +82,7 @@ def project_and_reconstruct(pca_model, data):
     return transformed, reconstructed, correlation
 
 
-
-def run_pca(data, criterion=0.99, save_file = None):
+def run_pca(data, criterion, save_file = None):
     # Run all components
     pca_model = PCA()
     pca_model.fit(data)
@@ -76,7 +99,6 @@ def run_pca(data, criterion=0.99, save_file = None):
     result['correlation'] = correlation
     result['suggestion'] = suggestion
 
-
     if save_file is not None:
         numpy.savez_compressed(save_file,
                                original=data,
@@ -86,7 +108,7 @@ def run_pca(data, criterion=0.99, save_file = None):
     return pca_model, result
 
 
-def load_all_templates():
+def load_all_empirical_templates():
     data_set = 'israel'
     file_names = folder_names(data_set, None)
     data = numpy.load(file_names['npz_file'])
@@ -197,6 +219,7 @@ def make_confusion_matrix(results, normalize=True):
 
 
 def label_confusion_matrix(labels):
+    ticks = list(range(0, len(labels)))
     if len(labels) == 7: ticks = list(range(0, 7, 2))
     if len(labels) == 31: ticks = list(range(6, 31, 6))
     if len(labels) == 50: ticks = list(range(10, 50, 10))
@@ -240,7 +263,7 @@ def plot_inference_lines(error, number, xs):
     legend_entries = []
     i = 0
     for (x, y) in zip(xs, ys):
-        string_x = "x=%4.2f" % x
+        string_x = "average_spectrum=%4.2f" % x
         string_y = "y=%4.2f" % y
         string = string_x + ', ' + string_y
         color = settings.qualitative_colors[i, :]

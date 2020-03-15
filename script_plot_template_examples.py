@@ -1,15 +1,11 @@
 import numpy
-import os
 from matplotlib import pyplot
 from library import misc, settings
+
 
 #
 # Synthetic echoes, templates and reconstruction
 #
-
-mx_echoes = 0.1
-mx_templates = 0.25
-mn_templates = 0.17
 
 index0 = 10
 index1 = 100
@@ -21,20 +17,11 @@ print('-----> LOADING DATA')
 loaded = numpy.load(settings.synthetic_echoes_file)
 synthetic_echoes = loaded['synthetic_echoes']
 
-loaded = numpy.load(settings.scaled_synthetic_templates_file)
-synthetic_templates = loaded['synthetic_templates']
+loaded = numpy.load(settings.synthetic_templates_pca_results)
+synthetic_templates = loaded['original']
+reconstructed_synthetic_templates = loaded['reconstructed']
 
-loaded = numpy.load(settings.reconstructed_synthetic_templates_file)
-reconstructed_synthetic_templates = loaded['reconstructed_synthetic_templates']
-
-loaded = numpy.load(settings.reconstructed_synthetic_echoes_file)
-reconstructed_synthetic_echoes = loaded['reconstructed_synthetic_echoes']
-
-
-pca_model = misc.pickle_load(settings.pca_templates_file)
-cummulative_variance = numpy.cumsum(pca_model.explained_variance_ratio_)
-
-#x = synthetic_templates.flatten()
+#average_spectrum = synthetic_templates.flatten()
 #y = reconstructed_synthetic_templates.flatten()
 
 print('-----> GETTING DATA FROM ARRAYS')
@@ -47,122 +34,118 @@ template_0 = synthetic_templates[index0, :]
 template_1 = synthetic_templates[index1, :]
 template_2 = synthetic_templates[index2, :]
 
-reconstructed_echo_0 = reconstructed_synthetic_echoes[index0, :]
-reconstructed_echo_1 = reconstructed_synthetic_echoes[index1, :]
-reconstructed_echo_2 = reconstructed_synthetic_echoes[index2, :]
-
 reconstructed_template_0 = reconstructed_synthetic_templates[index0, :]
 reconstructed_template_1 = reconstructed_synthetic_templates[index1, :]
 reconstructed_template_2 = reconstructed_synthetic_templates[index2, :]
 
+mx_echoes = numpy.max(numpy.concatenate((echo_0, echo_1, echo_2)))
+mx_templates = numpy.max(numpy.concatenate((template_0, template_1, template_2)))
+mn_templates = numpy.min(numpy.concatenate((template_0, template_1, template_2)))
+mn_templates = mn_templates * 0.99
+mx_templates = mx_templates * 1.01
+
 print('-----> PLOTTING')
 
+fig = pyplot.figure(figsize=(9, 4))
 
-pyplot.figure(figsize=(12, 7))
+gs = fig.add_gridspec(2, 3, height_ratios=[0.25, 1] )
+
+ax0 = fig.add_subplot(gs[0, 0])
+ax1 = fig.add_subplot(gs[0, 1])
+ax2 = fig.add_subplot(gs[0, 2])
+ax3 = fig.add_subplot(gs[1, 0])
+ax4 = fig.add_subplot(gs[1, 1])
+ax5 = fig.add_subplot(gs[1, 2])
 
 print('-----> PLOTTING 2')
-pyplot.subplot(2, 4, 2)
-pyplot.plot(echo_0)
-pyplot.plot(reconstructed_echo_0, alpha=0.5)
+
+pyplot.sca(ax0)
+pyplot.plot(echo_0, color=settings.default_line_color01)
 pyplot.ylim([-mx_echoes, mx_echoes])
 pyplot.xticks([])
 pyplot.yticks([])
-pyplot.ylabel('Echo amplitude, model units')
+pyplot.ylabel('Amplitude')
+misc.label(0.9, 0.8, 0, fontsize=14)
 
 print('-----> PLOTTING 3')
-pyplot.subplot(2, 4, 3)
-pyplot.plot(echo_1)
-pyplot.plot(reconstructed_echo_1, alpha=0.5)
+pyplot.sca(ax1)
+pyplot.plot(echo_1, color=settings.default_line_color01)
 pyplot.ylim([-mx_echoes, mx_echoes])
 pyplot.xticks([])
 pyplot.yticks([])
+misc.label(0.9, 0.8, 1, fontsize=14)
 
 print('-----> PLOTTING 4')
-pyplot.subplot(2, 4, 4)
-pyplot.plot(echo_2)
-pyplot.plot(reconstructed_echo_2, alpha=0.5)
+pyplot.sca(ax2)
+pyplot.plot(echo_2, color=settings.default_line_color01)
 pyplot.ylim([-mx_echoes, mx_echoes])
 pyplot.xticks([])
 pyplot.yticks([])
+misc.label(0.9, 0.8, 2, fontsize=14)
 
 print('-----> PLOTTING 6')
-pyplot.subplot(2, 4, 6)
-pyplot.plot(template_0, linewidth=3)
-pyplot.plot(reconstructed_template_0)
+pyplot.sca(ax3)
+pyplot.plot(template_0, linewidth=3, color=settings.default_line_color01)
+pyplot.plot(reconstructed_template_0, color=settings.default_line_color02, alpha=0.75)
 pyplot.ylim([mn_templates, mx_templates])
 pyplot.xticks([])
 pyplot.yticks([])
-pyplot.legend(['Template', 'Reconstructed from PCs'])
-pyplot.ylabel('Template amplitude, model units')
+pyplot.legend(['Template', 'Reconstructed'], frameon=False)
+pyplot.ylabel('Template amplitude')
+misc.label(0.1, 0.9, 3, fontsize=14)
 
 print('-----> PLOTTING 7')
-pyplot.subplot(2, 4, 7)
-pyplot.plot(template_1, linewidth=3)
-pyplot.plot(reconstructed_template_1)
+pyplot.sca(ax4)
+pyplot.plot(template_1, linewidth=3, color=settings.default_line_color01)
+pyplot.plot(reconstructed_template_1, color=settings.default_line_color02, alpha=0.75)
 pyplot.ylim([mn_templates, mx_templates])
 pyplot.xticks([])
 pyplot.yticks([])
+misc.label(0.1, 0.9, 4, fontsize=14)
 
 print('-----> PLOTTING 8')
-pyplot.subplot(2, 4, 8)
-pyplot.plot(template_2, linewidth=3)
-pyplot.plot(reconstructed_template_2)
+pyplot.sca(ax5)
+pyplot.plot(template_2, linewidth=3, color=settings.default_line_color01)
+pyplot.plot(reconstructed_template_2, color=settings.default_line_color02, alpha=0.75)
 pyplot.ylim([mn_templates, mx_templates])
 pyplot.xticks([])
 pyplot.yticks([])
-
-print('-----> PLOTTING 1')
-pyplot.subplot(2, 4, 1)
-pyplot.plot(cummulative_variance)
-pyplot.ylabel('Cumm. variance')
-pyplot.xlabel('Number of components')
-
-print('-----> PLOTTING 5')
-#pyplot.subplot(2, 4, 5)
-#pyplot.scatter(x, y, s=0.1)
-#pyplot.ylabel('Template values')
-#pyplot.xlabel('Reconstructed template values')
+misc.label(0.1, 0.9, 5, fontsize=14)
 
 pyplot.tight_layout()
 pyplot.savefig(settings.synthetic_templates_plot)
 pyplot.show()
 
+
 # %%
 # Empirical templates and reconstruction
 #
 
-selected_indices = [500, 7000, 10000]
+selected_indices = [500, 7000, 9000]
 
 min_value = 0.15
 max_value = 0.45
 
-data_set = 'israel'
-file_names = misc.folder_names(data_set, None)
-data = numpy.load(file_names['npz_file'])
-template_israel = data['long_data']
+empirical_templates = misc.load_all_empirical_templates()
+pca_model = misc.pickle_load(settings.pca_templates_model_file)
+transformed, reconstructed, correlation = misc.project_and_reconstruct(pca_model, empirical_templates)
 
-data_set = 'royal'
-file_names = misc.folder_names(data_set, None)
-data = numpy.load(file_names['npz_file'])
-templates_royal = data['long_data']
-
-all_templates = numpy.row_stack((templates_royal, template_israel))
-reconstructed_templates = numpy.load(settings.reconstructed_templates_file)
-
-
-pyplot.figure(figsize=(10, 5))
+#%%
+pyplot.figure(figsize=(8, 2.5))
 for i in range(len(selected_indices)):
     index = selected_indices[i]
-    template = all_templates[index, :]
-    recon = reconstructed_templates[index, :]
+    template = empirical_templates[index, :]
+    recon = reconstructed[index, :]
 
     pyplot.subplot(1, len(selected_indices), i + 1)
-    pyplot.plot(template, linewidth=3)
-    pyplot.plot(recon)
+    pyplot.plot(template, linewidth=3, color=settings.default_line_color01)
+    pyplot.plot(recon, color=settings.default_line_color02, alpha=0.75)
     pyplot.ylim([min_value, max_value])
-    pyplot.xlabel('Sample')
-    if i == 0: pyplot.legend(['Template', 'Reconstructed from PCs'])
+    pyplot.xticks([])
+    pyplot.yticks([])
+    if i == 0: pyplot.legend(['Template', 'Reconstructed'],frameon=False)
+    misc.label(0.1, 0.9, i, fontsize=14)
 
 pyplot.tight_layout()
-pyplot.savefig(settings.templates_plot)
+pyplot.savefig(settings.empirical_templates_plot)
 pyplot.show()

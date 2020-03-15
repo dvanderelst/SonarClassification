@@ -9,7 +9,7 @@ import numpy.ma as ma
 def smoothn(y,nS0=10,axis=None,smoothOrder=2.0,sd=None,verbose=False,\
 	s0=None,z0=None,isrobust=False,W=None,s=None,MaxIter=100,TolZ=1e-3,weightstr='bisquare'):
   '''
-   function [z,s,exitflag,Wtot] = smoothn(varargin)
+   function [z,template,exitflag,Wtot] = smoothn(varargin)
 
    SMOOTHN Robust spline smoothing for 1-D to N-D data.
    SMOOTHN provides a fast, automatized and robust discretized smoothing
@@ -82,21 +82,21 @@ def smoothn(y,nS0=10,axis=None,smoothOrder=2.0,sd=None,verbose=False,\
    Examples:
    --------
    # 1-D example
-   x = linspace(0,100,2**8);
-   y = cos(x/10)+(x/50)**2 + randn(size(x))/10;
+   average_spectrum = linspace(0,100,2**8);
+   y = cos(average_spectrum/10)+(average_spectrum/50)**2 + randn(size(average_spectrum))/10;
    y[[70, 75, 80]] = [5.5, 5, 6];
    z = smoothn(y); # Regular smoothing
    zr = smoothn(y,'robust'); # Robust smoothing
-   subplot(121), plot(x,y,'seed_points.',x,z,'k','LineWidth',2)
+   subplot(121), plot(average_spectrum,y,'seed_points.',average_spectrum,z,'k','LineWidth',2)
    axis square, title('Regular smoothing')
-   subplot(122), plot(x,y,'seed_points.',x,zr,'k','LineWidth',2)
+   subplot(122), plot(average_spectrum,y,'seed_points.',average_spectrum,zr,'k','LineWidth',2)
    axis square, title('Robust smoothing')
 
    # 2-D example
    xp = 0:.02:1;
-   [x,y] = meshgrid(xp);
-   f = exp(x+y) + sin((x-2*y)*3);
-   fn = f + randn(size(f))*0.5;
+   [average_spectrum,y] = meshgrid(xp);
+   frequency_axis = exp(average_spectrum+y) + sin((average_spectrum-2*y)*3);
+   fn = frequency_axis + randn(size(frequency_axis))*0.5;
    sample_frequency = smoothn(fn);
    subplot(121), surf(xp,xp,fn), zlim([0 8]), axis square
    subplot(122), surf(xp,xp,sample_frequency), zlim([0 8]), axis square
@@ -117,27 +117,27 @@ def smoothn(y,nS0=10,axis=None,smoothOrder=2.0,sd=None,verbose=False,\
    title('... compared with original data')
 
    # 3-D example
-   [x,y,z] = meshgrid(-2:.2:2);
+   [average_spectrum,y,z] = meshgrid(-2:.2:2);
    xslice = [-0.8,1]; yslice = 2; zslice = [-2,0];
-   vn = x.*exp(-x.^2-y.^2-z.^2) + randn(size(x))*0.06;
-   subplot(121), slice(x,y,z,vn,xslice,yslice,zslice,'cubic')
+   vn = average_spectrum.*exp(-average_spectrum.^2-y.^2-z.^2) + randn(size(average_spectrum))*0.06;
+   subplot(121), slice(average_spectrum,y,z,vn,xslice,yslice,zslice,'cubic')
    title('Noisy data')
    v = smoothn(vn);
-   subplot(122), slice(x,y,z,v,xslice,yslice,zslice,'cubic')
+   subplot(122), slice(average_spectrum,y,z,v,xslice,yslice,zslice,'cubic')
    title('Smoothed data')
 
    # Cardioid
    t = linspace(0,2*pi,1000);
-   x = 2*cos(t).*(1-cos(t)) + randn(size(t))*0.1;
+   average_spectrum = 2*cos(t).*(1-cos(t)) + randn(size(t))*0.1;
    y = 2*sin(t).*(1-cos(t)) + randn(size(t))*0.1;
-   z = smoothn(complex(x,y));
-   plot(x,y,'seed_points.',real(z),imag(z),'k','linewidth',2)
+   z = smoothn(complex(average_spectrum,y));
+   plot(average_spectrum,y,'seed_points.',real(z),imag(z),'k','linewidth',2)
    axis equal tight
 
    # Cellular vortical flow
-   [x,y] = meshgrid(linspace(0,1,24));
-   Vx = cos(2*pi*x+pi/2).*cos(2*pi*y);
-   Vy = sin(2*pi*x+pi/2).*sin(2*pi*y);
+   [average_spectrum,y] = meshgrid(linspace(0,1,24));
+   Vx = cos(2*pi*average_spectrum+pi/2).*cos(2*pi*y);
+   Vy = sin(2*pi*average_spectrum+pi/2).*sin(2*pi*y);
    Vx = Vx + sqrt(0.05)*randn(24,24); # adding Gaussian noise
    Vy = Vy + sqrt(0.05)*randn(24,24); # adding Gaussian noise
    I = randperm(numel(Vx));
@@ -146,9 +146,9 @@ def smoothn(y,nS0=10,axis=None,smoothOrder=2.0,sd=None,verbose=False,\
    Vx(I(31:60)) = NaN; # missing values
    Vy(I(31:60)) = NaN; # missing values
    Vs = smoothn(complex(Vx,Vy),'robust'); # automatic smoothing
-   subplot(121), quiver(x,y,Vx,Vy,2.5), axis square
+   subplot(121), quiver(average_spectrum,y,Vx,Vy,2.5), axis square
    title('Noisy velocity field')
-   subplot(122), quiver(x,y,real(Vs),imag(Vs)), axis square
+   subplot(122), quiver(average_spectrum,y,real(Vs),imag(Vs)), axis square
    title('Smoothed velocity field')
 
    See also SMOOTH, SMOOTH3, DCTN, IDCTN.
@@ -160,7 +160,7 @@ def smoothn(y,nS0=10,axis=None,smoothOrder=2.0,sd=None,verbose=False,\
   # Check input arguments
   error(nargchk(1,12,nargin));
 
-  z0=None,W=None,s=None,MaxIter=100,TolZ=1e-3
+  z0=None,W=None,template=None,MaxIter=100,TolZ=1e-3
   '''
   if type(y) == ma.core.MaskedArray:  # masked array
     is_masked = True
@@ -199,8 +199,8 @@ def smoothn(y,nS0=10,axis=None,smoothOrder=2.0,sd=None,verbose=False,\
     return z,s,exitflag,Wtot
   #---
   # Smoothness parameter and weights
-  #if s != None:
-  #  s = []
+  #if template != None:
+  #  template = []
   if W == None:
     W = ones(sizy);
 
@@ -248,7 +248,7 @@ def smoothn(y,nS0=10,axis=None,smoothOrder=2.0,sd=None,verbose=False,\
   d =  y.ndim;
   Lambda = zeros(sizy);
   for i in axis:
-    # create a 1 x d array (so e.g. [1,1] for a 2D case
+    # create a 1 average_spectrum d array (so e.g. [1,1] for a 2D case
     siz0 = ones((1,y.ndim))[0];
     siz0[i] = sizy[i];
     # cos(pi*(reshape(1:sizy(i),siz0)-1)/sizy(i)))
@@ -271,7 +271,7 @@ def smoothn(y,nS0=10,axis=None,smoothOrder=2.0,sd=None,verbose=False,\
   hMin = 1e-6; hMax = 0.99;
   # (h/n)**2 = (1 + a)/( 2 a)
   # a = 1/(2 (h/n)**2 -1) 
-  # where a = sqrt(1 + 16 s)
+  # where a = sqrt(1 + 16 template)
   # (a**2 -1)/16
   try:
     sMinBnd = np.sqrt((((1+sqrt(1+8*hMax**(2./N)))/4./hMax**(2./N))**2-1)/16.);
@@ -304,7 +304,7 @@ def smoothn(y,nS0=10,axis=None,smoothOrder=2.0,sd=None,verbose=False,\
   RobustIterativeProcess = True;
   RobustStep = 1;
   nit = 0;
-  #--- Error on p. Smoothness parameter s = 10^p
+  #--- Error on spectrum. Smoothness parameter template = 10^spectrum
   errp = 0.1;
   #opt = optimset('TolX',errp);
   #--- Relaxation factor RF: to speedup convergence
@@ -331,18 +331,18 @@ def smoothn(y,nS0=10,axis=None,smoothOrder=2.0,sd=None,verbose=False,\
         if isauto and not remainder(log2(nit),1):
             #---
             # The generalized cross-validation (GCV) method is used.
-            # We seek the smoothing parameter s that minimizes the GCV
-            # score i.e. s = Argmin(GCVscore).
+            # We seek the smoothing parameter template that minimizes the GCV
+            # score i.e. template = Argmin(GCVscore).
             # Because this process is time-consuming, it is performed from
             # time to time (when nit is a power of 2)
             #---
             # errp in here somewhere
             
-            #xpost,f,d = lbfgsb.fmin_l_bfgs_b(gcv,xpost,fprime=None,factr=10.,\
+            #xpost,frequency_axis,d = lbfgsb.fmin_l_bfgs_b(gcv,xpost,fprime=None,factr=10.,\
             #   approx_grad=True,bounds=[(log10(sMinBnd),log10(sMaxBnd))],\
             #   args=(Lambda,aow,DCTy,IsFinite,Wtot,y,nof,noe))
 
-            # if we have no clue what value of s to use, better span the
+            # if we have no clue what value of template to use, better span the
             # possible range to get a reasonable starting point ...
             # only need to do it once though. nS0 is teh number of samples used
             if not s0:
@@ -350,10 +350,10 @@ def smoothn(y,nS0=10,axis=None,smoothOrder=2.0,sd=None,verbose=False,\
               g = np.zeros_like(ss)
               for i,p in enumerate(ss):
                 g[i] = gcv(p,Lambda,aow,DCTy,IsFinite,Wtot,y,nof,noe,smoothOrder)
-                #print 10**p,g[i]
+                #print 10**spectrum,g[i]
               xpost = [ss[g==g.min()]]
               #print '==============='
-              #print nit,tol,g.min(),xpost[0],s
+              #print nit,tol,g.min(),xpost[0],template
               #print '==============='
             else:
               xpost = [s0]
@@ -361,7 +361,7 @@ def smoothn(y,nS0=10,axis=None,smoothOrder=2.0,sd=None,verbose=False,\
                approx_grad=True,bounds=[(log10(sMinBnd),log10(sMaxBnd))],\
                args=(Lambda,aow,DCTy,IsFinite,Wtot,y,nof,noe,smoothOrder))
         s = 10**xpost[0];
-        # update the value we use for the initial s estimate
+        # update the value we use for the initial template estimate
         s0 = xpost[0]
 
         Gamma = 1./(1+(s*abs(Lambda))**smoothOrder);
@@ -393,12 +393,12 @@ def smoothn(y,nS0=10,axis=None,smoothOrder=2.0,sd=None,verbose=False,\
   if isauto:
     if abs(log10(s)-log10(sMinBnd))<errp:
         warning('MATLAB:smoothn:SLowerBound',\
-            ['s = %.3f '%(s) + ': the lower bound for s '\
-            + 'has been reached. Put s as an input variable if required.'])
+            ['template = %.3f '%(s) + ': the lower bound for template '\
+            + 'has been reached. Put template as an input variable if required.'])
     elif abs(log10(s)-log10(sMaxBnd))<errp:
         warning('MATLAB:smoothn:SUpperBound',\
-            ['s = %.3f '%(s) + ': the upper bound for s '\
-            + 'has been reached. Put s as an input variable if required.'])
+            ['template = %.3f '%(s) + ': the upper bound for template '\
+            + 'has been reached. Put template as an input variable if required.'])
     #warning('MATLAB:smoothn:MaxIter',\
     #    ['Maximum number of iterations (%d'%(MaxIter) + ') has '\
     #    + 'been exceeded. Increase MaxIter option or decrease TolZ value.'])
@@ -410,9 +410,9 @@ def warning(s1,s2):
 
 ## GCV score
 #---
-#function GCVscore = gcv(p)
+#function GCVscore = gcv(spectrum)
 def gcv(p,Lambda,aow,DCTy,IsFinite,Wtot,y,nof,noe,smoothOrder):
-    # Search the smoothing parameter s that minimizes the GCV score
+    # Search the smoothing parameter template that minimizes the GCV score
     #---
     s = 10**p;
     Gamma = 1./(1+(s*abs(Lambda))**smoothOrder);
@@ -515,7 +515,7 @@ def peaks(n):
     sdy = sdx
     c = random()*2 - 1.
     f = exp(-((x-x0)/sdx)**2-((y-y0)/sdy)**2 - (((x-x0)/sdx))*((y-y0)/sdy)*c)
-    #f /= f.sum()
+    #frequency_axis /= frequency_axis.sum()
     f *= random()
     z += f
   return z 

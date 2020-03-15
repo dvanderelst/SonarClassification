@@ -10,13 +10,18 @@ ws_nb = []
 rs = []
 ts = []
 
+loaded = numpy.load(settings.synthetic_templates_pca_results)
+transformed = loaded['transformed']
+n_components_templates = transformed.shape[1]
+
 for data_set in ['israel', 'royal']:
     selected_dimension = 'lcs'
     file_names = misc.folder_names(data_set, selected_dimension)
     data = numpy.load(file_names['npz_file'])
     templates = data['long_data']
 
-    total_n_numbers = templates.shape[0] * settings.n_components_templates
+
+    total_n_numbers = templates.shape[0] * n_components_templates
 
     new_model = keras.models.load_model(file_names['model_file'])
     weights = new_model.get_weights()

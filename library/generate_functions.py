@@ -10,6 +10,7 @@ from pyBat import Signal
 
 from scipy.signal import convolve
 
+
 def create_emission():
     emission_duration = settings.emission_duration
     sample_frequency = settings.sample_frequency
@@ -39,26 +40,35 @@ def generative_model(parameters):
         distances = numpy.concatenate((distances, g))
 
     # add close echo to ensure that even seqs with low n have a strong echo
-    #close = random.uniform(minimum_distance, minimum_distance+1, 1)
-    #g = numpy.array([minimum_distance])
-    #distances = numpy.concatenate((distances, close))
+    close = random.uniform(minimum_distance, minimum_distance + 1, 1)
+    distances = numpy.concatenate((distances, close))
+    # add "emission" for dechirping to work properly
+    # distances = numpy.concatenate((distances, [0]))
     return distances
 
-def distances2echo_sequence(distances, caller, emission):
+
+def distances2echo_sequence(distances, emission, noise_sd=10):
+    spreading_parameter = settings.spreading_parameter
+    call_level = settings.call_level
+    reflection_parameter = settings.reflection_parameter
+
+
     emission_duration = settings.emission_duration
     sample_frequency = settings.sample_frequency
     number_of_samples = settings.raw_collected_samples
     number_of_zero_samples = math.ceil(settings.initial_zero_time * sample_frequency)
-    # Get intensities
-    azimuths = numpy.zeros(distances.shape)
-    elevations = numpy.zeros(distances.shape)
-    call_result = caller.call(azimuths, elevations, distances)
-    left_db = call_result['echoes_left']
-    delays = call_result['delays']
+    # Get intensities - the atmospheric attenuation is taken care of when running the wiegrebe model
+    spreading = spreading_parameter * numpy.log10(distances)
+    echo_db = call_level + spreading + reflection_parameter
+
+    noise = random.normal(0, noise_sd, echo_db.shape)
+    echo_db = echo_db + noise
+    echo_db[echo_db<settings.detection_threshold] = 0
+    echo_db[echo_db>call_level] = call_level
+    delays = Acoustics.dist2delay(distances)
 
     # Make impulse response
-    left_db[left_db<0] = 0
-    ir_result = Acoustics.make_impulse_response(delays, left_db, emission_duration, sample_frequency)
+    ir_result = Acoustics.make_impulse_response(delays, echo_db, emission_duration, sample_frequency)
     impulse_response = ir_result['ir_result']
     shape = impulse_response.shape[0]
     padding = number_of_samples - shape
@@ -72,25 +82,13 @@ def distances2echo_sequence(distances, caller, emission):
 
 
 def echo_sequence2template(echo_sequence, wiegrebe):
-    sample_frequency = settings.sample_frequency
-    integration_time = settings.integration_time
-    #integration_samples = math.ceil(sample_frequency * integration_time)
-
-    # Run Wiegrebe model
-    wiegrebe_result = wiegrebe.run_model(echo_sequence, dechirp=True)
+    wiegrebe_result = wiegrebe.run_model(echo_sequence, dechirp=True, apply_attenuation=True)
     wiegrebe_result = wiegrebe_result.reshape(1, -1)
-
-    # Subsample
-    #mask = numpy.ones((1, integration_samples))
-    #mask = mask / numpy.sum(mask)
-    #wiegrebe_result = convolve(wiegrebe_result, mask, mode='same')
-    #wiegrebe_result = wiegrebe_result[:, ::integration_samples]
     wiegrebe_result = wiegrebe_result[0]
     return wiegrebe_result
 
 
-
-def evaluate_fit(template, pca_model, remove_begin_samples = 17, remove_end_samples=17):
+def evaluate_fit(template, pca_model, remove_begin_samples=17, remove_end_samples=17):
     # Apply pca model
     transformed = pca_model.transform(template)
     reconstructed = pca_model.inverse_transform(transformed)

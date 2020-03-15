@@ -3,11 +3,9 @@ import os
 from matplotlib import pyplot
 from library import smoothn, misc, settings
 
-training_history_plot_file = settings.training_history_plot
-
 pyplot.style.use(settings.style)
 
-pyplot.figure(figsize=(5,2.5))
+pyplot.figure(figsize=(7,3))
 
 for data_set in ['israel', 'royal']:
     if data_set == 'israel': pyplot.subplot(1, 2, 1)
@@ -36,5 +34,5 @@ for data_set in ['israel', 'royal']:
 
 pyplot.tight_layout()
 pyplot.legend(['Azimuth', 'Elevation', 'Location'])
-pyplot.savefig(training_history_plot_file)
+pyplot.savefig(settings.training_history_plot)
 pyplot.show()
