@@ -1,7 +1,16 @@
-\begin{thebibliography}{44}
+\begin{thebibliography}{49}
 \expandafter\ifx\csname natexlab\endcsname\relax\def\natexlab#1{#1}\fi
 \providecommand{\bibinfo}[2]{#2}
 \ifx\xfnm\relax \def\xfnm[#1]{\unskip,\space#1}\fi
+%Type = Article
+\bibitem[{Aytekin et~al.(2004)Aytekin, Grassi, Sahota \& Moss}]{Aytekin2004}
+\bibinfo{author}{Aytekin, M.}, \bibinfo{author}{Grassi, E.},
+  \bibinfo{author}{Sahota, M.}, \& \bibinfo{author}{Moss, C.~F.}
+  (\bibinfo{year}{2004}).
+\newblock \bibinfo{title}{The bat head-related transfer function reveals
+  binaural cues for sound localization in azimuth and elevation}.
+\newblock {\it \bibinfo{journal}{The Journal of the Acoustical Society of
+  America}\/},  {\it \bibinfo{volume}{116}\/}, \bibinfo{pages}{3594--3605}.
 %Type = Article
 \bibitem[{Baddeley et~al.(2012)Baddeley, Graham, Husbands \&
   Philippides}]{Baddeley2012}
@@ -51,6 +60,12 @@
 \newblock \bibinfo{title}{Biomimetic robot navigation}.
 \newblock {\it \bibinfo{journal}{Robotics and autonomous Systems}\/},  {\it
   \bibinfo{volume}{30}\/}, \bibinfo{pages}{133--153}.
+%Type = Phdthesis
+\bibitem[{Geberl(2013)}]{Geberl2013}
+\bibinfo{author}{Geberl, C.} (\bibinfo{year}{2013}).
+\newblock {\it \bibinfo{title}{Spatial and temporal resolution of bat
+  sonar}\/}.
+\newblock Ph.D. thesis Ludwig-Maximilians-Universit{\"a}t M{\"u}nchen.
 %Type = Article
 \bibitem[{Geberl et~al.(2019)Geberl, Kugler \& Wiegrebe}]{Geberl2019}
 \bibinfo{author}{Geberl, C.}, \bibinfo{author}{Kugler, K.}, \&
@@ -59,6 +74,14 @@
   Quantified}} with a {{Visual}}-{{Resolution Paradigm}}}.
 \newblock {\it \bibinfo{journal}{Current Biology}\/},  (p.
   \bibinfo{pages}{S0960982219304750}).
+%Type = Article
+\bibitem[{Geipel et~al.(2013)Geipel, Jung \& Kalko}]{Geipel2013}
+\bibinfo{author}{Geipel, I.}, \bibinfo{author}{Jung, K.}, \&
+  \bibinfo{author}{Kalko, E.} (\bibinfo{year}{2013}).
+\newblock \bibinfo{title}{Perception of silent and motionless prey on
+  vegetation by echolocation in the gleaning bat micronycteris microtis}.
+\newblock {\it \bibinfo{journal}{Proceedings. Biological sciences / The Royal
+  Society}\/},  {\it \bibinfo{volume}{280}\/}, \bibinfo{pages}{20122830}.
 %Type = Book
 \bibitem[{Ghotra \& Dua(2017)}]{Ghotra2017}
 \bibinfo{author}{Ghotra, M.~S.}, \& \bibinfo{author}{Dua, R.}
@@ -74,16 +97,6 @@
   notched-noise data}.
 \newblock {\it \bibinfo{journal}{Hearing research}\/},  {\it
   \bibinfo{volume}{47}\/}, \bibinfo{pages}{103--138}.
-%Type = Article
-\bibitem[{Grunwald et~al.(2004)Grunwald, Sch\"{o}rnich \&
-  Wiegrebe}]{Grunwald2004}
-\bibinfo{author}{Grunwald, J.-E.}, \bibinfo{author}{Sch\"{o}rnich, S.}, \&
-  \bibinfo{author}{Wiegrebe, L.} (\bibinfo{year}{2004}).
-\newblock \bibinfo{title}{{Classification of natural textures in
-  echolocation.}}
-\newblock {\it \bibinfo{journal}{Proceedings of the National Academy of
-  Sciences of the United States of America}\/},  {\it \bibinfo{volume}{101}\/},
-  \bibinfo{pages}{5670--5674}.
 %Type = Article
 \bibitem[{Hawkins(2004)}]{Hawkins2004}
 \bibinfo{author}{Hawkins, D.~M.} (\bibinfo{year}{2004}).
@@ -112,6 +125,16 @@
   (\bibinfo{year}{2014}).
 \newblock \bibinfo{title}{Adam: A method for stochastic optimization}.
 \newblock {\it \bibinfo{journal}{arXiv preprint arXiv:1412.6980}\/}, .
+%Type = Article
+\bibitem[{Knowles et~al.(2015)Knowles, Barchi, Gaudette \&
+  Simmons}]{Knowles2015}
+\bibinfo{author}{Knowles, J.~M.}, \bibinfo{author}{Barchi, J.~R.},
+  \bibinfo{author}{Gaudette, J.~E.}, \& \bibinfo{author}{Simmons, J.~A.}
+  (\bibinfo{year}{2015}).
+\newblock \bibinfo{title}{Effective biosonar echo-to-clutter rejection ratio in
+  a complex dynamic scene}.
+\newblock {\it \bibinfo{journal}{The Journal of the Acoustical Society of
+  America}\/},  {\it \bibinfo{volume}{138}\/}, \bibinfo{pages}{1090--1101}.
 %Type = Article
 \bibitem[{Kuc(1997{\natexlab{a}})}]{Kuc1997}
 \bibinfo{author}{Kuc, R.} (\bibinfo{year}{1997}{\natexlab{a}}).
@@ -169,6 +192,14 @@
 \newblock \bibinfo{title}{{Auditory scene analysis by echolocation in bats.}}
 \newblock {\it \bibinfo{journal}{The Journal of the Acoustical Society of
   America}\/},  {\it \bibinfo{volume}{110}\/}, \bibinfo{pages}{2207--2226}.
+%Type = Article
+\bibitem[{M{\"u}ller \& Kuc(2000)}]{Muller2000}
+\bibinfo{author}{M{\"u}ller, R.}, \& \bibinfo{author}{Kuc, R.}
+  (\bibinfo{year}{2000}).
+\newblock \bibinfo{title}{Foliage echoes: a probe into the ecological acoustics
+  of bat echolocation}.
+\newblock {\it \bibinfo{journal}{The Journal of the Acoustical Society of
+  America}\/},  {\it \bibinfo{volume}{108}\/}, \bibinfo{pages}{836--845}.
 %Type = Article
 \bibitem[{Reijniers \& Peremans(2010)}]{Reijniers2010a}
 \bibinfo{author}{Reijniers, J.}, \& \bibinfo{author}{Peremans, H.}
@@ -345,6 +376,15 @@
 \newblock In {\it \bibinfo{booktitle}{Mouse brain development}\/} (pp.
   \bibinfo{pages}{21--49}).
 \newblock \bibinfo{publisher}{Springer}.
+%Type = Article
+\bibitem[{Yovel et~al.(2008)Yovel, Franz, Stilz \& Schnitzler}]{Yovel2008}
+\bibinfo{author}{Yovel, Y.}, \bibinfo{author}{Franz, M.~O.},
+  \bibinfo{author}{Stilz, P.}, \& \bibinfo{author}{Schnitzler, H.~U.}
+  (\bibinfo{year}{2008}).
+\newblock \bibinfo{title}{{Plant classification from bat-like echolocation
+  signals}}.
+\newblock {\it \bibinfo{journal}{PLoS Computational Biology}\/},  {\it
+  \bibinfo{volume}{4}\/}.
 %Type = Article
 \bibitem[{Yovel et~al.(2009)Yovel, Stilz, Franz, Boonman \&
   Schnitzler}]{Yovel2009}

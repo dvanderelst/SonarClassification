@@ -1,49 +1,49 @@
-This is BibTeX, Version 0.99d (TeX Live 2018)
+This is BibTeX, Version 0.99d (TeX Live 2019)
 Capacity: max_strings=100000, hash_size=100000, hash_prime=85009
 The top-level auxiliary file: main.aux
 The style file: model5-names.bst
 Database file #1: references.bib
 Reallocated wiz_functions (elt_size=4) to 6000 items from 3000.
 Warning--empty booktitle in VonHelversen2005
-You've used 44 entries,
+You've used 49 entries,
             3092 wiz_defined-function locations,
-            958 strings with 12688 characters,
-and the built_in function-call counts, 30150 in all, are:
-= -- 2458
-> -- 1276
-< -- 29
-+ -- 1101
-- -- 360
-* -- 3377
-:= -- 4137
-add.period$ -- 138
-call.type$ -- 44
-change.case$ -- 345
-chr.to.int$ -- 43
-cite$ -- 45
-duplicate$ -- 1892
-empty$ -- 1895
-format.name$ -- 504
-if$ -- 5601
+            988 strings with 13609 characters,
+and the built_in function-call counts, 33450 in all, are:
+= -- 2719
+> -- 1436
+< -- 31
++ -- 1243
+- -- 405
+* -- 3752
+:= -- 4604
+add.period$ -- 153
+call.type$ -- 49
+change.case$ -- 384
+chr.to.int$ -- 48
+cite$ -- 50
+duplicate$ -- 2090
+empty$ -- 2089
+format.name$ -- 564
+if$ -- 6199
 int.to.chr$ -- 2
 int.to.str$ -- 1
-missing$ -- 382
-newline$ -- 232
-num.names$ -- 176
-pop$ -- 632
+missing$ -- 424
+newline$ -- 257
+num.names$ -- 196
+pop$ -- 706
 preamble$ -- 1
-purify$ -- 296
+purify$ -- 331
 quote$ -- 0
-skip$ -- 898
+skip$ -- 988
 stack$ -- 0
-substring$ -- 1380
-swap$ -- 1691
+substring$ -- 1513
+swap$ -- 1867
 text.length$ -- 7
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 384
+type$ -- 429
 warning$ -- 1
-while$ -- 196
+while$ -- 215
 width$ -- 0
-write$ -- 626
+write$ -- 696
 (There was 1 warning)
