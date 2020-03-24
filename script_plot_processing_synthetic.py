@@ -7,7 +7,7 @@ from matplotlib import pyplot
 from library import misc
 from library import generate_functions
 from library import settings
-from pyBat import Wiegrebe
+from pyBat import Wiegrebe, Signal
 
 sample_frequency = settings.sample_frequency
 number_of_samples = settings.raw_collected_samples
@@ -16,17 +16,15 @@ emission_frequency_mean = settings.emission_frequency_mean
 initial_zero_samples = math.ceil(initial_zero_time * sample_frequency)
 
 emission = generate_functions.create_emission()
-
-emission_padding = number_of_samples - emission.shape[0]
-padded_emission = numpy.pad(emission, (0, emission_padding), 'constant')
-
-wiegrebe = Wiegrebe.ModelWiegrebe(sample_frequency, emission_frequency_mean, 4, emission=padded_emission)
+wiegrebe = Wiegrebe.ModelWiegrebe(sample_frequency, emission_frequency_mean, 4)
 
 generative_model_parameters = {}
 generative_model_parameters['n_seed_points'] = [100]
 generative_model_parameters['n_cloud_points'] = [100]
 distances = generate_functions.generative_model(generative_model_parameters)
-echo_sequence, impulse_response = generate_functions.distances2echo_sequence(distances, emission)
+echo_sequence_original, impulse_response = generate_functions.distances2echo_sequence(distances, emission)
+echo_sequence = Signal.dechirp(emission, echo_sequence_original)
+
 echo_sequence[0:initial_zero_samples] = 0
 template = generate_functions.echo_sequence2template(echo_sequence, wiegrebe)
 
@@ -48,16 +46,20 @@ synthetic_template_pca = misc.pickle_load(settings.pca_templates_model_file)
 cumulative = numpy.cumsum(synthetic_template_pca.explained_variance_ratio_)
 
 # %%
+
+r = numpy.max(numpy.abs(echo_sequence_original))
+
 pyplot.style.use(settings.style)
 
 fig = pyplot.figure(figsize=(20, 10))
-
 gs = fig.add_gridspec(8, 3)
+
 ax = fig.add_subplot(gs[:, 0])
+ax.plot(echo_sequence_original, color=settings.default_line_color02)
 ax.plot(echo_sequence, color=settings.default_line_color01)
 ax.set_xticks([])
 ax.set_yticks([])
-ax.set_ylim([-1.1,1.1])
+ax.set_ylim([-r,r])
 misc.label(0.95,0.95, 0, fontsize=20)
 
 for x in range(8):
@@ -79,11 +81,20 @@ for x in range(8):
 # ax.set_xlabel('Nr of components')
 
 ax = fig.add_subplot(gs[0:2, 2])
-r = ax.hist(correlations, color=settings.default_line_color01)
+r = ax.hist(correlations, color=settings.default_line_color01, alpha=0.5)
+r = ax.hist(correlations**2, color=settings.default_line_color02, alpha=0.5)
 ax.set_ylabel('Echo Seq. Count')
 ax.set_xlabel('Cross-channel correlation/variance')
 ax.set_xlim([0.75, 1])
+ax.legend(['Correlation', 'Covariance'], loc=3)
+
+
 mn = numpy.mean(correlations)
+h = numpy.max(r[0])
+ax.vlines(mn,0,h,colors=settings.default_line_color01)
+misc.label(0.05, 0.8, x+1, fontsize=20)
+
+mn = numpy.mean(correlations**2)
 h = numpy.max(r[0])
 ax.vlines(mn,0,h,colors=settings.default_line_color02)
 misc.label(0.05, 0.8, x+1, fontsize=20)

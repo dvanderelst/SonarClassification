@@ -26,7 +26,7 @@ for data_set in ['israel', 'royal']:
 
         pyplot.plot(trace, color=color)
         pyplot.ylim([0, 4])
-        pyplot.xscale('symlog')
+        #pyplot.xscale('symlog')
         pyplot.xlabel('Epoch')
         if data_set == 'israel': pyplot.ylabel('Loss')
         if data_set == 'israel': pyplot.title('Israel Data')

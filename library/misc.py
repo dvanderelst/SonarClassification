@@ -161,7 +161,7 @@ def folder_names(data_set, dimension):
     if dimension is None: base_name = data_set
 
     npz_file = os.path.join(result_folder, data_set + '.npz')
-    pca_file = os.path.join(result_folder, data_set + '.pca')
+    npz_file_interpolated = os.path.join(result_folder, data_set + '_interpolated_directions.npz')
 
     model_file = os.path.join(result_folder, base_name + '.5h')
     res_file = os.path.join(result_folder, base_name + '.pd')
@@ -175,7 +175,8 @@ def folder_names(data_set, dimension):
     result['result_folder'] = result_folder
     result['log_folder'] = log_folder
     result['npz_file'] = npz_file
-    # call_result['pca_file'] = pca_file
+    result['npz_file_interpolated'] = npz_file_interpolated
+
     result['model_file'] = model_file
     result['results_file'] = res_file
     result['history_file'] = hist_file

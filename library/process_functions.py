@@ -6,25 +6,20 @@ import numpy
 import scipy.io as io
 from scipy.signal import convolve
 from sklearn.preprocessing import OneHotEncoder
+from scipy.interpolate import RegularGridInterpolator
 
 
 def preprocess(file_name, verbose=True):
     fs = settings.sample_frequency
     noise_floor = settings.noise_floor
-    integration_time = settings.integration_time
     initial_zero_time = settings.initial_zero_time
     raw_collected_samples = settings.raw_collected_samples
-
     initial_omission_samples = math.ceil(initial_zero_time * fs)
-    integration_samples = math.ceil(fs * integration_time)
-    #final_samples = math.ceil(raw_collected_samples / integration_samples)
 
     if verbose:
         print('+-' * 10 + '+')
         print('PREPROCESSING', file_name)
-        #print('integration samples', integration_samples)
         print('initial zero samples', initial_omission_samples)
-        #print('final samples', final_samples)
 
     data = io.loadmat(file_name)
     data = data['Templates']
@@ -32,9 +27,7 @@ def preprocess(file_name, verbose=True):
     azimuth = data[0, 0][1]
     elevation = data[0, 0][2]
 
-    #processed = numpy.zeros((7, 31, final_samples, 3))
     processed = numpy.zeros((7, 31, raw_collected_samples, 3))
-
     for i in range(3):
         repetition = templates[:, :, i]
         # Reshape the data
@@ -60,31 +53,20 @@ def preprocess(file_name, verbose=True):
         mask = mask / numpy.sum(mask)
         mn_box = convolve(mn_box, mask, mode='same')
 
-        # # Average across directions and time
-        # mask = numpy.ones((3, 3, integration_samples))
-        # mask = mask / numpy.sum(mask)
-        # mn_box = convolve(mn_box, mask, mode='same')
-        # # Subsample
-        # mn_box = mn_box[:, :, ::integration_samples]
-
         if verbose: print('final samples', mn_box.shape[2])
-
-
         processed[:, :, :, i] = mn_box
         processed[processed < noise_floor] = noise_floor
     return processed, az_box, el_box
 
 
-def process_data_set(data_set, filter_threshold = 0.1):
-    # %%Preprocess andrews
+def process_data_set(data_set, filter_threshold = 0.1, interpolate_directions=False):
     print('#' * 10)
     print(data_set)
     print('#' * 10)
 
     file_names = misc.folder_names(data_set, 'none')
-
-    #pca_file = os.path.join(file_names['pca_file'])
-    data_file = os.path.join(file_names['npz_file'])
+    if not interpolate_directions: data_file = file_names['npz_file']
+    if interpolate_directions: data_file = file_names['npz_file_interpolated']
 
     # Reading in all data
     print('---> READING AND PREPROCESSING DATA')
@@ -107,6 +89,41 @@ def process_data_set(data_set, filter_threshold = 0.1):
         all_mns[i, :, :, :] = mns
         all_vrs[i, :, :, :] = vrs
 
+    # Select only those templates above threshold
+    summed = numpy.sum(all_mns, axis=3)
+    summed = numpy.array(summed)
+    threshold = numpy.min(summed) + filter_threshold
+    include = summed > threshold
+
+    print(threshold)
+
+    if interpolate_directions:
+        print('---> INTERPOLATE')
+
+        d0 = numpy.arange(0, n_locations)
+        d1 = numpy.arange(0, 7)
+        d2 = numpy.arange(0, 31)
+        d3 = numpy.arange(0, n_samples)
+
+        d1i = d1 + 0 #elevations
+        d2i = d2 + 0.5 #azimuths
+
+        a,b,c,d = numpy.meshgrid(d0, d1i, d2i, d3, indexing='ij')
+        print(a.shape)
+        print(b.shape)
+        print(c.shape)
+        print(d.shape)
+
+        R = RegularGridInterpolator((d0, d1, d2, d3), all_mns, bounds_error=False,fill_value=1)
+        all_mns = R((a,b,c,d))
+        print(all_mns.shape)
+
+        # Average across azimuth elevation to get interpolated version
+        #mask = numpy.ones((1, 1, 2, 1))
+        #mask = mask / numpy.sum(mask)
+        #print(all_mns.shape)
+        #all_mns = convolve(all_mns, mask, mode='same')
+
     # get ID vars
     print('---> DATA2LONG')
     n = numpy.arange(n_locations)
@@ -122,17 +139,12 @@ def process_data_set(data_set, filter_threshold = 0.1):
     long_lcs = numpy.reshape(locs, (n_locations * 7 * 31))
     long_azs = numpy.reshape(azs, (n_locations * 7 * 31))
     long_els = numpy.reshape(els, (n_locations * 7 * 31))
+    include = numpy.reshape(include, (n_locations * 7 * 31))
 
     id_array = numpy.column_stack((long_lcs, long_azs, long_els))
 
     # Get the variation across all measurements for each sample
     sample_variance = numpy.mean(all_vrs, axis=(0, 1, 2))
-
-    # Select only those templates above threshold
-    summed = numpy.sum(long_data, axis=1)
-    summed = numpy.array(summed)
-    threshold = numpy.min(summed) + filter_threshold
-    include = summed > threshold
 
     long_data = long_data[include, :]
     id_array = id_array[include, :]
@@ -140,9 +152,13 @@ def process_data_set(data_set, filter_threshold = 0.1):
     long_azs = long_azs[include]
     long_els = long_els[include]
 
+    s = numpy.sum(long_data, axis=1)
+    print(numpy.min(s))
+
     # Save data
     print('---> SAVING LONG FORMAT')
     numpy.savez(data_file,
+                box_data = all_mns,
                 long_data=long_data,
                 long_lcs=long_lcs,
                 long_azs=long_azs,
@@ -151,12 +167,6 @@ def process_data_set(data_set, filter_threshold = 0.1):
                 sample_variance=sample_variance,
                 include=include,
                 files=files)
-
-    # %%
-    #print('---> RUN AND SAVE PCA MODEL')
-    #pca_model = PCA()
-    #pca_model.fit(long_data)
-    #pickle_save(pca_file, pca_model)
     print('#' * 10)
 
 

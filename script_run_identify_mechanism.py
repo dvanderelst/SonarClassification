@@ -68,7 +68,7 @@ pyplot.style.use(settings.style)
 
 pcs = results['pcs']
 labels = results['labels']
-colors = [settings.default_line_color01, settings.default_line_color01, settings.default_line_color02, settings.default_line_color02]
+colors = [settings.default_line_color01, settings.default_line_color02, settings.default_line_color02, settings.default_line_color02]
 linestyles = ['-', '--', '-', '--']
 
 text_labels = ['1 kHz filter', 'No 1 kHz filter', '1 kHz filter\nshuffled', 'No 1 kHz filter\nshuffled']
@@ -81,7 +81,7 @@ pyplot.bar([0, 1, 2, 3], pcs, color=colors)
 pyplot.xticks([0, 1, 2, 3], text_labels)
 pyplot.ylabel('Number of components')
 pyplot.grid(False)
-pyplot.ylim(0, 1500)
+pyplot.ylim(0, 500)
 
 for i, v in enumerate(pcs):
     pyplot.text(i, v + 10, str(v), color='black', fontweight='bold', horizontalalignment='center')
@@ -91,7 +91,7 @@ inset_axes = inset_axes(pyplot.gca(),
                     width="30%", # width = 30% of parent_bbox
                     height="20%",
                     loc=2,
-                    borderpad=1)
+                    borderpad=2)
 
 
 frequency_axis = numpy.fft.fftfreq(settings.raw_collected_samples, d=1 / 219000) / 1000
@@ -107,6 +107,7 @@ inset_axes.set_xlim(0,5)
 inset_axes.set_xlabel('Freq. (kHz)')
 inset_axes.set_yticks([])
 inset_axes.set_xticks([0,1,2,3,4,5])
+inset_axes.set_title('Av. Template Spectrum',fontsize=10)
 
 # pyplot.subplot(2, 1, 2)
 # frequency_axis = numpy.fft.fftfreq(settings.raw_collected_samples, d=1 / 219000) / 1000

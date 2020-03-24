@@ -92,6 +92,7 @@ pyplot.xticks([])
 pyplot.yticks([])
 pyplot.legend(['Template', 'Reconstructed'], frameon=False)
 pyplot.ylabel('Template amplitude')
+pyplot.xlabel('Time/Distance')
 misc.label(0.1, 0.9, 3, fontsize=14)
 
 print('-----> PLOTTING 7')
@@ -101,6 +102,7 @@ pyplot.plot(reconstructed_template_1, color=settings.default_line_color02, alpha
 pyplot.ylim([mn_templates, mx_templates])
 pyplot.xticks([])
 pyplot.yticks([])
+pyplot.xlabel('Time/Distance')
 misc.label(0.1, 0.9, 4, fontsize=14)
 
 print('-----> PLOTTING 8')
@@ -110,6 +112,7 @@ pyplot.plot(reconstructed_template_2, color=settings.default_line_color02, alpha
 pyplot.ylim([mn_templates, mx_templates])
 pyplot.xticks([])
 pyplot.yticks([])
+pyplot.xlabel('Time/Distance')
 misc.label(0.1, 0.9, 5, fontsize=14)
 
 pyplot.tight_layout()

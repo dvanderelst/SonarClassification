@@ -18,15 +18,18 @@ if generate_data: process_functions.process_data_set(data_set)
 data = numpy.load(file_names['npz_file'])
 corridor_distances = misc.map_lcs_to_distances(data)
 
-pca = misc.pickle_load(file_names['pca_file'])
+pca = misc.pickle_load(settings.pca_templates_model_file)
+loaded = numpy.load(settings.synthetic_templates_pca_results)
+transformed = loaded['transformed']
+n_components_templates = transformed.shape[1]
+
 
 correct_ids = data['ids']
 correct_ids[:, 0] = corridor_distances
 
 templates = data['long_data']
 pca_templates = pca.transform(templates)
-n_components = settings.n_components_templates
-inputs = pca_templates[:, :n_components]
+inputs = pca_templates[:, :n_components_templates]
 
 # Scale inputs to a minimum of zero
 inputs = inputs - numpy.min(inputs)
