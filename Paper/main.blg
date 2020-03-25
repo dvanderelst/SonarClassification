@@ -5,45 +5,45 @@ The style file: model5-names.bst
 Database file #1: references.bib
 Reallocated wiz_functions (elt_size=4) to 6000 items from 3000.
 Warning--empty booktitle in VonHelversen2005
-You've used 49 entries,
+You've used 53 entries,
             3092 wiz_defined-function locations,
-            988 strings with 13609 characters,
-and the built_in function-call counts, 33450 in all, are:
-= -- 2719
-> -- 1436
-< -- 31
-+ -- 1243
-- -- 405
-* -- 3752
-:= -- 4604
-add.period$ -- 153
-call.type$ -- 49
-change.case$ -- 384
-chr.to.int$ -- 48
-cite$ -- 50
-duplicate$ -- 2090
-empty$ -- 2089
-format.name$ -- 564
-if$ -- 6199
+            1021 strings with 14217 characters,
+and the built_in function-call counts, 36051 in all, are:
+= -- 2939
+> -- 1531
+< -- 34
++ -- 1321
+- -- 432
+* -- 4061
+:= -- 4965
+add.period$ -- 165
+call.type$ -- 53
+change.case$ -- 413
+chr.to.int$ -- 52
+cite$ -- 54
+duplicate$ -- 2252
+empty$ -- 2258
+format.name$ -- 609
+if$ -- 6672
 int.to.chr$ -- 2
 int.to.str$ -- 1
-missing$ -- 424
-newline$ -- 257
-num.names$ -- 196
-pop$ -- 706
+missing$ -- 457
+newline$ -- 277
+num.names$ -- 212
+pop$ -- 750
 preamble$ -- 1
-purify$ -- 331
+purify$ -- 356
 quote$ -- 0
-skip$ -- 988
+skip$ -- 1051
 stack$ -- 0
-substring$ -- 1513
-swap$ -- 1867
+substring$ -- 1659
+swap$ -- 2014
 text.length$ -- 7
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 429
+type$ -- 465
 warning$ -- 1
-while$ -- 215
+while$ -- 235
 width$ -- 0
-write$ -- 696
+write$ -- 752
 (There was 1 warning)

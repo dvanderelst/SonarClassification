@@ -1,4 +1,4 @@
-\begin{thebibliography}{49}
+\begin{thebibliography}{53}
 \expandafter\ifx\csname natexlab\endcsname\relax\def\natexlab#1{#1}\fi
 \providecommand{\bibinfo}[2]{#2}
 \ifx\xfnm\relax \def\xfnm[#1]{\unskip,\space#1}\fi
@@ -53,6 +53,13 @@
   structure}.
 \newblock {\it \bibinfo{journal}{The Journal of the Acoustical Society of
   America}\/},  {\it \bibinfo{volume}{99}\/}, \bibinfo{pages}{3615--3622}.
+%Type = Article
+\bibitem[{Davis \& Barbour(1970)}]{Davis1970}
+\bibinfo{author}{Davis, W.~H.}, \& \bibinfo{author}{Barbour, R.~W.}
+  (\bibinfo{year}{1970}).
+\newblock \bibinfo{title}{Homing in blinded bats (myotis sodalis)}.
+\newblock {\it \bibinfo{journal}{Journal of Mammalogy}\/},  {\it
+  \bibinfo{volume}{51}\/}, \bibinfo{pages}{182--184}.
 %Type = Article
 \bibitem[{Franz \& Mallot(2000)}]{Franz2000}
 \bibinfo{author}{Franz, M.~O.}, \& \bibinfo{author}{Mallot, H.~A.}
@@ -193,6 +200,13 @@
 \newblock {\it \bibinfo{journal}{The Journal of the Acoustical Society of
   America}\/},  {\it \bibinfo{volume}{110}\/}, \bibinfo{pages}{2207--2226}.
 %Type = Article
+\bibitem[{Mueller \& Emlen(1957)}]{Mueller1957}
+\bibinfo{author}{Mueller, H.}, \& \bibinfo{author}{Emlen, J.}
+  (\bibinfo{year}{1957}).
+\newblock \bibinfo{title}{Homing in bats}.
+\newblock {\it \bibinfo{journal}{Science}\/},  {\it \bibinfo{volume}{126}\/},
+  \bibinfo{pages}{307--308}.
+%Type = Article
 \bibitem[{M{\"u}ller \& Kuc(2000)}]{Muller2000}
 \bibinfo{author}{M{\"u}ller, R.}, \& \bibinfo{author}{Kuc, R.}
   (\bibinfo{year}{2000}).
@@ -259,6 +273,14 @@
   biomimetic sonar}.
 \newblock {\it \bibinfo{journal}{PloS one}\/},  {\it \bibinfo{volume}{8}\/},
   \bibinfo{pages}{e54076}.
+%Type = Article
+\bibitem[{Stones \& Branick(1969)}]{Stones1969}
+\bibinfo{author}{Stones, R.~C.}, \& \bibinfo{author}{Branick, L.~P.}
+  (\bibinfo{year}{1969}).
+\newblock \bibinfo{title}{Use of hearing in homing by two species of myotis
+  bats}.
+\newblock {\it \bibinfo{journal}{Journal of Mammalogy}\/},  {\it
+  \bibinfo{volume}{50}\/}, \bibinfo{pages}{157--160}.
 %Type = Article
 \bibitem[{Surlykke \& Bojesen(1996)}]{Surlykke1996}
 \bibinfo{author}{Surlykke, A.}, \& \bibinfo{author}{Bojesen, O.}
@@ -376,6 +398,14 @@
 \newblock In {\it \bibinfo{booktitle}{Mouse brain development}\/} (pp.
   \bibinfo{pages}{21--49}).
 \newblock \bibinfo{publisher}{Springer}.
+%Type = Article
+\bibitem[{Williams et~al.(1966)Williams, Williams \& Griffin}]{Williams1966}
+\bibinfo{author}{Williams, T.~C.}, \bibinfo{author}{Williams, J.~M.}, \&
+  \bibinfo{author}{Griffin, D.~R.} (\bibinfo{year}{1966}).
+\newblock \bibinfo{title}{The homing ability of the neotropical bat
+  phyllostomus hastatus, with evidence for visual orientation}.
+\newblock {\it \bibinfo{journal}{Animal behaviour}\/},  {\it
+  \bibinfo{volume}{14}\/}, \bibinfo{pages}{468--473}.
 %Type = Article
 \bibitem[{Yovel et~al.(2008)Yovel, Franz, Stilz \& Schnitzler}]{Yovel2008}
 \bibinfo{author}{Yovel, Y.}, \bibinfo{author}{Franz, M.~O.},
