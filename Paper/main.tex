@@ -253,7 +253,7 @@ We should point out that we did not take any steps to avoid so-called overfittin
 \begin{figure}
 	\centering
 	\includegraphics[width=1\linewidth]{figures/networks}
-	\caption{Depiction of the neural network architecture trained for each site.}
+	\caption{Depiction of the neural network architecture trained for each site. The network had 4 hidden layers. The Gaussian Noise Layer adds noise with $\sigma(\stochasticnoise) = 0.01$, as described in the main text.}
 	\label{fig:networks}
 \end{figure}
 
@@ -378,14 +378,14 @@ From our current work, in combination with previous results \citep{Vanderelst201
 \begin{figure}[h]
 	\centering
 	\includegraphics[width=1\linewidth]{../results/components}
-	\caption{}
+	\caption{Plot of the first 25 \pcs\ (out of \pca). The number in each panel indicates the number of zero crossings in the template. This number increases as a function of template number, indicating that most information is contained in lower template frequencies.}
 	\label{fig:components}
 \end{figure}
 
 \begin{figure}[h]
 	\centering
 	\includegraphics[width=1\linewidth]{../results/interpolation}
-	\caption{sadasasasdasd}
+	\caption{Neural network categorization results for the templates obtained by interpolating between the 7 elevation and 31 azimuth directions ensonified for the Israel and Royal Fort site. (a,b) results for the azimuth and elevation for the Israel data. (c,d) Same for the Royal Fort data. Because the templates classified in these results were interpolated, the network can be considered to have correctly classified the template if it is assigned to direction $n$ or direction $n+1$. For example, a template obtained by interpolating between azimuth directions 140 and 130 degrees could be assigned to either these directions. The number in each panel indicates the percentage of data point on the diagonal (direction $n$) or the diagonal + 1 ($n+1$).}
 	\label{fig:interpolation}
 \end{figure}
 

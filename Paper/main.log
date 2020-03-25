@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2018) (preloaded format=pdflatex 2018.9.26)  25 MAR 2020 15:01
+This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2018) (preloaded format=pdflatex 2018.9.26)  25 MAR 2020 16:06
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -968,11 +968,11 @@ File: figures/datacollection.pdf Graphic file (type pdf)
 Package pdftex.def Info: figures/datacollection.pdf  used on input line 216.
 (pdftex.def)             Requested size: 252.0pt x 307.45836pt.
 [3 <../results/processing.pdf>] [4 <../results/synthetic_templates.pdf>]
-<figures/networks.pdf, id=424, 469.04712pt x 284.82687pt>
+<figures/networks.pdf, id=424, 469.75482pt x 415.91365pt>
 File: figures/networks.pdf Graphic file (type pdf)
 <use figures/networks.pdf>
 Package pdftex.def Info: figures/networks.pdf  used on input line 255.
-(pdftex.def)             Requested size: 252.0pt x 153.03061pt.
+(pdftex.def)             Requested size: 252.0pt x 223.11768pt.
 
 [5 <./figures/datacollection.pdf>]
 <../results/empirical_templates.pdf, id=450, 578.16pt x 180.675pt>
@@ -999,7 +999,7 @@ File: ../results/royal_results.pdf Graphic file (type pdf)
 Package pdftex.def Info: ../results/royal_results.pdf  used on input line 309.
 (pdftex.def)             Requested size: 522.0pt x 435.02383pt.
 [6 <./figures/networks.pdf>]
-<../results/mechanism.pdf, id=507, 462.52798pt x 346.89601pt>
+<../results/mechanism.pdf, id=509, 462.52798pt x 346.89601pt>
 File: ../results/mechanism.pdf Graphic file (type pdf)
 <use ../results/mechanism.pdf>
 Package pdftex.def Info: ../results/mechanism.pdf  used on input line 329.
@@ -1015,12 +1015,12 @@ lst
 [11]) [12
 
 ]
-<../results/history.pdf, id=802, 505.89pt x 216.81pt>
+<../results/history.pdf, id=803, 505.89pt x 216.81pt>
 File: ../results/history.pdf Graphic file (type pdf)
 <use ../results/history.pdf>
 Package pdftex.def Info: ../results/history.pdf  used on input line 373.
 (pdftex.def)             Requested size: 522.0pt x 223.71709pt.
-<../results/components.pdf, id=803, 722.7pt x 505.89pt>
+<../results/components.pdf, id=804, 722.7pt x 505.89pt>
 File: ../results/components.pdf Graphic file (type pdf)
 <use ../results/components.pdf>
 Package pdftex.def Info: ../results/components.pdf  used on input line 380.
@@ -1029,7 +1029,7 @@ Package pdftex.def Info: ../results/components.pdf  used on input line 380.
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-<../results/interpolation.pdf, id=804, 361.35pt x 361.35pt>
+<../results/interpolation.pdf, id=807, 361.35pt x 361.35pt>
 File: ../results/interpolation.pdf Graphic file (type pdf)
 <use ../results/interpolation.pdf>
 Package pdftex.def Info: ../results/interpolation.pdf  used on input line 387.
@@ -1193,11 +1193,11 @@ Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 393.
 Here is how much of TeX's memory you used:
  21851 strings out of 492641
  390869 string characters out of 6129315
- 542231 words of memory out of 5000000
+ 543936 words of memory out of 5000000
  25207 multiletter control sequences out of 15000+600000
  9743 words of font info for 38 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 62i,8n,56p,1969b,595s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 62i,8n,56p,1969b,588s stack positions out of 5000i,500n,10000p,200000b,80000s
 pdfTeX warning (dest): name{glo:pc} has been referenced but does not exist, r
 eplaced by a fixed one
 
@@ -1208,21 +1208,22 @@ placed by a fixed one
 /usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></
 usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></u
 sr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb></usr
-/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/l
-ocal/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/loc
-al/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local
-/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/local/t
-exlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/local/texl
-ive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/texlive
-/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/
-2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/texlive/20
-18/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texlive/2018
-/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/local/texlive/2018/
-texmf-dist/fonts/type1/public/amsfonts/cm/cmti8.pfb>
-Output written on main.pdf (15 pages, 1810580 bytes).
+/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/l
+ocal/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/loc
+al/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/local
+/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/t
+exlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/local/tex
+live/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/local/texliv
+e/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/texlive/2
+018/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/20
+18/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/texlive/2018
+/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texlive/2018/t
+exmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/local/texlive/2018/te
+xmf-dist/fonts/type1/public/amsfonts/cm/cmti8.pfb>
+Output written on main.pdf (15 pages, 1823417 bytes).
 PDF statistics:
- 1012 PDF objects out of 1200 (max. 8388607)
- 619 compressed objects within 7 object streams
+ 1025 PDF objects out of 1200 (max. 8388607)
+ 623 compressed objects within 7 object streams
  103 named destinations out of 1000 (max. 500000)
  204 words of extra memory for PDF output out of 10000 (max. 10000000)
 
