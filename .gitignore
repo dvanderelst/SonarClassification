@@ -30,3 +30,5 @@ results/
 *.pdf
 
 *.gz
+
+*.hrtf
