@@ -47,26 +47,32 @@ for data_set in ['israel', 'royal']:
 
         ######################################
         table, _ = misc.make_confusion_matrix(results, normalize=False)
-        ss = numpy.sum(table)
-        sd = numpy.sum(numpy.diag(table, k=0)) + numpy.sum(numpy.diag(table, k=1))
+        table[-1, :] = numpy.nan
+        table[:, -1] = numpy.nan
+
+        ss = numpy.nansum(table)
+        sd = numpy.nansum(numpy.diag(table, k=0)) + numpy.nansum(numpy.diag(table, k=1))
         pct = '%.2f' % ((sd / ss) * 100) + '%'
         #######################################
 
         table, labels = misc.make_confusion_matrix(results, normalize=True)
-        labels = labels + 5
 
+        # Mask data from positions that were extrapolated
         table[-1, :] = None
         table[:, -1] = None
-        pyplot.imshow(table, cmap=colormap, vmin=0, vmax=1)
 
-        misc.label_confusion_matrix(labels)
+        pyplot.imshow(table, cmap=colormap, vmin=0, vmax=1)
+        misc.label_confusion_matrix(labels, shift_xaxis=5)
+
+        # Hide the gray data
         pyplot.xlim([-0.5, len(labels) - 1.5])
         pyplot.ylim([-0.5, len(labels) - 1.5])
 
         misc.label(0.9, 0.1, panel_index - 1, color='white')
         misc.label(0.25, 0.9, pct, color='white')
-        if panel_index in [1, 4]: pyplot.ylabel('Target')
-        if panel_index in [4, 5, 6]: pyplot.xlabel('Output')
+        if panel_index in [1, 3]: pyplot.ylabel('Target (interpolated positions)')
+        if panel_index in [3, 4]: pyplot.xlabel('Output (original directions)')
+
         panel_index = panel_index + 1
 
 

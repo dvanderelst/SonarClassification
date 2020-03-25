@@ -1,7 +1,7 @@
 import os
 import numpy
 import palettable.colorbrewer.qualitative as qualitative
-
+import matplotlib
 ####################################################
 ##General settings
 ####################################################
@@ -73,6 +73,8 @@ default_line_color01 = '#46433A'
 default_line_color02 = '#CE534D'
 
 colormap = 'hot'
+cmap = matplotlib.cm.hot
+
 azs_color = '#e41a1c'
 els_color = '#377eb8'
 lcs_color = '#4daf4a'
@@ -88,5 +90,5 @@ israel_results_plot = os.path.join(result_folder, 'israel_results.pdf')
 royal_results_plot = os.path.join(result_folder, 'royal_results.pdf')
 
 pca_components_plot = os.path.join(result_folder, 'components.pdf')
-
 mechanism_plot = os.path.join(result_folder, 'mechanism.pdf')
+interpolation_results_plot = os.path.join(result_folder, 'interpolation.pdf')

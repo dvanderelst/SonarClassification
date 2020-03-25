@@ -6,10 +6,10 @@ from tensorflow import keras
 
 from library import misc, process_functions, settings
 
-#for data_set in ['israel', 'royal']:
-for data_set in ['israel']:
+for data_set in ['israel', 'royal']:
+#for data_set in ['royal']:
     layers = [50, 75, 75, 50]
-    nr_epochs = 250
+    nr_epochs = 1000
 
     for selected_dimension in ['lcs', 'azs','els']:
         file_names = misc.folder_names(data_set, selected_dimension)

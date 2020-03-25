@@ -7,8 +7,22 @@ import scipy.interpolate as interpolate
 from matplotlib import pyplot
 from sklearn.preprocessing import Normalizer
 import string
-
+from scipy.stats import linregress
 from sklearn.decomposition import PCA
+from sklearn import preprocessing
+
+def cochleogram2r2(cochleogram):
+    cochleogram  = preprocessing.normalize(cochleogram)
+    c = cochleogram.shape[0]
+    n = cochleogram.shape[1]
+    flat = numpy.reshape(cochleogram, (c * n))
+    mean = numpy.mean(cochleogram, axis=0)
+    mean = numpy.tile(mean, (1, 8))
+    mean = mean.flatten()
+    slope, intercept, r_value, p_value, std_err = linregress(flat, mean)
+    r2 = r_value ** 2
+    return r2
+
 
 def template2fft(template):
     template = template - numpy.mean(template)
@@ -16,13 +30,14 @@ def template2fft(template):
     return spectrum
 
 
-def label(x,y , txt, ax=None, fontsize=12):
+def label(x,y , txt, ax=None, fontsize=12, color='black'):
     if type(txt)==int: txt = '(' + string.ascii_letters[txt] + ')'
     if ax is None: ax = pyplot.gca()
     pyplot.text(x, y, txt, transform=ax.transAxes,
                 horizontalalignment='center',
                 verticalalignment = 'center',
-                fontsize=fontsize)
+                fontsize=fontsize,
+                color=color)
 
 def average_correlation_matrix(array):
     size =array.shape[0]
@@ -219,20 +234,24 @@ def make_confusion_matrix(results, normalize=True):
     return table, labels
 
 
-def label_confusion_matrix(labels):
+def label_confusion_matrix(labels, shift_xaxis=0):
     ticks = list(range(0, len(labels)))
     if len(labels) == 7: ticks = list(range(0, 7, 2))
-    if len(labels) == 31: ticks = list(range(6, 31, 6))
+    if len(labels) == 31: ticks = list(range(1, 31, 10)) + [30]
     if len(labels) == 50: ticks = list(range(10, 50, 10))
     if len(labels) == 40: ticks = list(range(10, 40, 10))
     ticks_locs = numpy.array(ticks)
 
-    new_labels = []
-    for x in labels: new_labels.append('%.1f' % x)
-    new_labels = numpy.array(new_labels)
+    new_y_labels = []
+    for label in labels: new_y_labels.append('%.1f' % (label + shift_xaxis))
+    new_y_labels = numpy.array(new_y_labels)
 
-    pyplot.xticks(ticks_locs, new_labels[ticks_locs])
-    pyplot.yticks(ticks_locs, new_labels[ticks_locs])
+    new_x_labels = []
+    for label in labels: new_x_labels.append('%.1f' % label)
+    new_x_labels = numpy.array(new_x_labels)
+
+    pyplot.xticks(ticks_locs, new_x_labels[ticks_locs])
+    pyplot.yticks(ticks_locs, new_y_labels[ticks_locs])
 
     pyplot.xlim([-0.5, len(labels) - 0.5])
     pyplot.ylim([-0.5, len(labels) - 0.5])
@@ -264,7 +283,7 @@ def plot_inference_lines(error, number, xs):
     legend_entries = []
     i = 0
     for (x, y) in zip(xs, ys):
-        string_x = "average_spectrum=%4.2f" % x
+        string_x = "Error=%4.2f" % x
         string_y = "y=%4.2f" % y
         string = string_x + ', ' + string_y
         color = settings.qualitative_colors[i, :]

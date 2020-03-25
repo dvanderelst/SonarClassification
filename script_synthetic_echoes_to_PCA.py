@@ -9,9 +9,9 @@ repeats = 10
 n_seed_levels = [5, 10, 20, 50, 100, 200]
 n_cloud_levels = [5, 10, 20, 50, 100, 200]
 
-#repeats = 10
-#n_seed_levels = [100, 200]
-#n_cloud_levels = [100, 200]
+#repeats = 3
+#n_seed_levels = [5]
+#n_cloud_levels = [5]
 
 sample_frequency = settings.sample_frequency
 number_of_samples = settings.raw_collected_samples
@@ -51,7 +51,9 @@ for seed_level_i in range(len(n_seed_levels)):
 
             c = numpy.corrcoef(cochleogram)
             r = misc.average_correlation_matrix(c)
+            #r = misc.cochleogram2r2(cochleogram)
             correlations.append(r)
+
 
             synthetic_impulses.append(impulse_response)
             synthetic_echoes.append(echo_sequence)
@@ -99,3 +101,7 @@ transformed, reconstructed, correlation = misc.project_and_reconstruct(pca_model
 
 print(results_templates)
 print(correlation)
+
+
+
+

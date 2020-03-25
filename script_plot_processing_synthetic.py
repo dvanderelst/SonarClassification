@@ -74,7 +74,6 @@ for x in range(8):
     ax.text(5000, 0.5, title)
     misc.label(0.95, 0.8, x+1, fontsize=20)
 
-
 # ax = fig.add_subplot(gs[0:4, 2])
 # ax.plot(cumulative, color=settings.default_line_color)
 # ax.set_ylabel('Cumm. expl. variance')
@@ -82,39 +81,28 @@ for x in range(8):
 
 ax = fig.add_subplot(gs[0:2, 2])
 r = ax.hist(correlations, color=settings.default_line_color01, alpha=0.5)
-r = ax.hist(correlations**2, color=settings.default_line_color02, alpha=0.5)
 ax.set_ylabel('Echo Seq. Count')
-ax.set_xlabel('Cross-channel correlation/variance')
-ax.set_xlim([0.75, 1])
-ax.legend(['Correlation', 'Covariance'], loc=3)
-
+ax.set_xlabel('Correlation, $\\bar{\\rho}$')
+ax.set_xlim([0.95, 1])
+#ax.legend(['Correlation', 'Covariance'], loc=3)
 
 mn = numpy.mean(correlations)
 h = numpy.max(r[0])
 ax.vlines(mn,0,h,colors=settings.default_line_color01)
-misc.label(0.05, 0.8, x+1, fontsize=20)
-
-mn = numpy.mean(correlations**2)
-h = numpy.max(r[0])
-ax.vlines(mn,0,h,colors=settings.default_line_color02)
-misc.label(0.05, 0.8, x+1, fontsize=20)
+misc.label(0.05, 0.8, x+2, fontsize=20)
 
 ax = fig.add_subplot(gs[2:6, 2])
 ax.plot(template, color=settings.default_line_color01)
 ax.set_xticks([])
 ax.set_yticks([])
 ax.set_ylim([-0.1,1.1])
-misc.label(0.95, 0.95, x+2, fontsize=20)
-
+misc.label(0.95, 0.95, x+3, fontsize=20)
 
 ax = fig.add_subplot(gs[6:8, 2])
 ax.plot(cumulative, color=settings.default_line_color01)
 ax.set_ylabel('Cumm. expl. variance')
 ax.set_xlabel('Nr of components')
-misc.label(0.95, 0.8, x+3, fontsize=20)
-
-
-
+misc.label(0.95, 0.8, x+4, fontsize=20)
 
 pyplot.tight_layout()
 pyplot.savefig(settings.synthetic_processing_plot)

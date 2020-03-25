@@ -22,3 +22,11 @@ royal/
 israel/
 
 results/
+
+*.aux
+
+*.log
+
+*.pdf
+
+*.gz

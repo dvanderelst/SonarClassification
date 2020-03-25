@@ -1,12 +1,14 @@
 import math
-from library import misc, settings
 import os
+
 import natsort
 import numpy
 import scipy.io as io
+from scipy.interpolate import RegularGridInterpolator
 from scipy.signal import convolve
 from sklearn.preprocessing import OneHotEncoder
-from scipy.interpolate import RegularGridInterpolator
+
+from library import misc, settings
 
 
 def preprocess(file_name, verbose=True):
@@ -59,7 +61,7 @@ def preprocess(file_name, verbose=True):
     return processed, az_box, el_box
 
 
-def process_data_set(data_set, filter_threshold = 0.1, interpolate_directions=False):
+def process_data_set(data_set, filter_threshold=0.1, interpolate_directions=False):
     print('#' * 10)
     print(data_set)
     print('#' * 10)
@@ -91,11 +93,8 @@ def process_data_set(data_set, filter_threshold = 0.1, interpolate_directions=Fa
 
     # Select only those templates above threshold
     summed = numpy.sum(all_mns, axis=3)
-    summed = numpy.array(summed)
     threshold = numpy.min(summed) + filter_threshold
     include = summed > threshold
-
-    print(threshold)
 
     if interpolate_directions:
         print('---> INTERPOLATE')
@@ -105,24 +104,23 @@ def process_data_set(data_set, filter_threshold = 0.1, interpolate_directions=Fa
         d2 = numpy.arange(0, 31)
         d3 = numpy.arange(0, n_samples)
 
-        d1i = d1 + 0 #elevations
-        d2i = d2 + 0.5 #azimuths
+        d1i = d1 + 0.5  # elevations
+        d2i = d2 + 0.5  # azimuths
 
-        a,b,c,d = numpy.meshgrid(d0, d1i, d2i, d3, indexing='ij')
+        a, b, c, d = numpy.meshgrid(d0, d1i, d2i, d3, indexing='ij')
         print(a.shape)
         print(b.shape)
         print(c.shape)
         print(d.shape)
 
-        R = RegularGridInterpolator((d0, d1, d2, d3), all_mns, bounds_error=False,fill_value=1)
-        all_mns = R((a,b,c,d))
-        print(all_mns.shape)
+        R = RegularGridInterpolator((d0, d1, d2, d3), all_mns, bounds_error=False, fill_value=None)
+        all_mns = R((a, b, c, d))
 
-        # Average across azimuth elevation to get interpolated version
-        #mask = numpy.ones((1, 1, 2, 1))
-        #mask = mask / numpy.sum(mask)
-        #print(all_mns.shape)
-        #all_mns = convolve(all_mns, mask, mode='same')
+        # #Average across azimuth elevation to get interpolated version
+        # mask = numpy.ones((1, 3, 3, 1))
+        # mask[:, 1, 1, :] = 0
+        # mask = mask / numpy.sum(mask)
+        # all_mns = convolve(all_mns, mask, mode='same')
 
     # get ID vars
     print('---> DATA2LONG')
@@ -158,7 +156,7 @@ def process_data_set(data_set, filter_threshold = 0.1, interpolate_directions=Fa
     # Save data
     print('---> SAVING LONG FORMAT')
     numpy.savez(data_file,
-                box_data = all_mns,
+                box_data=all_mns,
                 long_data=long_data,
                 long_lcs=long_lcs,
                 long_azs=long_azs,
@@ -172,7 +170,7 @@ def process_data_set(data_set, filter_threshold = 0.1, interpolate_directions=Fa
 
 def get_encoding(id_variable):
     if id_variable.ndim == 1: id_variable = id_variable.reshape(-1, 1)
-    encoder = OneHotEncoder(sparse=False, categories='auto' )
+    encoder = OneHotEncoder(sparse=False, categories='auto')
     encoder.fit(id_variable)
     y = encoder.fit_transform(id_variable)
     return encoder, y

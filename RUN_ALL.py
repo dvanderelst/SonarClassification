@@ -1,23 +1,37 @@
+def run(file_name):
+    file_name = file_name + '.py'
+    with open(file_name) as f:
+        code = compile(f.read(), file_name, 'exec')
+        exec(code)
+
+#%%
 import script_preprocess_empirical_data
 
 # Get space based on synthetic echoes
-import script_synthetic_echoes_to_PCA
-import script_plot_processing_synthetic
-
+run('script_synthetic_echoes_to_PCA')
+run('script_plot_processing_synthetic')
+#%%
 # Visualize reconstruction of syn and emp templates
-import script_plot_template_examples
+run('script_plot_template_examples')
+#%%Train the neural networks
+run('script_run_training')
+run('script_plot_training_history')
 
-#Train the neural networks
-import script_run_training
-import script_plot_training_history
+#%%
 
-# For both israel and royal do...
-import script_run_perfect_memory
+run('script_run_perfect_memory')
+#%%
 import script_plot_training_results
-
+run('script_plot_training_results')
+#%%
 # Assess where the reduction happens
-import script_run_identify_mechanism
+run('script_run_identify_mechanism')
 
+#%%
+run('script_evaluate_interpolation')
 
-import script_tabulate_memory_use
-import script_plot_components
+#%%
+
+run('script_tabulate_memory_use')
+run('script_plot_components')
+
