@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2018) (preloaded format=pdflatex 2018.9.26)  25 MAR 2020 13:33
+This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2018) (preloaded format=pdflatex 2018.9.26)  25 MAR 2020 15:01
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -923,11 +923,11 @@ LaTeX Info: Redefining \nameref on input line 49.
 \@gls@deffile=\write7
 \openout7 = `main.glsdefs'.
 
-LaTeX Font Info:    Try loading font information for U+msa on input line 98.
+LaTeX Font Info:    Try loading font information for U+msa on input line 130.
  (/usr/local/texlive/2018/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Try loading font information for U+msb on input line 98.
+LaTeX Font Info:    Try loading font information for U+msb on input line 130.
 
 (/usr/local/texlive/2018/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
@@ -940,108 +940,99 @@ Overfull \hbox (2.22221pt too wide) has occurred while \output is active
 
 
 ]
-Overfull \hbox (2.02802pt too wide) in paragraph at lines 136--140
+Overfull \hbox (2.02802pt too wide) in paragraph at lines 168--172
 []\OT1/cmr/m/n/10 The im-pulse re-sponses were con-verted to echo se-quences
  []
 
-<../results/processing.pdf, id=237, 1445.4pt x 722.7pt>
+<../results/processing.pdf, id=235, 1445.4pt x 722.7pt>
 File: ../results/processing.pdf Graphic file (type pdf)
 <use ../results/processing.pdf>
-Package pdftex.def Info: ../results/processing.pdf  used on input line 159.
+Package pdftex.def Info: ../results/processing.pdf  used on input line 191.
 (pdftex.def)             Requested size: 522.0pt x 260.99886pt.
 [2]
-<../results/synthetic_templates.pdf, id=273, 650.43pt x 289.08pt>
+<../results/synthetic_templates.pdf, id=271, 650.43pt x 289.08pt>
 File: ../results/synthetic_templates.pdf Graphic file (type pdf)
 <use ../results/synthetic_templates.pdf>
 Package pdftex.def Info: ../results/synthetic_templates.pdf  used on input line
- 169.
+ 201.
 (pdftex.def)             Requested size: 522.0pt x 232.01859pt.
 
-Overfull \hbox (2.0837pt too wide) in paragraph at lines 180--181
+Overfull \hbox (2.0837pt too wide) in paragraph at lines 212--213
 \OT1/cmr/m/n/10 dis-cuss the con-struc-tion of tem-plates based on these echoes
 ,
  []
 
-<figures/datacollection.pdf, id=288, 476.29135pt x 581.09995pt>
+<figures/datacollection.pdf, id=286, 476.29135pt x 581.09995pt>
 File: figures/datacollection.pdf Graphic file (type pdf)
 <use figures/datacollection.pdf>
-Package pdftex.def Info: figures/datacollection.pdf  used on input line 184.
+Package pdftex.def Info: figures/datacollection.pdf  used on input line 216.
 (pdftex.def)             Requested size: 252.0pt x 307.45836pt.
 [3 <../results/processing.pdf>] [4 <../results/synthetic_templates.pdf>]
-[5 <./figures/datacollection.pdf>]
-<figures/networks.pdf, id=445, 469.04712pt x 284.82687pt>
+<figures/networks.pdf, id=424, 469.04712pt x 284.82687pt>
 File: figures/networks.pdf Graphic file (type pdf)
 <use figures/networks.pdf>
-Package pdftex.def Info: figures/networks.pdf  used on input line 223.
+Package pdftex.def Info: figures/networks.pdf  used on input line 255.
 (pdftex.def)             Requested size: 252.0pt x 153.03061pt.
-<../results/empirical_templates.pdf, id=453, 578.16pt x 180.675pt>
+
+[5 <./figures/datacollection.pdf>]
+<../results/empirical_templates.pdf, id=450, 578.16pt x 180.675pt>
 File: ../results/empirical_templates.pdf Graphic file (type pdf)
 <use ../results/empirical_templates.pdf>
 Package pdftex.def Info: ../results/empirical_templates.pdf  used on input line
- 244.
+ 276.
 (pdftex.def)             Requested size: 522.0pt x 163.13254pt.
 
-Overfull \hbox (5.44481pt too wide) in paragraph at lines 250--251
+Overfull \hbox (5.44481pt too wide) in paragraph at lines 282--283
 []\OT1/cmr/m/n/10 In our pre-vi-ous work ([][]Van-derelst et al.[][], [][]2016[
 ][]), we showed
  []
 
-Package hyperref Info: bookmark level for unknown todo defaults to 0 on input l
-ine 256.
-<../results/israel_results.pdf, id=460, 867.24pt x 722.7pt>
+<../results/israel_results.pdf, id=457, 867.24pt x 722.7pt>
 File: ../results/israel_results.pdf Graphic file (type pdf)
 <use ../results/israel_results.pdf>
-Package pdftex.def Info: ../results/israel_results.pdf  used on input line 261.
+Package pdftex.def Info: ../results/israel_results.pdf  used on input line 296.
 
 (pdftex.def)             Requested size: 522.0pt x 435.02383pt.
-<../results/royal_results.pdf, id=463, 867.24pt x 722.7pt>
+<../results/royal_results.pdf, id=461, 867.24pt x 722.7pt>
 File: ../results/royal_results.pdf Graphic file (type pdf)
 <use ../results/royal_results.pdf>
-Package pdftex.def Info: ../results/royal_results.pdf  used on input line 270.
+Package pdftex.def Info: ../results/royal_results.pdf  used on input line 309.
 (pdftex.def)             Requested size: 522.0pt x 435.02383pt.
 [6 <./figures/networks.pdf>]
-<../results/mechanism.pdf, id=508, 462.52798pt x 346.89601pt>
+<../results/mechanism.pdf, id=507, 462.52798pt x 346.89601pt>
 File: ../results/mechanism.pdf Graphic file (type pdf)
 <use ../results/mechanism.pdf>
-Package pdftex.def Info: ../results/mechanism.pdf  used on input line 290.
+Package pdftex.def Info: ../results/mechanism.pdf  used on input line 329.
 (pdftex.def)             Requested size: 252.0pt x 189.00429pt.
 
-Overfull \hbox (1.44489pt too wide) in paragraph at lines 295--296
+Overfull \hbox (1.44489pt too wide) in paragraph at lines 334--335
 \OT1/cmr/m/n/10 was al-ready demon-strated in our pre-vi-ous work ([][]Van-dere
 lst
  []
 
 [7 <../results/empirical_templates.pdf>] [8 <../results/israel_results.pdf>]
-[9 <../results/royal_results.pdf>]
-LaTeX Font Info:    Try loading font information for OMS+cmr on input line 309.
-
-
-(/usr/local/texlive/2018/texmf-dist/tex/latex/base/omscmr.fd
-File: omscmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
-)
-LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 309.
- [10 <../results/mechanism.pdf>] (./main.bbl [11]) [12
+[9 <../results/royal_results.pdf>] [10 <../results/mechanism.pdf>] (./main.bbl
+[11]) [12
 
 ]
-<../results/history.pdf, id=806, 505.89pt x 216.81pt>
+<../results/history.pdf, id=802, 505.89pt x 216.81pt>
 File: ../results/history.pdf Graphic file (type pdf)
 <use ../results/history.pdf>
-Package pdftex.def Info: ../results/history.pdf  used on input line 334.
+Package pdftex.def Info: ../results/history.pdf  used on input line 373.
 (pdftex.def)             Requested size: 522.0pt x 223.71709pt.
-<../results/components.pdf, id=807, 722.7pt x 505.89pt>
+<../results/components.pdf, id=803, 722.7pt x 505.89pt>
 File: ../results/components.pdf Graphic file (type pdf)
 <use ../results/components.pdf>
-Package pdftex.def Info: ../results/components.pdf  used on input line 341.
+Package pdftex.def Info: ../results/components.pdf  used on input line 380.
 (pdftex.def)             Requested size: 522.0pt x 365.39839pt.
 
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-<../results/interpolation.pdf, id=808, 361.35pt x 361.35pt>
+<../results/interpolation.pdf, id=804, 361.35pt x 361.35pt>
 File: ../results/interpolation.pdf Graphic file (type pdf)
 <use ../results/interpolation.pdf>
-Package pdftex.def Info: ../results/interpolation.pdf  used on input line 348.
+Package pdftex.def Info: ../results/interpolation.pdf  used on input line 387.
 (pdftex.def)             Requested size: 522.0pt x 522.05287pt.
 
 LaTeX Warning: `h' float specifier changed to `ht'.
@@ -1049,11 +1040,11 @@ LaTeX Warning: `h' float specifier changed to `ht'.
 [13
 
  <../results/history.pdf>]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 354.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 393.
  [14 <../results/components.pdf>] [15 <../results/interpolation.pdf>]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 354.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 393.
  (./main.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 354.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 393.
 
 
  *File List*
@@ -1188,26 +1179,25 @@ figures/networks.pdf
 ../results/israel_results.pdf
 ../results/royal_results.pdf
 ../results/mechanism.pdf
-  omscmr.fd    2014/09/29 v2.5h Standard LaTeX font definitions
     main.bbl
 ../results/history.pdf
 ../results/components.pdf
 ../results/interpolation.pdf
  ***********
 
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 354.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 393.
 Package rerunfilecheck Info: File `main.out' has not changed.
-(rerunfilecheck)             Checksum: A6D8BD829ECA295878E834DFD29A82E2;1122.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 354.
+(rerunfilecheck)             Checksum: 195FA4091E95A71ED715BE898FED30FA;1122.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 393.
  ) 
 Here is how much of TeX's memory you used:
- 21893 strings out of 492641
- 392187 string characters out of 6129315
- 543425 words of memory out of 5000000
- 25245 multiletter control sequences out of 15000+600000
+ 21851 strings out of 492641
+ 390869 string characters out of 6129315
+ 542231 words of memory out of 5000000
+ 25207 multiletter control sequences out of 15000+600000
  9743 words of font info for 38 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 62i,8n,80p,1969b,606s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 62i,8n,56p,1969b,595s stack positions out of 5000i,500n,10000p,200000b,80000s
 pdfTeX warning (dest): name{glo:pc} has been referenced but does not exist, r
 eplaced by a fixed one
 
@@ -1229,10 +1219,10 @@ ive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/texlive
 18/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texlive/2018
 /texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/local/texlive/2018/
 texmf-dist/fonts/type1/public/amsfonts/cm/cmti8.pfb>
-Output written on main.pdf (15 pages, 1807563 bytes).
+Output written on main.pdf (15 pages, 1810580 bytes).
 PDF statistics:
- 1015 PDF objects out of 1200 (max. 8388607)
- 621 compressed objects within 7 object streams
- 104 named destinations out of 1000 (max. 500000)
+ 1012 PDF objects out of 1200 (max. 8388607)
+ 619 compressed objects within 7 object streams
+ 103 named destinations out of 1000 (max. 500000)
  204 words of extra memory for PDF output out of 10000 (max. 10000000)
 
